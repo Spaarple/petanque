@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SponsorsController as AdminSponsorsController;
+use App\Http\Controllers\SponsorsController as SponsorsController;
+use App\Models\Sponsor;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('acceuil');
-})->name('acceuil');
+    $sponsors = Sponsor::all(); // Récupérer tous les sponsors
+    return view('accueil', compact('sponsors'));
+})->name('accueil');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 //sponsor
-Route::get('sponsors', function () {
-    return view('sponsors');
-})->name('sponsors');
+Route::get('sponsors', [SponsorsController::class, 'index'])->name('user.sponsors.index'); // Route pour la liste des sponsors pour les utilisateurs normaux
+
+// Route pour les détails du sponsor pour les utilisateurs normaux
+Route::get('/sponsors/{id}', [SponsorsController::class, 'show'])->name('user.sponsors.show');
+
+
+
 
 //tournoi/compétition
 Route::get('tournois', function () {
@@ -40,7 +48,7 @@ Route::get('albums', function () {
 //forum
 Route::get('forums', function () {
     return view('forums');
-})->middleware(['auth','verified'])->name('forums');
+})->middleware(['auth', 'verified'])->name('forums');
 
 //evenement
 Route::get('evenements', function () {
@@ -58,6 +66,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('index');
+    // Redirection de '/admin/' vers '/admin/dashboard'
+    Route::redirect('/', '/dashboard');
+
+    // sponsors
+    Route::resource('sponsors', AdminSponsorsController::class);
+});
 
 
-require __DIR__.'/auth.php';
+
+
+
+require __DIR__ . '/auth.php';

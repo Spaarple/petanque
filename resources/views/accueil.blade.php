@@ -55,99 +55,27 @@
         </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <!-- Première Slide -->
-                <div class="swiper-slide">
-                    <div class="flex flex-wrap">
-                        <!-- Sponsor 1 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 1" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 1</h3>
-                                <a href="link_to_sponsor1" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 2 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 2" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 2</h3>
-                                <a href="link_to_sponsor2" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 3 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 3" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 3</h3>
-                                <a href="link_to_sponsor3" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
+                <!-- Boucle sur les sponsors -->
+                @foreach ($sponsors->chunk(3) as $sponsorChunk)
+                    <div class="swiper-slide">
+                        <div class="flex flex-wrap">
+                            @foreach ($sponsorChunk as $sponsor)
+                                <div class="p-1 w-full md:w-1/3">
+                                    <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
+                                        <img src="{{ $sponsor->sponsor_logo }}" alt="{{ $sponsor->sponsor_name }}" class="max-h-40 w-auto mb-3">
+                                        <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
+                                        <a href="{{ $sponsor->sponsor_website }}" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                </div>
-            
-                <!-- Deuxième Slide (et ainsi de suite pour les autres slides) -->
-                <div class="swiper-slide">
-                    <div class="flex flex-wrap">
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 1" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 4</h3>
-                                <a href="link_to_sponsor1" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 2 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 2" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 5</h3>
-                                <a href="link_to_sponsor2" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 3 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 3" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 6</h3>
-                                <a href="link_to_sponsor3" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Deuxième Slide (et ainsi de suite pour les autres slides) -->
-                <div class="swiper-slide">
-                    <div class="flex flex-wrap">
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 1" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 7</h3>
-                                <a href="link_to_sponsor1" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 2 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 2" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 8</h3>
-                                <a href="link_to_sponsor2" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 3 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 3" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 9</h3>
-                                <a href="link_to_sponsor3" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Répétez pour chaque Sponsor -->
+                @endforeach
             </div>
-            
-            <!-- Pagination (si nécessaire) -->
         </div>
-
     </div>
+    
+    
 
 
 

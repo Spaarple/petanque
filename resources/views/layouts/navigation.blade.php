@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <!-- acceuil, sponsor, Tournoi, album, forum, evenement, contact -->
+                <!-- accueil, sponsor, Tournoi, album, forum, evenement, contact -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @auth
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -19,10 +19,10 @@
                     </x-nav-link>
                     @endauth
 
-                    <x-nav-link :href="route('acceuil')" :active="request()->routeIs('acceuil')">
-                        {{ __('Acceuil') }}
+                    <x-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
+                        {{ __('Accueil') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('sponsors')" :active="request()->routeIs('sponsors')">
+                    <x-nav-link :href="route('user.sponsors.index')" :active="request()->routeIs('user.sponsors.index')">
                         {{ __('Partenaires') }}
                     </x-nav-link>
                     <x-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
@@ -121,10 +121,10 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @endauth
-            <x-responsive-nav-link :href="route('acceuil')" :active="request()->routeIs('acceuil')">
-                {{ __('Acceuil') }}
+            <x-responsive-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
+                {{ __('Accueil') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('sponsors')" :active="request()->routeIs('sponsors')">
+            <x-responsive-nav-link :href="route('user.sponsors.index')" :active="request()->routeIs('user.sponsors.index')">
                 {{ __('Partenaires') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
