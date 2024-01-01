@@ -17,7 +17,7 @@
                         {{ __('Partenaires') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.tournois.index')" :active="request()->routeIs('admin.tournois.*')">
+                    <x-nav-link :href="route('admin.tournois.index')" :active="request()->routeIs('admin.tournois.*') || request()->routeIs('admin.participants.*')">
                         {{ __('Tournois') }}
                     </x-nav-link>
                     <x-nav-link :href="route('albums')" :active="request()->routeIs('albums')">

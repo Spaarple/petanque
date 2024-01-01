@@ -63,9 +63,8 @@ class ParticipantsController extends Controller
      */
     public function show(string $id)
     {
-        $participation = ParticipationTournois::findOrFail($id);
-
-        return view('admin.participants.show', compact('participation'));
+        // redirection vers /admin/tournois
+        return redirect()->route('admin.tournois.index');
     }
 
 
@@ -74,33 +73,39 @@ class ParticipantsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $participants = ParticipationTournois::findOrFail($id);
+
+        return view('admin.participants.edit', compact('participants'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-{
-    $participation = ParticipationTournois::findOrFail($id);
+    {
+        $participation = ParticipationTournois::findOrFail($id);
 
-    // Vérifier si c'est une mise à jour de statut
-    if ($request->input('update_type') == 'status') {
-        $participation->update(['is_accepted' => true]);
-        return redirect()->back()->with('success', 'Le participant a été accepté.');
-    } else {
-        // Mise à jour des détails du participant
-        $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            // Validez les autres champs selon vos besoins
-        ]);
-        $participation->update($validatedData);
-        return redirect()->back()->with('success', 'Modifications enregistrées avec succès.');
+        // Vérifier si c'est une mise à jour de statut
+        if ($request->input('update_type') == 'status') {
+            $participation->update(['is_accepted' => true]);
+            return redirect()->back()->with('success', 'Le participant a été accepté.');
+        } else {
+            try {
+                // Mise à jour des détails du participant
+                $validatedData = $request->validate([
+                    'user_first_name' => 'required|string|max:255',
+                    'user_last_name' => 'required|string|max:255',
+                    'user_email' => 'required|email',
+                    'user_phone' => 'required|string',
+                    // Validez les autres champs selon vos besoins
+                ]);
+                $participation->update($validatedData);
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+            }
+            return redirect()->back()->with('success', 'Modifications enregistrées avec succès.');
+        }
     }
-}
 
 
 

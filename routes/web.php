@@ -89,6 +89,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Ajout de la route pour le formulaire d'inscription multiple
     Route::get('/tournois/{tournoi}/participants/create', [AdminParticipantsController::class, 'create'])
          ->name('tournois.participants.create');
+
+
 });
 
 
