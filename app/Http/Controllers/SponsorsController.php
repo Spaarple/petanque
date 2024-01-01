@@ -13,7 +13,7 @@ class SponsorsController extends Controller
     }
 
     public function index() {
-        $sponsors = Sponsor::all();
+        $sponsors = Sponsor::where('sponsor_subscription_end_date', '>=', date('Y-m-d'))->get();
         return view('sponsors.index', compact('sponsors'));
     }
     

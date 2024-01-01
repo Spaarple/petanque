@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SponsorsController as AdminSponsorsController;
 use App\Http\Controllers\SponsorsController as SponsorsController;
+use App\Http\Controllers\Admin\TournoisController as AdminTournoisController;
+use App\Http\Controllers\Admin\ParticipantsController as AdminParticipantsController;
 use App\Models\Sponsor;
 
 /*
@@ -18,7 +20,8 @@ use App\Models\Sponsor;
 */
 
 Route::get('/', function () {
-    $sponsors = Sponsor::all(); // Récupérer tous les sponsors
+    // Récupérer tous les sponsors non expirés
+    $sponsors = Sponsor::where('sponsor_subscription_end_date', '>=', date('Y-m-d'))->get();
     return view('accueil', compact('sponsors'));
 })->name('accueil');
 
@@ -70,11 +73,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', function () {
         return view('admin.index');
     })->name('index');
+    
     // Redirection de '/admin/' vers '/admin/dashboard'
     Route::redirect('/', '/dashboard');
 
-    // sponsors
+    // Gestion des sponsors
     Route::resource('sponsors', AdminSponsorsController::class);
+
+    // Gestion des tournois
+    Route::resource('tournois', AdminTournoisController::class);
+
+    // Gestion des participants
+    Route::resource('participants', AdminParticipantsController::class);
+
+    // Ajout de la route pour le formulaire d'inscription multiple
+    Route::get('/tournois/{tournoi}/participants/create', [AdminParticipantsController::class, 'create'])
+         ->name('tournois.participants.create');
 });
 
 

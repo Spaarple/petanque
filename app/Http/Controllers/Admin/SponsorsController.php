@@ -91,7 +91,12 @@ class SponsorsController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            // Vos règles de validation ici, similaires à celles de la méthode `store`
+            'sponsor_name' => 'required|string|max:255',
+            'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sponsor_website' => 'nullable|url',
+            'sponsor_description' => 'nullable|string',
+            'sponsor_subscription_end_date' => 'required|date',
+            // Inclure des règles de validation pour les autres champs si nécessaire
         ]);
 
         // Traitement du téléchargement du logo si présent et différent

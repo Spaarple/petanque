@@ -13,11 +13,11 @@
                         {{ __('Accueil') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.sponsors.index')" :active="request()->routeIs('admin.sponsors.index')">
+                    <x-nav-link :href="route('admin.sponsors.index')" :active="request()->routeIs('admin.sponsors.*')">
                         {{ __('Partenaires') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
+                    <x-nav-link :href="route('admin.tournois.index')" :active="request()->routeIs('admin.tournois.*')">
                         {{ __('Tournois') }}
                     </x-nav-link>
                     <x-nav-link :href="route('albums')" :active="request()->routeIs('albums')">
@@ -64,10 +64,10 @@
             <x-responsive-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
                 {{ __('Accueil') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.sponsors.index')" :active="request()->routeIs('admin.sponsors.index')">
+            <x-responsive-nav-link :href="route('admin.sponsors.index')" :active="request()->routeIs('admin.sponsors.*')">
                 {{ __('Partenaires') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
+            <x-responsive-nav-link :href="route('admin.tournois.index')" :active="request()->routeIs('admin.tournois.*')">
                 {{ __('Tournois') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('albums')" :active="request()->routeIs('albums')">

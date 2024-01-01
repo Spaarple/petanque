@@ -17,6 +17,10 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Actions
                         </th>
+                        <!-- is expired -->
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Expiré
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -43,6 +47,13 @@
                                         <button type="submit"
                                                 class="text-red-600 hover:text-red-900">Supprimer</button>
                                     </form>
+                                </td>
+                                <!-- show tag if sponsor date is expired sponsor_subscription_end_date -->
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @if ($sponsor->sponsor_subscription_end_date < now())
+                                    <span class="uppercase  md:text-center"><span
+                                        class="bg-red-600 text-white rounded-lg p-2">Expiré</span></span>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
