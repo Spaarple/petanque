@@ -29,7 +29,7 @@
                     <x-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
                         {{ __('Evenements') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
+                    <x-nav-link :href="route('admin.contacts.index')" :active="request()->routeIs('admin.contacts.*')">
                         {{ __('Contacts') }}
                     </x-nav-link>
 

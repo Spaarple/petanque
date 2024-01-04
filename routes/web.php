@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\SponsorsController as AdminSponsorsController;
 use App\Http\Controllers\SponsorsController as SponsorsController;
 use App\Http\Controllers\Admin\TournoisController as AdminTournoisController;
 use App\Http\Controllers\Admin\ParticipantsController as AdminParticipantsController;
+use App\Http\Controllers\Admin\ContactsController as AdminContactsController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Models\Sponsor;
 
 /*
@@ -73,7 +75,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', function () {
         return view('admin.index');
     })->name('index');
-    
+
     // Redirection de '/admin/' vers '/admin/dashboard'
     Route::redirect('/', '/dashboard');
 
@@ -88,10 +90,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Ajout de la route pour le formulaire d'inscription multiple
     Route::get('/tournois/{tournoi}/participants/create', [AdminParticipantsController::class, 'create'])
-         ->name('tournois.participants.create');
+        ->name('tournois.participants.create');
 
+    // Gestion des contacts
+    Route::resource('contacts', AdminContactsController::class);
+
+    // Route pour afficher les contacts archivés
+    Route::get('/contacts/archived', [AdminContactsController::class, 'archived'])
+        ->name('contacts.archived');
+    Route::put('/contacts/archive/{id}', [AdminContactsController::class, 'archive'])->name('contacts.archive');
+    Route::put('/contacts/unarchive/{id}', [AdminContactsController::class, 'unarchive'])->name('contacts.unarchive');
+
+    // Gestion des utilisateurs
+    Route::resource('users', AdminUsersController::class);
 
 });
+
 
 
 
