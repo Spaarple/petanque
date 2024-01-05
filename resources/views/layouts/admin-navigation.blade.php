@@ -32,6 +32,10 @@
                     <x-nav-link :href="route('admin.contacts.index')" :active="request()->routeIs('admin.contacts.*')">
                         {{ __('Contacts') }}
                     </x-nav-link>
+                    <!-- ajoute users -->
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                        {{ __('Utilisateurs') }}
+                    </x-nav-link>
 
                 </div>
             </div>
@@ -83,6 +87,9 @@
             @endauth
             <x-responsive-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
                 {{ __('Contacts') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                {{ __('Utilisateurs') }}
             </x-responsive-nav-link>
 
 

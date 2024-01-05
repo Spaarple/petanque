@@ -88,9 +88,8 @@ class UsersController extends Controller
                 'name' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . $users->id,
                 'licence' => 'nullable|string',
+                // value is 0 or 1
                 'is_approved' => 'required|boolean',
-                'email_verified_at' => 'nullable|date',
-                'password' => 'required|string',
                 'role' => 'required|in:admin,user',
             ]);
             $users->update($validatedData);
