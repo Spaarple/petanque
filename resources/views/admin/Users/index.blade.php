@@ -13,7 +13,10 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rôle</th>
+                            <!-- club -->
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Club</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut Licence</th>
+                            
                             <!-- numero de licence -->
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Numéro de Licence</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -25,6 +28,8 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->role }}</td>
+                                <!-- club -->
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $user->club }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->is_approved ? 'Valide' : 'Non Valide' }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->licence }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

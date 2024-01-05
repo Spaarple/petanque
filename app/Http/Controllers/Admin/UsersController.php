@@ -48,6 +48,7 @@ class UsersController extends Controller
                 'email' => 'required|email|unique:users,email',
                 'licence' => 'nullable|string',
                 'is_approved' => 'required|boolean',
+                'club' => 'nullable|string',
                 'email_verified_at' => 'nullable|date',
                 'password' => 'required|string',
                 'role' => 'required|in:admin,user',
@@ -88,6 +89,7 @@ class UsersController extends Controller
                 'name' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . $users->id,
                 'licence' => 'nullable|string',
+                'club' => 'nullable|string',
                 // value is 0 or 1
                 'is_approved' => 'required|boolean',
                 'role' => 'required|in:admin,user',
