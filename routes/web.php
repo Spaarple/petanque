@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TournoisController as AdminTournoisController;
 use App\Http\Controllers\Admin\ParticipantsController as AdminParticipantsController;
 use App\Http\Controllers\Admin\ContactsController as AdminContactsController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
+use App\Http\Controllers\Admin\AlbumController as AdminAlbumController;
 use App\Models\Sponsor;
 
 /*
@@ -103,6 +104,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Gestion des utilisateurs
     Route::resource('users', AdminUsersController::class);
+
+    Route::resource('albums', AdminAlbumController::class);
+
 
 });
 
