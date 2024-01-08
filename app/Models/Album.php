@@ -9,7 +9,8 @@ class Album extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['album_id', 'file_path', 'type'];
+
 
     public function images()
     {
