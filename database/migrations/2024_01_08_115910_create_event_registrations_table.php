@@ -14,10 +14,19 @@ return new class extends Migration
         Schema::create('event_registrations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->id();
-            $table->foreignId('event_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+            //id du tournoi
+            $table->integer('event_id');
+            // nom du joueur
+            $table->string('user_first_name');
+            // prénom du joueur
+            $table->string('user_last_name');
+            // email du joueur
+            $table->string('user_email');
+            // numéro de téléphone du joueur
+            $table->string('user_phone_number');
+            // is accepted
+            $table->boolean('is_accepted')->default(false);
+            
         });
     }
 

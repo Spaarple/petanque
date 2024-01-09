@@ -26,7 +26,7 @@
                     <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                         {{ __('Forums') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
+                    <x-nav-link :href="route('admin.events.index')" :active="request()->routeIs('admin.events.*')">
                         {{ __('Evenements') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.contacts.index')" :active="request()->routeIs('admin.contacts.*')">

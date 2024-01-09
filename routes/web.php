@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\ParticipantsController as AdminParticipantsContro
 use App\Http\Controllers\Admin\ContactsController as AdminContactsController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\AlbumController as AdminAlbumController;
+use App\Http\Controllers\Admin\EventRegistrationController as AdminEventRegistrationController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Models\Sponsor;
 
 /*
@@ -107,6 +109,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::resource('albums', AdminAlbumController::class);
 
+    // Routes pour les événements
+    Route::resource('events', AdminEventController::class);
+
+    // Routes pour les inscriptions aux événements
+    Route::resource('eventregistrations', AdminEventRegistrationController::class);
+
+    Route::get('/eventregistrations/{event}/create', [AdminEventRegistrationController::class, 'create'])
+        ->name('eventregistrations.create');
 
 });
 
