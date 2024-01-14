@@ -24,7 +24,7 @@ class AlbumController extends Controller
 
     public function store(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 'name' => 'required|max:255',
                 'description' => 'nullable',
@@ -46,17 +46,16 @@ class AlbumController extends Controller
             }
 
             return redirect()->route('admin.albums.index')->with('success', 'Album créé avec succès.');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('admin.albums.index')->with('error', 'Une erreur est survenue lors de la création de l\'album.');
+            return back()->withError('Une erreur est survenue : ' . $e->getMessage());
         }
-
     }
 
     // Mettre à jour un album spécifique
     public function update(Request $request, Album $album)
     {
-        try{
+        try {
             $request->validate([
                 'name' => 'required|max:255',
                 'description' => 'nullable',
@@ -78,7 +77,7 @@ class AlbumController extends Controller
             }
 
             return redirect()->route('admin.albums.index')->with('success', 'Album mis à jour avec succès.');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('admin.albums.index')->with('error', 'Une erreur est survenue lors de la mise à jour de l\'album.');
         }
@@ -105,5 +104,18 @@ class AlbumController extends Controller
     {
         $album->delete();
         return redirect()->route('admin.albums.index')->with('success', 'Album supprimé avec succès.');
+    }
+
+    public function destroyImage($id) // Ajusté pour accepter l'ID
+    {
+        try {
+            $image = Image::findOrFail($id); // Trouver l'image par ID
+            // Ajoutez ici la logique pour supprimer le fichier du disque si nécessaire
+            $image->delete();
+            return redirect()->back()->with('success', 'Image supprimée avec succès.');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression de l\'image.');
+        }
     }
 }

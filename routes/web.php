@@ -5,10 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SponsorsController as AdminSponsorsController;
 use App\Http\Controllers\SponsorsController as SponsorsController;
 use App\Http\Controllers\Admin\TournoisController as AdminTournoisController;
+use App\Http\Controllers\Users\TournoisController as UsersTournoisController;
 use App\Http\Controllers\Admin\ParticipantsController as AdminParticipantsController;
+use App\Http\Controllers\Users\ParticipantsController as UsersParticipantsController;
 use App\Http\Controllers\Admin\ContactsController as AdminContactsController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\AlbumController as AdminAlbumController;
+use App\Http\Controllers\Users\AlbumController as UsersAlbumController;
 use App\Http\Controllers\Admin\EventRegistrationController as AdminEventRegistrationController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Models\Sponsor;
@@ -43,16 +46,20 @@ Route::get('/sponsors/{id}', [SponsorsController::class, 'show'])->name('user.sp
 
 
 
-//tournoi/compétition
-Route::get('tournois', function () {
-    return view('tournois');
-})->name('tournois');
+//tournoi
+// i want route like user.tournois.index, user.tournois.show
+Route::get('tournois', [UsersTournoisController::class, 'index'])->name('user.tournois.index'); // Route pour la liste des tournois pour les utilisateurs normaux
+
+Route::get('tournois/{id}', [UsersTournoisController::class, 'show'])->name('user.tournois.show'); // Route pour les détails du tournoi pour les utilisateurs normaux
+
+// route for : users.tournois.inscription.create
+Route::get('tournois/{tournoi}/inscription/create', [UsersParticipantsController::class, 'create'])
+    ->name('user.tournois.inscription.create');
 
 //album
-Route::get('albums', function () {
-    return view('albums');
-})->name('albums');
-
+Route::get('albums', [UsersAlbumController::class, 'index'])->name('user.albums.index'); // Route pour la liste des albums pour les utilisateurs normaux
+// album show
+Route::get('albums/{id}', [UsersAlbumController::class, 'show'])->name('user.albums.show'); // Route pour les détails de l'album pour les utilisateurs normaux
 //forum
 Route::get('forums', function () {
     return view('forums');
@@ -108,6 +115,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('users', AdminUsersController::class);
 
     Route::resource('albums', AdminAlbumController::class);
+
+    Route::delete('/images/{id}', [AdminAlbumController::class, 'destroyImage'])->name('images.destroy');
+
 
     // Routes pour les événements
     Route::resource('events', AdminEventController::class);

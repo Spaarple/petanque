@@ -9,12 +9,12 @@ class SponsorsController extends Controller
 {
     public function show($id) {
         $sponsor = Sponsor::findOrFail($id);
-        return view('sponsors.show', compact('sponsor'));
+        return view('users.sponsors.show', compact('sponsor'));
     }
 
     public function index() {
         $sponsors = Sponsor::where('sponsor_subscription_end_date', '>=', date('Y-m-d'))->get();
-        return view('sponsors.index', compact('sponsors'));
+        return view('users.sponsors.index', compact('sponsors'));
     }
     
 }

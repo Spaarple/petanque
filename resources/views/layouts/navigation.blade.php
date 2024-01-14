@@ -23,19 +23,19 @@
                     <x-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
                         {{ __('Accueil') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('user.sponsors.index')" :active="request()->routeIs('user.sponsors.index')">
+                    <x-nav-link :href="route('user.sponsors.index')" :active="request()->routeIs('user.sponsors.*')">
                         {{ __('Partenaires') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
+                    <x-nav-link :href="route('user.tournois.index')" :active="request()->routeIs('user.tournois.*')">
                         {{ __('Tournois') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('albums')" :active="request()->routeIs('albums')">
+                    <x-nav-link :href="route('user.albums.index')" :active="request()->routeIs('user.albums.*')">
                         {{ __('Albums') }}
                     </x-nav-link>
                     @auth
-                    <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+                    {{-- <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                         {{ __('Forums') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     <x-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
                         {{ __('Evenements') }}
                     </x-nav-link>
@@ -128,16 +128,16 @@
             <x-responsive-nav-link :href="route('user.sponsors.index')" :active="request()->routeIs('user.sponsors.index')">
                 {{ __('Partenaires') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
+            <x-responsive-nav-link :href="route('user.tournois.index')" :active="request()->routeIs('user.tournois.*')">
                 {{ __('Tournois') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('albums')" :active="request()->routeIs('albums')">
+            <x-responsive-nav-link :href="route('user.albums.index')" :active="request()->routeIs('user.albums.*')">
                 {{ __('Albums') }}
             </x-responsive-nav-link>
             @auth
-            <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+            {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
             <x-responsive-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
                 {{ __('Evenements') }}
             </x-responsive-nav-link>

@@ -23,9 +23,9 @@
                     <x-nav-link :href="route('admin.albums.index')" :active="request()->routeIs('admin.albums.*')">
                         {{ __('Albums') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+                    {{-- <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                         {{ __('Forums') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     <x-nav-link :href="route('admin.events.index')" :active="request()->routeIs('admin.events.*')">
                         {{ __('Evenements') }}
                     </x-nav-link>
@@ -78,9 +78,9 @@
                 {{ __('Albums') }}
             </x-responsive-nav-link>
             @auth
-            <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+            {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
             <x-responsive-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
                 {{ __('Evenements') }}
             </x-responsive-nav-link>

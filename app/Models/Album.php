@@ -9,12 +9,17 @@ class Album extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['album_id', 'file_path', 'type'];
-
+    // Mise à jour de la propriété $fillable
+    protected $fillable = ['name', 'description'];
 
     public function images()
     {
         return $this->hasMany(Image::class);
     }
 
+    public function coverImage()
+    {
+        return $this->hasOne(Image::class)->oldest();
+    }
 }
+
