@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AlbumController as AdminAlbumController;
 use App\Http\Controllers\Users\AlbumController as UsersAlbumController;
 use App\Http\Controllers\Admin\EventRegistrationController as AdminEventRegistrationController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\StatistiqueController as AdminStatistiqueController;
 use App\Models\Sponsor;
 
 /*
@@ -127,6 +128,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::get('/eventregistrations/{event}/create', [AdminEventRegistrationController::class, 'create'])
         ->name('eventregistrations.create');
+    
+    // Routes pour les statistiques
+    Route::get('/statistiques', [AdminStatistiqueController::class, 'index'])->name('statistiques.index');
+    
+    
 
 });
 

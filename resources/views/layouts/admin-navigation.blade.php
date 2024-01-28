@@ -36,6 +36,10 @@
                     <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                         {{ __('Utilisateurs') }}
                     </x-nav-link>
+                    {{-- statistiques --}}
+                    <x-nav-link :href="route('admin.statistiques.index')" :active="request()->routeIs('admin.statistiques.*')">
+                        {{ __('Statistiques') }}
+                    </x-nav-link>
 
                 </div>
             </div>
@@ -90,6 +94,10 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                 {{ __('Utilisateurs') }}
+            </x-responsive-nav-link>
+            {{-- statistiques --}}
+            <x-responsive-nav-link :href="route('admin.statistiques.index')" :active="request()->routeIs('admin.statistiques.*')">
+                {{ __('Statistiques') }}
             </x-responsive-nav-link>
 
 

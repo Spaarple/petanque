@@ -45,6 +45,8 @@
             {{ $slot }}
         </main>
     </div>
+    <!-- Include JavaScript sections from Blade views -->
+    @yield('javascript')
 </body>
 
 </html>
