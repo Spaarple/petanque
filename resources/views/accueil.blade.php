@@ -1,14 +1,14 @@
 <x-app-layout>
 
 
-    <div class="container-fluid bg-white dark:bg-gray-800 shadow">
+    <div class="background-carousel container-fluid bg-white dark:bg-gray-800 shadow">
         <div class="row">
-            <!-- h1 should have these classes:"font-bold text-xl text-center"  and be centered horizontaly and verticaly and box should have height 300px-->
             <div class="col-12 flex justify-center items-center h-screen" style="height: 300px;">
                 <h1 class="text-4xl font-bold leading-tight text-gray-900">{{ config('app.name', 'Laravel') }}</h1>
             </div>
         </div>
     </div>
+
 
     <section class="container-fluid bg-gray-200 mx-auto p-4">
         <div class="container p-4 mx-auto bg-gray-200">
@@ -55,99 +55,30 @@
         </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <!-- Première Slide -->
-                <div class="swiper-slide">
-                    <div class="flex flex-wrap">
-                        <!-- Sponsor 1 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 1" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 1</h3>
-                                <a href="link_to_sponsor1" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 2 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 2" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 2</h3>
-                                <a href="link_to_sponsor2" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 3 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 3" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 3</h3>
-                                <a href="link_to_sponsor3" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
+                <!-- Boucle sur les sponsors -->
+                @foreach ($sponsors->chunk(3) as $sponsorChunk)
+                    <div class="swiper-slide">
+                        <div class="flex flex-wrap">
+                            @foreach ($sponsorChunk as $sponsor)
+                                <div class="p-1 w-full md:w-1/3">
+                                    <div
+                                        class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
+                                        <img src="{{ $sponsor->sponsor_logo }}" alt="{{ $sponsor->sponsor_name }}"
+                                            class="max-h-40 w-auto mb-3">
+                                        <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
+                                        <a href="{{ $sponsor->sponsor_website }}"
+                                            class="text-blue-600 hover:text-blue-800">Visiter le site</a>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                </div>
-            
-                <!-- Deuxième Slide (et ainsi de suite pour les autres slides) -->
-                <div class="swiper-slide">
-                    <div class="flex flex-wrap">
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 1" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 4</h3>
-                                <a href="link_to_sponsor1" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 2 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 2" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 5</h3>
-                                <a href="link_to_sponsor2" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 3 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 3" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 6</h3>
-                                <a href="link_to_sponsor3" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Deuxième Slide (et ainsi de suite pour les autres slides) -->
-                <div class="swiper-slide">
-                    <div class="flex flex-wrap">
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 1" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 7</h3>
-                                <a href="link_to_sponsor1" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 2 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 2" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 8</h3>
-                                <a href="link_to_sponsor2" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                        <!-- Sponsor 3 -->
-                        <div class="p-1 w-full md:w-1/3">
-                            <div class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                <img src="path_to_image1.jpg" alt="Sponsor 3" class="w-full mb-3">
-                                <h3 class="text-lg font-bold">Nom du Sponsor 9</h3>
-                                <a href="link_to_sponsor3" class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Répétez pour chaque Sponsor -->
+                @endforeach
             </div>
-            
-            <!-- Pagination (si nécessaire) -->
         </div>
-
     </div>
+
+
 
 
 
@@ -226,14 +157,23 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Envoyer le
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Envoyer
+                        le
                         message</button>
+
                 </div>
             </form>
         </div>
         </div>
 
+        <style>
+            .background-carousel {
+                background-size: cover;
+                background-position: center;
+                transition: background-image 0.5s ease-in-out;
+                /* Transition douce entre les images */
+            }
+        </style>
 
         <script>
             var swiper = new Swiper('.swiper-container', {
@@ -248,6 +188,28 @@
                 },
             });
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const images = [
+                    @foreach ($carouselImages as $image)
+                        "{{ asset($image->image_path) }}",
+                    @endforeach
+                ];
+                let currentIndex = 0;
+                const carouselDiv = document.querySelector('.background-carousel');
+                carouselDiv.style.backgroundImage = `url('${images[images.length - 1]}')`;
+                if (carouselDiv) {
+                    setInterval(() => {
+                        carouselDiv.style.backgroundImage = `url('${images[currentIndex]}')`;
+                        currentIndex = (currentIndex + 1) % images.length;
+                    }, 5000); // Change l'image toutes les 5 secondes
+                } else {
+                    console.error("Element '.background-carousel' not found");
+                }
+
+            });
+        </script>
+
 
 
 </x-app-layout>

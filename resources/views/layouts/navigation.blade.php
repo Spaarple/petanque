@@ -6,35 +6,36 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <img src="{{ asset('/storage/' . config('site.logo_path')) }}" alt="{{ config('app.name') }}" class="block h-10 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <!-- acceuil, sponsor, Tournoi, album, forum, evenement, contact -->
+                <!-- accueil, sponsor, Tournoi, album, forum, evenement, contact -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @auth
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <!-- active id route is dashboard or contains admin -->
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard') || request()->routeIs('admin.*')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @endauth
 
-                    <x-nav-link :href="route('acceuil')" :active="request()->routeIs('acceuil')">
-                        {{ __('Acceuil') }}
+                    <x-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
+                        {{ __('Accueil') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('sponsors')" :active="request()->routeIs('sponsors')">
+                    <x-nav-link :href="route('user.sponsors.index')" :active="request()->routeIs('user.sponsors.*')">
                         {{ __('Partenaires') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
+                    <x-nav-link :href="route('user.tournois.index')" :active="request()->routeIs('user.tournois.*')">
                         {{ __('Tournois') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('albums')" :active="request()->routeIs('albums')">
+                    <x-nav-link :href="route('user.albums.index')" :active="request()->routeIs('user.albums.*')">
                         {{ __('Albums') }}
                     </x-nav-link>
                     @auth
-                    <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+                    {{-- <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                         {{ __('Forums') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     <x-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
                         {{ __('Evenements') }}
                     </x-nav-link>
@@ -42,6 +43,12 @@
                     <x-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
                         {{ __('Contacts') }}
                     </x-nav-link>
+                    {{-- display joueur  --}}
+                    @auth
+                    <x-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
+                        {{ __('Joueurs') }}
+                    </x-nav-link>
+                    @endauth
 
                 </div>
             </div>
@@ -73,7 +80,7 @@
                                     <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                         this.closest('form').submit();">
-                                        {{ __('Log Out') }}
+                                        {{ __('Se déconnecter') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>
@@ -121,22 +128,22 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @endauth
-            <x-responsive-nav-link :href="route('acceuil')" :active="request()->routeIs('acceuil')">
-                {{ __('Acceuil') }}
+            <x-responsive-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
+                {{ __('Accueil') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('sponsors')" :active="request()->routeIs('sponsors')">
+            <x-responsive-nav-link :href="route('user.sponsors.index')" :active="request()->routeIs('user.sponsors.index')">
                 {{ __('Partenaires') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('tournois')" :active="request()->routeIs('tournois')">
+            <x-responsive-nav-link :href="route('user.tournois.index')" :active="request()->routeIs('user.tournois.*')">
                 {{ __('Tournois') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('albums')" :active="request()->routeIs('albums')">
+            <x-responsive-nav-link :href="route('user.albums.index')" :active="request()->routeIs('user.albums.*')">
                 {{ __('Albums') }}
             </x-responsive-nav-link>
             @auth
-            <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+            {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
             <x-responsive-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
                 {{ __('Evenements') }}
             </x-responsive-nav-link>

@@ -8,14 +8,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" href="{{ asset('/storage/' . config('site.logo_path')) }}" type="image/png">
+
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
     
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -23,6 +26,13 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen  max-w-full mx-auto bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
+        <!-- if auth and admin and page = dashboard or admin.* -->
+        @if (Auth::check() && Auth::user()->role == 'admin')
+            @if (Route::currentRouteName() == 'dashboard' || Str::startsWith(Route::currentRouteName(), 'admin.'))
+                @include('layouts.admin-navigation')
+            @endif
+        @endif
+
 
         <!-- Page Heading -->
         @if (isset($header))
@@ -34,10 +44,12 @@
         @endif
 
         <!-- Page Content -->
-        <main>
+        <main class="overflow-x-hidden">
             {{ $slot }}
         </main>
     </div>
+    <!-- Include JavaScript sections from Blade views -->
+    @yield('javascript')
 </body>
 
 </html>

@@ -54,8 +54,10 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
+    // add url like localhost or 127.0.0.1 or your domain name
     'url' => env('APP_URL', 'http://localhost'),
+    
+
 
     'asset_url' => env('ASSET_URL'),
 
