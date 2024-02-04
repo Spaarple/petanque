@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\EventRegistrationController as AdminEventRegistra
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\StatistiqueController as AdminStatistiqueController;
 use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
+use App\Http\Controllers\Users\JoueurController as UsersJoueurController;
 use App\Models\Sponsor;
 
 /*
@@ -80,6 +81,9 @@ Route::get('evenements', function () {
 Route::get('contacts', function () {
     return view('contacts');
 })->name('contacts');
+
+// Route pour les joueurs
+Route::get('joueurs', [UsersJoueurController::class, 'index'])->middleware(['auth', 'verified'])->name('user.joueurs.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

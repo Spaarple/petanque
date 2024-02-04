@@ -43,6 +43,12 @@
                     <x-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
                         {{ __('Contacts') }}
                     </x-nav-link>
+                    {{-- display joueur  --}}
+                    @auth
+                    <x-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
+                        {{ __('Joueurs') }}
+                    </x-nav-link>
+                    @endauth
 
                 </div>
             </div>
@@ -74,7 +80,7 @@
                                     <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                         this.closest('form').submit();">
-                                        {{ __('Log Out') }}
+                                        {{ __('Se déconnecter') }}
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>
