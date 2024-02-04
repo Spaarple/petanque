@@ -1,7 +1,7 @@
 <x-app-layout>
 
 
-    <div class="background-carousel container-fluid dark:bg-gray-800 shadow">
+    <div class="background-carousel container-fluid bg-white dark:bg-gray-800 shadow">
         <div class="row">
             <div class="col-12 flex justify-center items-center h-screen" style="height: 300px;">
                 <h1 class="text-4xl font-bold leading-tight text-gray-900">{{ config('app.name', 'Laravel') }}</h1>
@@ -160,7 +160,7 @@
                     <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Envoyer
                         le
                         message</button>
-                        
+
                 </div>
             </form>
         </div>

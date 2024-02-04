@@ -12,7 +12,16 @@ class RecordTrafficSource
 {
     public function handle($request, Closure $next)
     {
+        // if referer come from the same site, we don't record it
         $referer = $request->header('referer');
+        // domain name to not record : 
+        // - localhost
+        // - 127.0.0.1
+        // - your domain name
+        $domain = $request->getSchemeAndHttpHost();
+        if (strpos($referer, $domain) !== false) {
+            return $next($request);
+        }
 
         TrafficSource::updateOrCreate(
             ['referer' => $referer],

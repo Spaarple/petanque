@@ -24,6 +24,7 @@ class User extends Authenticatable
         'licence',
         'is_approved',
         'club',
+        'profile_photo_path',
     ];
 
     /**

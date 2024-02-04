@@ -57,4 +57,19 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function uploadPhoto(Request $request)
+    {
+        $request->validate([
+            'profile_photo' => 'required|image', // Limite à 2MB
+        ]);
+
+        $user = auth()->user();
+        $path = $request->file('profile_photo')->store('profile_photos', 'public');
+
+        $user->profile_photo_path = $path;
+        $user->save();
+
+        return back()->with('success', 'Photo de profil mise à jour avec succès.');
+    }
 }
