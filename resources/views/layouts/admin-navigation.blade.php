@@ -40,6 +40,10 @@
                     <x-nav-link :href="route('admin.statistiques.index')" :active="request()->routeIs('admin.statistiques.*')">
                         {{ __('Statistiques') }}
                     </x-nav-link>
+                    {{-- Paramètres --}}
+                    <x-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.parametres.*')">
+                        {{ __('Paramètres') }}
+                    </x-nav-link>
 
                 </div>
             </div>
@@ -98,6 +102,10 @@
             {{-- statistiques --}}
             <x-responsive-nav-link :href="route('admin.statistiques.index')" :active="request()->routeIs('admin.statistiques.*')">
                 {{ __('Statistiques') }}
+            </x-responsive-nav-link>
+            {{-- Paramètres --}}
+            <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.parametres.*')">
+                {{ __('Paramètres') }}
             </x-responsive-nav-link>
 
 

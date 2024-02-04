@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\CarouselImage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SponsorsController as AdminSponsorsController;
 use App\Http\Controllers\SponsorsController as SponsorsController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Users\AlbumController as UsersAlbumController;
 use App\Http\Controllers\Admin\EventRegistrationController as AdminEventRegistrationController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\StatistiqueController as AdminStatistiqueController;
+use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Models\Sponsor;
 
 /*
@@ -31,7 +33,10 @@ use App\Models\Sponsor;
 Route::get('/', function () {
     // Récupérer tous les sponsors non expirés
     $sponsors = Sponsor::where('sponsor_subscription_end_date', '>=', date('Y-m-d'))->get();
-    return view('accueil', compact('sponsors'));
+
+    $carouselImages = CarouselImage::all();
+
+    return view('accueil', compact('sponsors', 'carouselImages'));
 })->name('accueil');
 
 Route::get('/dashboard', function () {
@@ -128,11 +133,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::get('/eventregistrations/{event}/create', [AdminEventRegistrationController::class, 'create'])
         ->name('eventregistrations.create');
-    
+
     // Routes pour les statistiques
     Route::get('/statistiques', [AdminStatistiqueController::class, 'index'])->name('statistiques.index');
-    
-    
+
+    // routes pour les paramètres
+    Route::resource('parametres', AdminSettingsController::class);
+    Route::get('/settings', [AdminSettingsController::class, 'index'])->name('settings.index');
+    Route::post('/settings/carousel', [AdminSettingsController::class, 'updateCarousel'])->name('settings.updateCarousel');
+    Route::post('/settings/logo', [AdminSettingsController::class, 'updateLogo'])->name('settings.updateLogo');
+    Route::delete('/admin/carousel/{id}', [AdminSettingsController::class, 'deleteCarouselImage'])->name('settings.deleteCarouselImage');
 
 });
 
