@@ -20,7 +20,14 @@
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
                 @endif
-
+                
+                {{-- contact_sender_object --}}
+                <div>
+                    <label for="contact_sender_object" class="block text-sm font-medium text-gray-700">Objet</label>
+                    <input type="text" name="contact_sender_object" id="contact_sender_object" required
+                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+                  
                 <div>
                     <label for="contact_sender_message" class="block text-sm font-medium text-gray-700">Message</label>
                     <textarea name="contact_sender_message" id="contact_sender_message" required

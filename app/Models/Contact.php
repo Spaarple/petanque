@@ -13,6 +13,7 @@ class Contact extends Model
 
     protected $fillable = [
         'contact_sender_email',
+        'contact_sender_object',
         'contact_sender_message',
         'is_archived',
     ];

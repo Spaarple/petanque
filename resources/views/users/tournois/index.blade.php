@@ -16,6 +16,9 @@
                             
                             <div class="text-sm mt-2">
                                 <strong>Heure de début :</strong> {{ \Carbon\Carbon::parse($tournoi->tournoi_start_date)->format('h:m') }}<br>
+                                <strong>Description :</strong> {{ $tournoi->tournoi_description }}<br>
+                                <strong>Lieu :</strong> {{ $tournoi->tournoi_location }}<br>
+                                <strong>Date limite d'inscription :</strong> {{ \Carbon\Carbon::parse($tournoi->tournoi_registration_deadline)->format('d M Y') }}<br>
                                 <strong>Frais de pré-inscription :</strong>
                                 {{ $tournoi->tournoi_pre_inscription_fee }}<br>
                                 <strong>Frais d'inscription :</strong> {{ $tournoi->tournoi_inscription_fee }}<br>

@@ -22,6 +22,9 @@
                             Email</th>
                         <th
                             class="px-6 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Objet</th>
+                        <th
+                            class="px-6 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Message</th>
                         <th
                             class="px-6 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -33,6 +36,9 @@
                         <tr class="{{ $contact->is_archived ? 'bg-gray-200' : '' }}">
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 {{ $contact->contact_sender_email }}</td>
+
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                {{ $contact->contact_sender_object }}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 {{ $contact->contact_sender_message }}</td>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 space-x-3">

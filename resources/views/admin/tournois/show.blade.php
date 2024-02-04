@@ -22,6 +22,9 @@
 
         <div class="bg-white p-6 rounded shadow-xl">
             <h1 class="text-xl font-bold mb-4">{{ $tournoi->tournoi_name }}</h1>
+            <p><strong>Description:</strong> {{ $tournoi->tournoi_description }}</p>
+            <p><strong>Lieu:</strong> {{ $tournoi->tournoi_location }}</p>
+            <p><strong>Date limite d'inscription:</strong> {{ $tournoi->tournoi_registration_deadline }}</p>
             <p><strong>Date et heure de début:</strong> {{ $tournoi->tournoi_start_date }}</p>
             <p><strong>Pré-inscription:</strong> {{ $tournoi->tournoi_pre_inscription_fee }} €</p>
             <p><strong>Inscription:</strong> {{ $tournoi->tournoi_inscription_fee }} €</p>
@@ -40,8 +43,13 @@
 
             <div class="mb-4">
                 <!-- link to create a new participation /admin/tournois/{id}/participants/create -->
-                <a href="{{ route('admin.tournois.participants.create', $tournoi->id) }}"
+                <!-- if tournoi is full, display a message or if tournoi_registration_deadline is passed display message -->
+                @if ($tournoi->tournoi_max_participants <= $participants->count() || $tournoi->tournoi_registration_deadline < now())
+                    <p class="text-red-500">Le tournoi est complet ou la date limite d'inscription est passée</p>
+                @else
+                    <a href="{{ route('admin.tournois.participants.create', $tournoi->id) }}"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un joueur</a>
+                @endif
             </div>
 
 

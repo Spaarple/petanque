@@ -9,6 +9,19 @@
                 <label for="tournoi_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du tournoi:</label>
                 <input id="tournoi_name" name="tournoi_name" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
             </div>
+            <div class="mb-4">
+                <label for="tournoi_description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                <textarea id="tournoi_description" name="tournoi_description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="tournoi_location" class="block text-gray-700 text-sm font-bold mb-2">Lieu:</label>
+                <input id="tournoi_location" name="tournoi_location" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+            </div>
+            <!-- tournoi registration deadline -->
+            <div class="mb-4"> <!-- default value today at 14:00 -->
+                <label for="tournoi_registration_deadline" class="block text-gray-700 text-sm font-bold mb-2">Date limite d'inscription:</label>
+                <input id="tournoi_registration_deadline" name="tournoi_registration_deadline" type="datetime-local" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required value="{{ date('Y-m-d\TH:i', strtotime('today + 1 day')) }}">
+            </div>
             <div class="mb-4"> <!-- default value today at 14:00 -->
                 <label for="tournoi_start_date" class="block text-gray-700 text-sm font-bold mb-2">Date de début:</label>
                 <input id="tournoi_start_date" name="tournoi_start_date" type="datetime-local" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required value="{{ date('Y-m-d\TH:i', strtotime('today + 1 day')) }}">
@@ -16,12 +29,12 @@
             <!-- pre inscription fee (tournoi_pre_inscription_fee) -->
             <div class="mb-4">
                 <label for="tournoi_pre_inscription_fee" class="block text-gray-700 text-sm font-bold mb-2">Pré-inscription:</label>
-                <input id="tournoi_pre_inscription_fee" name="tournoi_pre_inscription_fee" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+                <input id="tournoi_pre_inscription_fee" name="tournoi_pre_inscription_fee" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" min="0" required>
             </div>
             <!-- inscription fee (tournoi_inscription_fee) -->
             <div class="mb-4">
                 <label for="tournoi_inscription_fee" class="block text-gray-700 text-sm font-bold mb-2">Inscription:</label>
-                <input id="tournoi_inscription_fee" name="tournoi_inscription_fee" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
+                <input id="tournoi_inscription_fee" name="tournoi_inscription_fee" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" min="0" required>
             </div>
             <!-- tournoi team local -->
             <div class="mb-4">

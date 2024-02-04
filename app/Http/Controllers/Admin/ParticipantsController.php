@@ -45,6 +45,11 @@ class ParticipantsController extends Controller
         ]);
 
         foreach ($request->participants as $participantData) {
+            // if number of participants is greater than the maximum allowed
+            if (ParticipationTournois::where('tournoi_id', $request->tournoi_id)->count() >= Tournois::findOrFail($request->tournoi_id)->tournoi_max_participants) {
+                // redirect to tournois show page with error message
+                return redirect()->route('admin.tournois.show', $request->tournoi_id)->with('error', 'Le nombre maximum de participants a été atteint.');
+            }
             ParticipationTournois::create([
                 'tournoi_id' => $request->tournoi_id,
                 'user_first_name' => $participantData['first_name'],

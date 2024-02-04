@@ -11,6 +11,9 @@ class tournois extends Model
 
     protected $fillable = [
         'tournoi_name',
+        'tournoi_description',
+        'tournoi_location',
+        'tournoi_registration_deadline',
         'tournoi_start_date',
         'tournoi_pre_inscription_fee',
         'tournoi_inscription_fee',

@@ -17,6 +17,9 @@ class TournoisController extends Controller
         // Récupération de tous les tournois
         $tournois = Tournois::all();
 
+        // affichage par date de début de tournoi
+        $tournois = Tournois::orderBy('tournoi_start_date', 'desc')->get();
+
         // Affichage de la vue avec les tournois
         return view('admin.tournois.index', compact('tournois'));
         
@@ -41,11 +44,15 @@ class TournoisController extends Controller
             $validatedData = $request->validate([
                 'tournoi_name' => 'required|string|max:255',
                 'tournoi_start_date' => 'required|date',
+                'tournoi_description' => 'required|string',
+                'tournoi_location' => 'required|string',
+                'tournoi_registration_deadline' => 'required|date',
                 'tournoi_pre_inscription_fee' => 'required|numeric',
                 'tournoi_inscription_fee' => 'required|numeric',
                 'tournoi_max_participants' => 'required|numeric',
                 'tournoi_team_local' => 'required|string|max:255',
                 'tournoi_team_visitor' => 'required|string|max:255',
+
                 // Inclure des règles de validation pour les autres champs si nécessaire
             ]);
 
@@ -103,6 +110,9 @@ class TournoisController extends Controller
             $validatedData = $request->validate([
                 'tournoi_name' => 'required|string|max:255',
                 'tournoi_start_date' => 'required|date',
+                'tournoi_description' => 'required|string',
+                'tournoi_location' => 'required|string',
+                'tournoi_registration_deadline' => 'required|date',
                 'tournoi_pre_inscription_fee' => 'required|numeric',
                 'tournoi_inscription_fee' => 'required|numeric',
                 'tournoi_max_participants' => 'required|numeric',
@@ -117,7 +127,7 @@ class TournoisController extends Controller
             return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour du tournoi.');
         }
 
-        return redirect()->route('admin.tournois.index')->with('success', 'Le tournoi a bien été mis à jour.');
+        return redirect()->route('admin.tournois.index')->with('success', 'Le tournoi a bien été modifié.');
     }
 
     /**

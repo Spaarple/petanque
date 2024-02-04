@@ -76,6 +76,7 @@ class ContactsController extends Controller
         try {
             $validatedData = $request->validate([
                 'contact_sender_email' => 'required|email',
+                'contact_sender_object' => 'required|string', // 'nullable|string
                 'contact_sender_message' => 'required|string',
             ]);
             Contact::create($validatedData);
@@ -114,6 +115,7 @@ class ContactsController extends Controller
             $contact = Contact::findOrFail($id);
             $validatedData = $request->validate([
                 'contact_sender_email' => 'required|email',
+                'contact_sender_object' => 'required|string', // 'nullable|string
                 'contact_sender_message' => 'required|string',
             ]);
             $contact->update($validatedData);

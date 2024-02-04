@@ -11,6 +11,18 @@
                 <input id="tournoi_name" name="tournoi_name" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" value="{{ $tournoi->tournoi_name }}" required>
             </div>
             <div class="mb-4">
+                <label for="tournoi_description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                <textarea id="tournoi_description" name="tournoi_description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required>{{ $tournoi->tournoi_description }}</textarea>
+            </div>
+            <div class="mb-4">
+                <label for="tournoi_location" class="block text-gray-700 text-sm font-bold mb-2">Lieu:</label>
+                <input id="tournoi_location" name="tournoi_location" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" value="{{ $tournoi->tournoi_location }}" required>
+            </div>
+            <div class="mb-4">
+                <label for="tournoi_registration_deadline" class="block text-gray-700 text-sm font-bold mb-2">Date limite d'inscription:</label>
+                <input id="tournoi_registration_deadline" name="tournoi_registration_deadline" type="datetime-local" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" value="{{ $tournoi->tournoi_registration_deadline }}" required>
+            </div>
+            <div class="mb-4">
                 <label for="tournoi_start_date" class="block text-gray-700 text-sm font-bold mb-2">Date de début:</label>
                 <input id="tournoi_start_date" name="tournoi_start_date" type="datetime-local" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" value="{{ $tournoi->tournoi_start_date }}" required>
             </div>
