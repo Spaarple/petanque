@@ -79,6 +79,34 @@
                         </button>
                     </form>
                 </div>
+
+                <div class="mt-8">
+                    <form action="{{ route('admin.settings.updatePresentation') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <!-- Zone de texte cachée qui sera mise à jour avec le contenu de Quill -->
+                        <input type="hidden" name="content" id="content">
+                        <!-- Conteneur pour l'éditeur Quill -->
+                        <div id="quill-editor">{!! $textContent->content !!}</div>
+
+                        <button class=" mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit" onclick="submitForm()">Enregistrer</button>
+                    </form>
+                </div>
+
+                <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+                <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+                <script>
+                    var quill = new Quill('#quill-editor', {
+                        theme: 'snow'
+                    });
+
+                    function submitForm() {
+                        // Met à jour le champ caché avec le contenu HTML de l'éditeur Quill
+                        document.getElementById('content').value = quill.root.innerHTML;
+                    }
+                </script>
+
+
             </div>
 
         </div>

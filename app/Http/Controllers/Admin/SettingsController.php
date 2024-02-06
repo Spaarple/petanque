@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\CarouselImage;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Models\TextContent;
 // log
 use Illuminate\Support\Facades\Log;
 
@@ -14,7 +15,19 @@ class SettingsController extends Controller
     public function index()
     {
         $carouselImages = CarouselImage::all();
-        return view('admin.settings.index', compact('carouselImages'));
+        // Utilisez une clé descriptive pour identifier de manière unique le texte
+        // Supposons que 'homepage_presentation' est une clé pour le texte de présentation de la page d'accueil
+        // if exists
+        if (TextContent::where('key', 'homepage_presentation')->doesntExist()) {
+            TextContent::create([
+                'key' => 'homepage_presentation',
+                'content' => 'Bienvenue sur notre site web. Nous sommes heureux de vous accueillir.'
+            ]);
+        }
+        $textContent = TextContent::where('key', 'homepage_presentation')->first();
+
+
+        return view('admin.settings.index', compact('carouselImages', 'textContent'));
     }
 
     public function updateCarousel(Request $request)
@@ -83,6 +96,28 @@ class SettingsController extends Controller
             return back()->with('success', 'Le logo a été mis à jour avec succès.');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
+        }
+    }
+
+    public function updatePresentation(Request $request)
+    {
+        try {
+            $request->validate([
+                'content' => 'required|string',
+            ]);
+
+            // Supposons que vous ayez une colonne 'key' pour identifier le texte que vous souhaitez mettre à jour.
+            // Si vous n'avez pas une telle colonne, assurez-vous d'ajouter une logique pour identifier l'enregistrement correct.
+            $key = 'homepage_presentation'; // Utilisez une clé qui identifie de manière unique votre contenu textuel.
+
+            $textContent = TextContent::firstOrCreate(['key' => $key]);
+            $textContent->content = $request->input('content');
+            $textContent->save();
+
+            return redirect()->back()->with('success', 'Texte mis à jour avec succès.');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour du texte.');
         }
     }
 }

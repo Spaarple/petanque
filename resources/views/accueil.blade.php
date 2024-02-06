@@ -16,7 +16,7 @@
             @if ($tournois->isEmpty())
                 <h2 class="text-2xl font-bold text-center mb-6">Aucun tournoi à venir</h2>
             @else
-                <a class="block bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg" href="/match/1395185">
+                <a class="block bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg" href="/tournois/{{ $tournois[0]->id }}">
                     <div class="p-4">
                         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                             <!-- Sur les petits écrans, les éléments s'empilent verticalement -->
@@ -117,34 +117,7 @@
             <!-- Div pour le texte -->
             <div class="w-full md:w-1/2 px-2">
                 <div class="w-full px-2">
-                    <p class="text-lg mb-4">
-                        Le club de pétanque est situé au Complexe sportif Alain Burban, un lieu facilement accessible
-                        offrant d'excellentes installations pour les joueurs et les visiteurs. Venez nous rejoindre pour
-                        découvrir le sport ou pour des compétitions amicales.
-                    </p>
-                    <p class="text-lg mb-4">
-                        <strong>Adresse :</strong> <a
-                            href="https://www.google.fr/maps/place/Complexe+sportif+Alain+Burban/@47.2952803,-2.3538707,18.75z/data=!4m6!3m5!1s0x48055d11995907bf:0x4244ada14b114e47!8m2!3d47.2955098!4d-2.3538581!16s%2Fg%2F11cs23nqzy?entry=ttu"
-                            class="text-blue-600 hover:text-blue-800">Avenue du Bois Robin, 44500 La
-                            Baule-Escoublac</a>
-                    </p>
-                    <p class="text-lg mb-4">
-                        <strong>Téléphone :</strong> 02 40 60 90 30
-                    </p>
-                    <p class="text-lg mb-4">
-                        <strong>Mail :</strong>
-                        <a href="mailto:test@gmail.com" class="text-blue-600 hover:text-blue-800">Nous contacter</a>
-                    </p>
-                    <p class="text-lg mb-4">
-                        <strong>Horaires :</strong>
-                        <br>Lundi : 14h00 - 18h00
-                        <br>Mardi : 14h00 - 18h00
-                        <br>Mercredi : 14h00 - 18h00
-                        <br>Jeudi : 14h00 - 18h00
-                        <br>Vendredi : 14h00 - 18h00
-                        <br>Samedi : 14h00 - 18h00
-                        <br>Dimanche : 14h00 - 18h00
-                    </p>
+                    {!! $textContent->content !!}
                 </div>
 
             </div>

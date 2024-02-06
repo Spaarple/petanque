@@ -21,6 +21,7 @@ use App\Http\Controllers\Users\JoueurController as UsersJoueurController;
 use App\Models\Sponsor;
 use App\Models\Tournois;
 use Carbon\Carbon;
+use App\Models\TextContent;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,14 @@ Route::get('/', function () {
     $tournois = Tournois::where('tournoi_start_date', '>=', Carbon::now())
         ->orderBy('tournoi_start_date', 'asc')
         ->get();
-    return view('accueil', compact('sponsors', 'carouselImages', 'tournois'));
+    if (TextContent::where('key', 'homepage_presentation')->doesntExist()) {
+        TextContent::create([
+            'key' => 'homepage_presentation',
+            'content' => 'Bienvenue sur notre site web. Nous sommes heureux de vous accueillir.'
+        ]);
+    }
+    $textContent = TextContent::where('key', 'homepage_presentation')->first();
+    return view('accueil', compact('sponsors', 'carouselImages', 'tournois', 'textContent'));
 })->name('accueil');
 
 Route::get('/dashboard', function () {
@@ -100,7 +108,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/photo', [ProfileController::class, 'uploadPhoto'])->name('profile.uploadPhoto');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {
         return view('admin.index');
     })->name('index');
@@ -156,6 +164,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/settings/carousel', [AdminSettingsController::class, 'updateCarousel'])->name('settings.updateCarousel');
     Route::post('/settings/logo', [AdminSettingsController::class, 'updateLogo'])->name('settings.updateLogo');
     Route::delete('/admin/carousel/{id}', [AdminSettingsController::class, 'deleteCarouselImage'])->name('settings.deleteCarouselImage');
+    Route::put('/settings/presentation', [AdminSettingsController::class, 'updatePresentation'])->name('settings.updatePresentation');
 
 });
 
