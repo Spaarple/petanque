@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\StatistiqueController as AdminStatistiqueControll
 use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\Users\JoueurController as UsersJoueurController;
 use App\Models\Sponsor;
+use App\Models\Tournois;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +39,16 @@ Route::get('/', function () {
 
     $carouselImages = CarouselImage::all();
 
-    return view('accueil', compact('sponsors', 'carouselImages'));
+    // get the tournois that are not yet started but are in the future and order them by start date get only the first
+    $tournois = Tournois::where('tournoi_start_date', '>=', Carbon::now())
+        ->orderBy('tournoi_start_date', 'asc')
+        ->get();
+    return view('accueil', compact('sponsors', 'carouselImages', 'tournois'));
 })->name('accueil');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'isVerified'])->name('dashboard');
 
 //sponsor
 Route::get('sponsors', [SponsorsController::class, 'index'])->name('user.sponsors.index'); // Route pour la liste des sponsors pour les utilisateurs normaux
@@ -70,20 +76,22 @@ Route::get('albums/{id}', [UsersAlbumController::class, 'show'])->name('user.alb
 //forum
 Route::get('forums', function () {
     return view('forums');
-})->middleware(['auth', 'verified'])->name('forums');
+})->middleware(['auth', 'isVerified'])->name('forums');
 
 //evenement
 Route::get('evenements', function () {
     return view('evenements');
-})->middleware(['auth', 'verified'])->name('evenements');
+})->middleware(['auth', 'isVerified'])->name('evenements');
 
 //contact
-Route::get('contacts', function () {
-    return view('contacts');
-})->name('contacts');
+Route::get('contacts', [AdminContactsController::class, 'messages'])->name('user.contacts.messages'); // Route pour la liste des contacts pour les utilisateurs normaux
+// contact.create
+Route::get('contacts/create', [AdminContactsController::class, 'create'])->name('user.contacts.create'); // Route pour créer un contact pour les utilisateurs normaux
+// contact.store
+Route::post('contacts', [AdminContactsController::class, 'store'])->name('user.contacts.store'); // Route pour enregistrer un contact pour les utilisateurs normaux
 
 // Route pour les joueurs
-Route::get('joueurs', [UsersJoueurController::class, 'index'])->middleware(['auth', 'verified'])->name('user.joueurs.index');
+Route::get('joueurs', [UsersJoueurController::class, 'index'])->middleware(['auth', 'isVerified'])->name('user.joueurs.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

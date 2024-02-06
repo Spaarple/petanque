@@ -12,7 +12,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Accueil') }}
                     </x-nav-link>
-
+                    @if(auth()->check() && auth()->user()->role == 'admin')
                     <x-nav-link :href="route('admin.sponsors.index')" :active="request()->routeIs('admin.sponsors.*')">
                         {{ __('Partenaires') }}
                     </x-nav-link>
@@ -44,6 +44,7 @@
                     <x-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.parametres.*')">
                         {{ __('Paramètres') }}
                     </x-nav-link>
+                    @endif
 
                 </div>
             </div>
@@ -73,6 +74,8 @@
                 {{ __('Accueil') }}
             </x-responsive-nav-link>
             @endauth
+            {{-- if is admin --}}
+            @if(auth()->check() && auth()->user()->role == 'admin')
             <x-responsive-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
                 {{ __('Accueil') }}
             </x-responsive-nav-link>
@@ -85,15 +88,13 @@
             <x-responsive-nav-link :href="route('admin.albums.index')" :active="request()->routeIs('admin.albums.*')">
                 {{ __('Albums') }}
             </x-responsive-nav-link>
-            @auth
             {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
             </x-responsive-nav-link> --}}
             <x-responsive-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
                 {{ __('Evenements') }}
             </x-responsive-nav-link>
-            @endauth
-            <x-responsive-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
+            <x-responsive-nav-link :href="route('admin.contacts.index')" :active="request()->routeIs('admin.contacts.*')">
                 {{ __('Contacts') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
@@ -107,6 +108,7 @@
             <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.parametres.*')">
                 {{ __('Paramètres') }}
             </x-responsive-nav-link>
+            @endif
 
 
         </div>

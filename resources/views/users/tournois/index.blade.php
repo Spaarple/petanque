@@ -30,7 +30,7 @@
                             <div class="mt-2">
                                 <a href="{{ route('user.tournois.show', $tournoi->id) }}"
                                     class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    Voir les participants
+                                    Voir les détails du tournoi
                                 </a>
                                 <a href="{{ route('user.tournois.inscription.create', $tournoi->id) }}"
                                     class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">

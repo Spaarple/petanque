@@ -40,7 +40,7 @@
                         {{ __('Evenements') }}
                     </x-nav-link>
                     @endauth
-                    <x-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
+                    <x-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contacts.*')">
                         {{ __('Contacts') }}
                     </x-nav-link>
                     {{-- display joueur  --}}
@@ -148,7 +148,7 @@
                 {{ __('Evenements') }}
             </x-responsive-nav-link>
             @endauth
-            <x-responsive-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
+            <x-responsive-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contact.*')">
                 {{ __('Contacts') }}
             </x-responsive-nav-link>
 

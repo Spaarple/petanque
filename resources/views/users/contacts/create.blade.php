@@ -3,7 +3,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg p-6">
-            <form action="{{ route('admin.contacts.store') }}" method="POST" class="space-y-6">
+            <form action="{{ route('user.contacts.store') }}" method="POST" class="space-y-6">
                 @csrf
                 {{-- Si l'utilisateur est connecté --}}
                 @if (Auth::check())
@@ -35,7 +35,7 @@
                 </div>
                 <button type="submit"
                     class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Créer
+                    Envoyer
                 </button>
             </form>
         </div>

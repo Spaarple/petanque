@@ -19,6 +19,22 @@ class ContactsController extends Controller
         return view('admin.contacts.index', compact('contacts'));
     }
 
+    /**
+     * Display all messages by users
+     */
+
+    public function messages()
+    {
+        // if user is connected, display all from the user where email is the same as the connected user if user is not connected, display nothing
+        if (auth()->user()) {
+            $contacts = Contact::where('contact_sender_email', auth()->user()->email)->get();
+        } else {
+            $contacts = [];
+        }
+        
+        return view('users.contacts.messages', compact('contacts'));
+    }
+
     public function archived()
     {
         $archivedContacts = Contact::where('is_archived', true)->get();
@@ -65,7 +81,7 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        return view('admin.contacts.create');
+        return view('users.contacts.create');
     }
 
     /**
@@ -84,7 +100,7 @@ class ContactsController extends Controller
             Log::error($e->getMessage());
             return redirect()->back()->with('error', 'Une erreur est survenue lors de la création du contact.');
         }
-        return redirect()->route('admin.contacts.index')->with('success', 'Le contact a bien été créé.');
+        return redirect()->route('user.contacts.messages')->with('success', 'Le contact a bien été créé.');
     }
 
 
@@ -94,7 +110,7 @@ class ContactsController extends Controller
     public function show(string $id)
     {
         $contact = Contact::findOrFail($id);
-        return view('admin.contacts.show', compact('contact'));
+        return view('users.contacts.show', compact('contact'));
     }
 
     /**

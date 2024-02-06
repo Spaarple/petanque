@@ -12,38 +12,59 @@
 
     <section class="container-fluid bg-gray-200 mx-auto p-4">
         <div class="container p-4 mx-auto bg-gray-200">
-            <a class="block bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg" href="/match/1395185">
-                <div class="p-4">
-                    <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                        <!-- Sur les petits écrans, les éléments s'empilent verticalement -->
-                        <!-- Sur les grands écrans, La Baule Escoublac à gauche, À venir au centre, Nationnal à droite -->
-                        <span class="text-xl text-gray-500 md:w-1/3 md:text-left">La Baule Escoublac</span>
-                        <span class="text-lg uppercase  md:w-1/3 md:text-center"><span
-                                class="bg-red-600 rounded-lg p-2">À venir</span></span>
-                        <span class="text-end font-medium md:w-1/3 md:text-right">Nationnal</span>
+            <!-- if no tournois find in the database -->
+            @if ($tournois->isEmpty())
+                <h2 class="text-2xl font-bold text-center mb-6">Aucun tournoi à venir</h2>
+            @else
+                <a class="block bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg" href="/match/1395185">
+                    <div class="p-4">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                            <!-- Sur les petits écrans, les éléments s'empilent verticalement -->
+                            <!-- Sur les grands écrans, La Baule Escoublac à gauche, À venir au centre, Nationnal à droite -->
+                            <span
+                                class="text-xl text-gray-500 md:w-1/3 md:text-left">{{ $tournois[0]->tournoi_name }}</span>
+                            <span class="text-lg uppercase  md:w-1/3 md:text-center"><span
+                                    class="bg-red-600 rounded-lg p-2">À venir</span></span>
+                            <span
+                                class="text-end font-medium md:w-1/3 md:text-right">{{ $tournois[0]->tournoi_location }}</span>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-between items-center">
+                            <!-- Premier club -->
+                            <div class="w-full md:w-60 flex items-center text-center mb-4 md:mb-0">
+                                <p class="text-2xl font-medium">
+                                    <span>{{ $tournois[0]->tournoi_team_local }}</span>
+                                </p>
+                            </div>
+                            <!-- Informations sur le match -->
+                            <div class="text-center mb-4 md:mb-0">
+                                <p class="text-xl font-bold uppercase">
+                                    <!--Sam. 13 Janv.<br>14H00 en français-->
+                                    <!-- display date in french -->
+                                    @php
+                                        \Carbon\Carbon::setLocale('fr');
+                                        $date = \Carbon\Carbon::parse($tournois[0]->tournoi_start_date);
+                                        $jour = $date->translatedFormat('l j'); // Samedi 13
+                                        $mois = substr($date->translatedFormat('F'), 0, 4); // Janv, avec ajustement manuel si nécessaire
+                                        // get hour and minute
+                                        $heure = $date->format('H:i');
+
+                                        // Affichage formaté
+                                        echo "{$jour} {$mois}.<br>{$heure}";
+                                    @endphp
+
+                                </p>
+                            </div>
+                            <!-- Deuxième club -->
+                            <div class="w-full md:w-60 flex items-end justify-end">
+                                <p class="text-2xl font-medium text-right">
+                                    <span>{{ $tournois[0]->tournoi_team_visitor }}</span>
+                                </p>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="flex flex-col md:flex-row justify-between items-center">
-                        <!-- Premier club -->
-                        <div class="w-full md:w-60 flex items-center text-center mb-4 md:mb-0">
-                            <p class="text-2xl font-medium">
-                                <span>Pétanque Escoublacaise</span>
-                            </p>
-                        </div>
-                        <!-- Informations sur le match -->
-                        <div class="text-center mb-4 md:mb-0">
-                            <p class="text-xl font-bold uppercase">
-                                Sam. 13 Janv.<br>14H00
-                            </p>
-                        </div>
-                        <!-- Deuxième club -->
-                        <div class="w-full md:w-60 flex items-center">
-                            <p class="text-2xl text-center font-medium">
-                                <span>Pétanque Vannes</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            @endif
         </div>
     </section>
 
@@ -133,27 +154,35 @@
     <section class="container-fluid bg-grey-50 mx-auto p-4">
         <div class="container mx-auto p-6">
             <h2 class="text-2xl font-bold text-center mb-6">Contactez-nous</h2>
-            <form action="/send-message" method="POST" class="w-3/4 mx-auto">
+            <form action="{{ route('user.contacts.store') }}" method="POST" class="w-3/4 mx-auto">
+                @csrf <!-- Ajout du token CSRF -->
                 <!-- Condition: Si l'utilisateur n'est pas connecté, afficher ce champ -->
-                @if (!Auth::check())
+                @if (Auth::check())
                     <!-- Champ e-mail visible seulement pour les utilisateurs non connectés -->
                     <div class="mb-4">
-                        <label for="email" class="block text-lg font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email"
-                            class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <label for="contact_sender_email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" name="contact_sender_email" id="contact_sender_email"
+                            value="{{ Auth::user()->email }}" readonly
+                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                @else
+                    <div class="mb-4">
+                        <label for="contact_sender_email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" name="contact_sender_email" id="contact_sender_email" required
+                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
                 @endif
 
                 <div class="mb-4">
-                    <label for="subject" class="block text-lg font-medium text-gray-700">Objet</label>
-                    <input type="text" id="subject" name="subject"
-                        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <label for="contact_sender_object" class="block text-sm font-medium text-gray-700">Objet</label>
+                    <input type="text" name="contact_sender_object" id="contact_sender_object" required
+                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
 
                 <div class="mb-6">
-                    <label for="message" class="block text-lg font-medium text-gray-700">Message</label>
-                    <textarea id="message" name="message" rows="4"
-                        class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    <label for="contact_sender_message" class="block text-sm font-medium text-gray-700">Message</label>
+                    <textarea name="contact_sender_message" id="contact_sender_message" required
+                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                 </div>
 
                 <div class="text-center">
