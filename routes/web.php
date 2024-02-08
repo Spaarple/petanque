@@ -98,9 +98,12 @@ Route::get('forums', function () {
 //evenement
 
 Route::resource('events', AdminEventController::class)->middleware(['auth', 'isApproved'])->names('user.events');
-Route::post('/eventregistrations', [AdminEventRegistrationController::class, 'store'])->middleware(['auth'])
+Route::get('/events/{event}/validate', [AdminEventController::class, 'validateEvent'])->middleware(['auth', 'isAdmin'])->name('user.events.validate');
+Route::get('/events/{event}/unvalidate', [AdminEventController::class, 'unvalidateEvent'])->middleware(['auth', 'isAdmin'])->name('user.events.unvalidate');
+Route::post('/eventregistrations', [AdminEventRegistrationController::class, 'store'])->middleware(['auth', 'isApproved'])
         ->name('users.eventregistrations.store');
-
+Route::get('/eventregistrations/create/{eventId}', [AdminEventRegistrationController::class, 'create'])->middleware(['auth', 'isApproved'])
+        ->name('users.eventregistrations.create');
 
 
 //contact

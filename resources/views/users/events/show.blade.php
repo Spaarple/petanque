@@ -1,6 +1,6 @@
 {{-- resources/views/events/show.blade.php --}}
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 @endphp
 <x-app-layout>
     <x-slot name="header">
@@ -9,7 +9,23 @@ use Carbon\Carbon;
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
+        <div class="mb-4">
+            <a href="{{ route('user.events.index') }}"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retour</a>
+            {{-- If the user is the creator of the event, display the edit and delete buttons --}}
+            @if (auth()->user()->id == $event->user_id or auth()->user()->role == 'admin')
+                <a href="{{ route('user.events.edit', $event->id) }}"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Modifier</a>
+                <form action="{{ route('user.events.destroy', $event->id) }}" method="POST" class="inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Supprimer</button>
+                </form>
+            @endif
+        </div>
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+
+
             <div class="mb-4">
                 <h2 class="text-xl font-bold text-gray-800">{{ $event->name }}</h2>
                 <p class="text-gray-600">{{ $event->description }}</p>
@@ -24,17 +40,22 @@ use Carbon\Carbon;
             </div>
 
             <div class="mb-4">
-                <strong>Nombre de participants:</strong> {{ $eventregistrations->count() }} / {{ $event->max_participants }}
+                <strong>Nombre de participants:</strong> {{ $eventregistrations->count() }} /
+                {{ $event->max_participants }}
             </div>
             <div class="mb-4">
-                <strong>Date limite d'inscription:</strong> {{ Carbon::parse($event->registration_deadline)->format('d/m/Y H:i') }}
+                <strong>Date limite d'inscription:</strong>
+                {{ Carbon::parse($event->registration_deadline)->format('d/m/Y H:i') }}
             </div>
             <div class="mb-4">
                 <strong>Frais de préinscription:</strong> {{ $event->pre_registration_fee }} €
             </div>
             <div class="mb-4">
-                <strong>Frais d'inscription sur place:</strong> {{ $event->registration_fee}} €
+                <strong>Frais d'inscription sur place:</strong> {{ $event->registration_fee }} €
             </div>
+            <div class="mb-4">
+                <strong>Lieu:</strong> {{ $event->location }}
+            </div>  
         </div>
     </div>
 
@@ -48,7 +69,8 @@ use Carbon\Carbon;
                 <!-- if the number of participants is less than the maximum number of participants -->
                 @if ($eventregistrations->count() < $event->max_participants or $event->registration_deadline > Carbon::now())
                     <a href="{{ route('users.eventregistrations.create', $event->id) }}"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un joueur</a>
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un
+                        joueur</a>
                 @endif
             </div>
 
@@ -91,7 +113,8 @@ use Carbon\Carbon;
                                             d="M5 13l4 4L19 7" />
                                     </svg>
                                 @else
-                                    <form action="{{ route('admin.eventregistrations.update', $eventregistration->id) }}"
+                                    <form
+                                        action="{{ route('admin.eventregistrations.update', $eventregistration->id) }}"
                                         method="POST" class="inline">
                                         @csrf
                                         @method('PUT')

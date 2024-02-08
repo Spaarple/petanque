@@ -42,7 +42,15 @@ use Carbon\Carbon;
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-900 ml-4">Supprimer</button>
                                     </form>
+
+                                    {{-- if not validateEvent --}}
+                                    @if(!$event->is_validated and auth()->user()->role == 'admin')
+                                    <a href="{{ route('user.events.validate', $event->id) }}" class="text-green-600 hover:text-green-900 ml-4">Valider</a>
+                                    @elseif($event->is_validated == 1 and auth()->user()->role == 'admin')
+                                    <a href="{{ route('user.events.unvalidate', $event->id) }}" class="text-red-600 hover:text-red-900 ml-4">Invalider</a>
+                                    @endif
                                 @endif
+
                             </td>
                         </tr>
                     @endforeach

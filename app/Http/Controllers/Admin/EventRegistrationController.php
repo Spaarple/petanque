@@ -46,7 +46,7 @@ class EventRegistrationController extends Controller
             ]);
         }
         //redirect to event show
-        return redirect()->route('users.events.show', $request->event_id)->with('success', 'Inscriptions enregistrées avec succès.');
+        return redirect()->route('user.events.show', $request->event_id)->with('success', 'Inscriptions enregistrées avec succès.');
     
     }
 
