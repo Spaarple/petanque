@@ -15,7 +15,7 @@ class EventController extends Controller
     {
         //$events = Event::where('is_validated', true)->get();
         $events = Event::all();
-        return view('admin.events.index', compact('events'));
+        return view('users.events.index', compact('events'));
     }
 
     // Afficher le formulaire de création d'un nouvel événement
@@ -52,12 +52,13 @@ class EventController extends Controller
         return redirect()->route('admin.events.index')->with('success', 'Événement validé.');
     }
 
-    // Afficher un événement spécifique
-    public function show(Event $event)
+    // Afficher un événement spécifique with id
+    public function show(string $id)
     {
-        $eventregistrations = EventRegistration::where('event_id', $event->id)->get();
+        $event = Event::findOrFail($id);
+        $eventregistrations = EventRegistration::where('event_id', $id)->get();
 
-        return view('admin.events.show', compact('event', 'eventregistrations'));
+        return view('users.events.show', compact('event', 'eventregistrations'));
     }
 
     public function edit(Event $event)

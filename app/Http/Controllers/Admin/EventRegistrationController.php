@@ -21,7 +21,7 @@ class EventRegistrationController extends Controller
     public function create($eventId)
     {
         $event = Event::findOrFail($eventId);
-        return view('admin.eventregistrations.create', compact('event'));
+        return view('users.eventregistrations.create', compact('event'));
     }
 
     // store
@@ -46,7 +46,7 @@ class EventRegistrationController extends Controller
             ]);
         }
         //redirect to event show
-        return redirect()->route('admin.events.show', $request->event_id)->with('success', 'Inscriptions enregistrées avec succès.');
+        return redirect()->route('users.events.show', $request->event_id)->with('success', 'Inscriptions enregistrées avec succès.');
     
     }
 

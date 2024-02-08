@@ -1,11 +1,17 @@
 {{-- resources/views/user/tournois/index.blade.php --}}
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Les prochains tournois
+        </h2>
+    </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            <div class="text-xl font-semibold border-b px-6 py-4">
-                LES PROCHAINS TOURNOIS
-            </div>
             <div class="flex flex-col space-y-4 p-6">
+                {{-- Affichage des tournois, si pas de tournois afficher aucun tournois trouvé --}}
+                @if ($tournois->isEmpty())
+                    <div class="text-center text-gray-500">Aucun tournoi trouvé</div>
+                @endif
                 @foreach ($tournois as $tournoi)
                 <div class="flex items-start">
                     <div class="w-24 h-24 bg-blue-500 rounded-full mr-3 flex-shrink-0 mt-1 flex items-center justify-center">

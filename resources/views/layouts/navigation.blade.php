@@ -33,21 +33,25 @@
                         {{ __('Albums') }}
                     </x-nav-link>
                     @auth
+                    @if(Auth::user()->is_approved == 1)
                     {{-- <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                         {{ __('Forums') }}
                     </x-nav-link> --}}
-                    <x-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
+                    <x-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.events.*')">
                         {{ __('Evenements') }}
                     </x-nav-link>
+                    @endif
                     @endauth
                     <x-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contacts.*')">
                         {{ __('Contacts') }}
                     </x-nav-link>
                     {{-- display joueur  --}}
                     @auth
+                    @if(Auth::user()->is_approved == 1)
                     <x-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
                         {{ __('Joueurs') }}
                     </x-nav-link>
+                    @endif
                     @endauth
 
                 </div>
@@ -141,16 +145,25 @@
                 {{ __('Albums') }}
             </x-responsive-nav-link>
             @auth
+            @if(Auth::user()->is_approved == 1)
             {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
             </x-responsive-nav-link> --}}
-            <x-responsive-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
+            <x-responsive-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.event.*')">
                 {{ __('Evenements') }}
             </x-responsive-nav-link>
+            @endif
             @endauth
             <x-responsive-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contact.*')">
                 {{ __('Contacts') }}
             </x-responsive-nav-link>
+            @auth
+            @if(Auth::user()->is_approved == 1)
+            <x-responsive-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
+                {{ __('Joueurs') }}
+            </x-responsive-nav-link>
+            @endif
+            @endauth
 
 
         </div>

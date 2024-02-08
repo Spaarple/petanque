@@ -3,6 +3,11 @@
 use Carbon\Carbon;
 @endphp
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Événements') }}
+        </h2>
+    </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
             <div class="mb-4">
@@ -21,6 +26,15 @@ use Carbon\Carbon;
             <div class="mb-4">
                 <strong>Nombre de participants:</strong> {{ $eventregistrations->count() }} / {{ $event->max_participants }}
             </div>
+            <div class="mb-4">
+                <strong>Date limite d'inscription:</strong> {{ Carbon::parse($event->registration_deadline)->format('d/m/Y H:i') }}
+            </div>
+            <div class="mb-4">
+                <strong>Frais de préinscription:</strong> {{ $event->pre_registration_fee }} €
+            </div>
+            <div class="mb-4">
+                <strong>Frais d'inscription sur place:</strong> {{ $event->registration_fee}} €
+            </div>
         </div>
     </div>
 
@@ -32,8 +46,8 @@ use Carbon\Carbon;
             <div class="mb-4">
                 <!-- link to create a new participation /admin/tournois/{id}/participants/create -->
                 <!-- if the number of participants is less than the maximum number of participants -->
-                @if ($eventregistrations->count() < $event->max_participants)
-                    <a href="{{ route('admin.eventregistrations.create', $event->id) }}"
+                @if ($eventregistrations->count() < $event->max_participants or $event->registration_deadline > Carbon::now())
+                    <a href="{{ route('users.eventregistrations.create', $event->id) }}"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un joueur</a>
                 @endif
             </div>

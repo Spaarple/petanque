@@ -77,19 +77,31 @@ Route::get('tournois/{id}', [UsersTournoisController::class, 'show'])->name('use
 Route::get('tournois/{tournoi}/inscription/create', [UsersParticipantsController::class, 'create'])
     ->name('user.tournois.inscription.create');
 
+
+
 //album
 Route::get('albums', [UsersAlbumController::class, 'index'])->name('user.albums.index'); // Route pour la liste des albums pour les utilisateurs normaux
 // album show
 Route::get('albums/{id}', [UsersAlbumController::class, 'show'])->name('user.albums.show'); // Route pour les détails de l'album pour les utilisateurs normaux
+
+
+
 //forum
 Route::get('forums', function () {
     return view('forums');
-})->middleware(['auth', 'isVerified'])->name('forums');
+})->middleware(['auth', 'isApproved'])->name('forums');
+
+
+
+
 
 //evenement
-Route::get('evenements', function () {
-    return view('evenements');
-})->middleware(['auth', 'isVerified'])->name('evenements');
+
+Route::resource('events', AdminEventController::class)->middleware(['auth', 'isApproved'])->names('user.events');
+Route::post('/eventregistrations', [AdminEventRegistrationController::class, 'store'])->middleware(['auth'])
+        ->name('users.eventregistrations.store');
+
+
 
 //contact
 Route::get('contacts', [AdminContactsController::class, 'messages'])->name('user.contacts.messages'); // Route pour la liste des contacts pour les utilisateurs normaux
@@ -98,8 +110,10 @@ Route::get('contacts/create', [AdminContactsController::class, 'create'])->name(
 // contact.store
 Route::post('contacts', [AdminContactsController::class, 'store'])->name('user.contacts.store'); // Route pour enregistrer un contact pour les utilisateurs normaux
 
+
+
 // Route pour les joueurs
-Route::get('joueurs', [UsersJoueurController::class, 'index'])->middleware(['auth', 'isVerified'])->name('user.joueurs.index');
+Route::get('joueurs', [UsersJoueurController::class, 'index'])->middleware(['auth', 'isApproved'])->name('user.joueurs.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -146,14 +160,10 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
     Route::delete('/images/{id}', [AdminAlbumController::class, 'destroyImage'])->name('images.destroy');
 
 
-    // Routes pour les événements
-    Route::resource('events', AdminEventController::class);
-
     // Routes pour les inscriptions aux événements
-    Route::resource('eventregistrations', AdminEventRegistrationController::class);
+    Route::resource('eventregistrations', AdminEventRegistrationController::class, ['except' => ['create']]);
 
-    Route::get('/eventregistrations/{event}/create', [AdminEventRegistrationController::class, 'create'])
-        ->name('eventregistrations.create');
+    
 
     // Routes pour les statistiques
     Route::get('/statistiques', [AdminStatistiqueController::class, 'index'])->name('statistiques.index');

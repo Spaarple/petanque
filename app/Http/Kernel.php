@@ -24,6 +24,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\CountRequests::class,
         \App\Http\Middleware\RecordTrafficSource::class,
         \App\Http\Middleware\RecordDailyVisit::class,
+
     ];
 
     /**
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'count' => \App\Http\Middleware\CountRequests::class,
         'record' => \App\Http\Middleware\RecordTrafficSource::class,
         'daily' => \App\Http\Middleware\RecordDailyVisit::class,
+        'isApproved' => \App\Http\Middleware\EnsureIsApproved::class,
     ];
 }
