@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Joueurs') }}
         </h2>
     </x-slot>
@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
             @foreach ($users as $user)
                 <div
-                    class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
                     {{-- Photo de profil, si pas de photo de profile afficher pas d'image --}}
                     @if ($user->profile_photo_path)
                         <img class="rounded-t-lg" src="{{ asset('storage/' . $user->profile_photo_path) }}"
@@ -20,9 +20,9 @@
                         </div>
                     @endif
                     <div class="p-5">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                             {{ $user->name }}</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $user->email }}</p>
+                        <p class="mb-3 font-normal text-gray-700">{{ $user->email }}</p>
                     </div>
                 </div>
             @endforeach

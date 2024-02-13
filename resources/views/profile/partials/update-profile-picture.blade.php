@@ -8,7 +8,7 @@
 <form action="{{ route('profile.uploadPhoto') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-4">
-        <label for="profile_photo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Photo de
+        <label for="profile_photo" class="block text-sm font-medium text-gray-700">Photo de
             profil</label>
         <input type="file" name="profile_photo" id="profile_photo" class="mt-1 block w-full">
     </div>

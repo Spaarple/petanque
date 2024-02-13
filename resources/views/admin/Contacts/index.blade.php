@@ -9,7 +9,7 @@
             </a>
             <label class="flex items-center space-x-3">
                 <input type="checkbox" id="showArchived" class="form-checkbox h-5 w-5 text-blue-600">
-                <span class="text-gray-700 dark:text-white font-medium">Afficher les éléments archivés</span>
+                <span class="text-gray-700 font-medium">Afficher les éléments archivés</span>
             </label>
         </div>
 

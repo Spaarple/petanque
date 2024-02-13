@@ -1,9 +1,9 @@
 <x-app-layout>
 
 
-    <div class="background-carousel container-fluid bg-white dark:bg-gray-800 shadow">
+    <div class="background-carousel container-fluid bg-white shadow">
         <div class="row">
-            <div class="col-12 flex justify-center items-center h-screen" style="height: 300px;">
+            <div class="col-12 flex justify-center items-center h-screen " style="height: 300px;">
                 <h1 class="text-4xl font-bold leading-tight text-gray-900">{{ config('app.name', 'Laravel') }}</h1>
             </div>
         </div>
