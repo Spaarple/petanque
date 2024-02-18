@@ -44,6 +44,10 @@
                     <x-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.parametres.*')">
                         {{ __('Paramètres') }}
                     </x-nav-link>
+                    {{-- compte rendus --}}
+                    <x-nav-link :href="route('admin.compte-rendus.index')" :active="request()->routeIs('admin.compte-rendus.*')">
+                        {{ __('Compte Rendus') }}
+                    </x-nav-link>
                     @endif
 
                 </div>
@@ -107,6 +111,10 @@
             {{-- Paramètres --}}
             <x-responsive-nav-link :href="route('admin.settings.index')" :active="request()->routeIs('admin.parametres.*')">
                 {{ __('Paramètres') }}
+            </x-responsive-nav-link>
+            {{-- compte rendus --}}
+            <x-responsive-nav-link :href="route('admin.compte-rendus.index')" :active="request()->routeIs('admin.compte-rendus.*')">
+                {{ __('Compte Rendus') }}
             </x-responsive-nav-link>
             @endif
 

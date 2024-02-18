@@ -5,9 +5,6 @@
         </h2>
     </x-slot>
 
-
-    return view('dashboard', compact('openEvents', 'openTournois', 'registeredEvents', 'registeredTournois')); --}}
-
     <div class="py-12">
         <div class="max-w-10xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-wrap -mx-2">

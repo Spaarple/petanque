@@ -6,19 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Models\CompteRendu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 
 class CompteRenduController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     public function index()
     {
         $compteRendus = CompteRendu::all();
         return view('admin.compteRendus.index', compact('compteRendus'));
     }
 
-    public function all()
+    public function indexuser()
     {
         $compteRendus = CompteRendu::all();
-        return view('compteRendus', compact('compteRendus'));
+        return view('users.compteRendus.index', compact('compteRendus'));
+    }
+
+    public function show(CompteRendu $compteRendu)
+    {
+        return view('admin.compteRendus.show', compact('compteRendu'));
+    }
+
+    public function showuser(CompteRendu $compteRendu)
+    {
+        return view('users.compteRendus.show', compact('compteRendu'));
     }
 
     // Afficher le formulaire de création d'un nouveau compte rendu
@@ -37,11 +51,18 @@ class CompteRenduController extends Controller
 
             CompteRendu::create($request->only(['title', 'content']));
 
-            return redirect()->route('admin.compteRendus.index')->with('success', 'Compte rendu créé avec succès.');
+            $this->alertService->success('Compte rendu créé avec succès.');
+            return redirect()->route('admin.compte-rendus.index');
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return back()->withError('Une erreur est survenue : ' . $e->getMessage());
+            $this->alertService->error('Une erreur est survenue : ' . $e->getMessage());
+            return back();
         }
+    }
+
+    // edit
+    public function edit(CompteRendu $compteRendu)
+    {
+        return view('admin.compteRendus.edit', compact('compteRendu'));
     }
 
     // Mettre à jour un compte rendu spécifique
@@ -54,11 +75,11 @@ class CompteRenduController extends Controller
             ]);
 
             $compteRendu->update($request->only(['title', 'content']));
-
-            return redirect()->route('admin.compteRendus.index')->with('success', 'Compte rendu mis à jour avec succès.');
+            $this->alertService->success('Compte rendu mis à jour avec succès.');
+            return redirect()->route('admin.compte-rendus.index');
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return back()->withError('Une erreur est survenue : ' . $e->getMessage());
+            $this->alertService->error('Une erreur est survenue : ' . $e->getMessage());
+            return back();
         }
     }
 
@@ -67,10 +88,11 @@ class CompteRenduController extends Controller
     {
         try {
             $compteRendu->delete();
-            return redirect()->route('admin.compteRendus.index')->with('success', 'Compte rendu supprimé avec succès.');
+            $this->alertService->success('Compte rendu supprimé avec succès.');
+            return redirect()->route('admin.compte-rendus.index');
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return back()->withError('Une erreur est survenue : ' . $e->getMessage());
+            $this->alertService->error('Une erreur est survenue : ' . $e->getMessage());
+            return back();
         }
     }
 }

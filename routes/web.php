@@ -126,7 +126,9 @@ Route::get('sponsors', [SponsorsController::class, 'index'])->name('user.sponsor
 Route::get('/sponsors/{id}', [SponsorsController::class, 'show'])->name('user.sponsors.show');
 
 
-
+//Compte rendu indexuser et showuser
+Route::get('compte-rendus', [AdminCompteRenduController::class, 'indexuser'])->name('user.compte-rendus.index'); // Route pour la liste des compte-rendus pour les utilisateurs normaux
+Route::get('compte-rendus/{compteRendu}', [AdminCompteRenduController::class, 'showuser'])->name('user.compte-rendus.show'); // Route pour les détails du compte-rendu pour les utilisateurs normaux
 
 //tournoi
 // i want route like user.tournois.index, user.tournois.show
@@ -246,8 +248,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
     // Route pour l'événement all
     Route::get('/events/all', [AdminEventController::class, 'all'])->name('events.all');
 
-    // Route pour le compte rendu all
-    //Route::get('/compte-rendus/all', [AdminCompteRenduController::class, 'all'])->name('compteRendus.all');
+    // Route pour le compte rendu
+    Route::resource('/compte-rendus', AdminCompteRenduController::class)->names('compte-rendus');
 });
 
 

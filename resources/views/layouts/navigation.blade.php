@@ -52,6 +52,9 @@
                             <x-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
                                 {{ __('Joueurs') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('user.compte-rendus.index')" :active="request()->routeIs('user.compte-rendus.*')">
+                                {{ __('Compte Rendus') }}
+                            </x-nav-link>
                         @endif
                     @endauth
 
@@ -162,6 +165,9 @@
                 @if (Auth::user()->is_approved == 1)
                     <x-responsive-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
                         {{ __('Joueurs') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('user.compte-rendus.index')" :active="request()->routeIs('user.compte-rendus.*')">
+                        {{ __('Compte Rendus') }}
                     </x-responsive-nav-link>
                 @endif
             @endauth
