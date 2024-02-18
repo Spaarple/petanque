@@ -18,7 +18,7 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Nom Prénom')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
@@ -46,6 +46,20 @@
                 </div>
             @endif
         </div>
+        {{-- edit club text --}}
+        <div>
+            <x-input-label for="club" :value="__('Club')" />
+            <x-text-input id="club" name="club" type="text" class="mt-1 block w-full" :value="old('club', $user->club)" required autocomplete="club" />
+            <x-input-error class="mt-2" :messages="$errors->get('club')" />
+            
+        </div>
+
+        {{-- license number --}}
+        <div>
+            <x-input-label for="license_number" :value="__('Numéro de Licence ')" />
+            <x-text-input id="licence" name="licence" type="text" class="mt-1 block w-full" :value="old('licence', $user->licence)" required autocomplete="licence_number" />
+            <x-input-error class="mt-2" :messages="$errors->get('licence')" />
+        </div>
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
@@ -60,5 +74,8 @@
                 >{{ __('Saved.') }}</p>
             @endif
         </div>
+
+        
+
     </form>
 </section>

@@ -55,7 +55,71 @@ Route::get('/', function () {
 })->name('accueil');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // get list of all the events and events
+    $events = \App\Models\Event::all();
+    $eventRegistrations = \App\Models\EventRegistration::all();
+    $tournoiRegistrations = \App\Models\ParticipationTournois::all();
+    $Tournois = \App\Models\Tournois::all();
+
+    // fait deux listes, une ou avec les évenements et tournois ouverts auquel l'utilisateur peut s'inscrire et une autre avec les évenements et tournois auquel l'utilisateur est déjà inscrit
+    $openEvents = [];
+    $openTournois = [];
+    $registeredEvents = [];
+    $registeredTournois = [];
+    // pour savoir si l'utilistateur est connecté il faut prendre son name et le comparer avec user_first_name et user_last_name de event ou user_first_name et user_last_name de tournois
+    // on ne peux pas utiliser user_id car il n'est pas dans les tables event et tournois
+    $user = auth()->user();
+    $fullName = $user->name; // Assurez-vous que cela correspond au format 'user_first_name user_last_name'
+    try {
+        $nameParts = explode(' ', $fullName);
+        $firstName = $nameParts[0];
+        $lastName = $nameParts[1];
+    } catch (Exception $e) {
+        $firstName = $fullName;
+        $lastName = $fullName;
+    }
+
+
+
+    // fix problème de relatio
+
+    foreach ($events as $event) {
+        // Vérifier si l'utilisateur est inscrit à cet événement
+        $isRegistered = $eventRegistrations->where('event_id', $event->id)
+            ->where('user_first_name', $firstName)
+            ->where('user_last_name', $lastName);
+
+        $isRegistered = $isRegistered->count() > 0;
+
+        
+        if ($isRegistered) {
+            $registeredEvents[] = $event;
+        } else {
+            $openEvents[] = $event;
+        }
+    }
+
+
+    foreach ($Tournois as $tournoi) {
+        // Vérifier si l'utilisateur est inscrit à ce tournoi
+        $isRegistered = $tournoiRegistrations->where('tournoi_id', $tournoi->id)
+            ->where('user_first_name', $firstName)
+            ->where('user_last_name', $lastName);
+
+        $isRegistered = $isRegistered->count() > 0;
+
+        if ($isRegistered) {
+            $registeredTournois[] = $tournoi;
+        } else {
+            $openTournois[] = $tournoi;
+        }
+    }
+
+
+
+
+
+    return view('dashboard', compact('openEvents', 'openTournois', 'registeredEvents', 'registeredTournois'));
 })->middleware(['auth', 'isVerified'])->name('dashboard');
 
 //sponsor
@@ -101,9 +165,9 @@ Route::resource('events', AdminEventController::class)->middleware(['auth', 'isA
 Route::get('/events/{event}/validate', [AdminEventController::class, 'validateEvent'])->middleware(['auth', 'isAdmin'])->name('user.events.validate');
 Route::get('/events/{event}/unvalidate', [AdminEventController::class, 'unvalidateEvent'])->middleware(['auth', 'isAdmin'])->name('user.events.unvalidate');
 Route::post('/eventregistrations', [AdminEventRegistrationController::class, 'store'])->middleware(['auth', 'isApproved'])
-        ->name('users.eventregistrations.store');
+    ->name('users.eventregistrations.store');
 Route::get('/eventregistrations/create/{eventId}', [AdminEventRegistrationController::class, 'create'])->middleware(['auth', 'isApproved'])
-        ->name('users.eventregistrations.create');
+    ->name('users.eventregistrations.create');
 
 
 //contact
@@ -166,7 +230,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
     // Routes pour les inscriptions aux événements
     Route::resource('eventregistrations', AdminEventRegistrationController::class, ['except' => ['create']]);
 
-    
+
 
     // Routes pour les statistiques
     Route::get('/statistiques', [AdminStatistiqueController::class, 'index'])->name('statistiques.index');
@@ -179,6 +243,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
     Route::delete('/admin/carousel/{id}', [AdminSettingsController::class, 'deleteCarouselImage'])->name('settings.deleteCarouselImage');
     Route::put('/settings/presentation', [AdminSettingsController::class, 'updatePresentation'])->name('settings.updatePresentation');
 
+    // Route pour l'événement all
+    Route::get('/events/all', [AdminEventController::class, 'all'])->name('events.all');
 });
 
 

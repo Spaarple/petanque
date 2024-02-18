@@ -26,9 +26,9 @@
                     {{-- <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                         {{ __('Forums') }}
                     </x-nav-link> --}}
-                    {{-- <x-nav-link :href="route('admin.events.index')" :active="request()->routeIs('admin.events.*')">
+                    <x-nav-link :href="route('admin.events.all')" :active="request()->routeIs('admin.events.*')">
                         {{ __('Evenements') }}
-                    </x-nav-link> --}}
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.contacts.index')" :active="request()->routeIs('admin.contacts.*')">
                         {{ __('Contacts') }}
                     </x-nav-link>
@@ -91,9 +91,9 @@
             {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
             </x-responsive-nav-link> --}}
-            {{-- <x-responsive-nav-link :href="route('evenements')" :active="request()->routeIs('evenements')">
+            <x-responsive-nav-link :href="route('admin.events.all')" :active="request()->routeIs('admin.events.*')">
                 {{ __('Evenements') }}
-            </x-responsive-nav-link> --}}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.contacts.index')" :active="request()->routeIs('admin.contacts.*')">
                 {{ __('Contacts') }}
             </x-responsive-nav-link>

@@ -28,9 +28,12 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
+        
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+        \Log::info('Club value:', ['club' => $request->user()->club]);
+
 
         $request->user()->save();
 

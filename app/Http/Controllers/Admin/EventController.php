@@ -126,4 +126,11 @@ class EventController extends Controller
 
         return redirect()->route('user.events.index')->with('success', 'Événement supprimé avec succès.');
     }
+
+    // display all events
+    public function all()
+    {
+        $events = Event::all();
+        return view('admin.events.all', compact('events'));
+    }    
 }
