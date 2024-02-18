@@ -14,11 +14,12 @@ class RecordTrafficSource
     {
         // if referer come from the same site, we don't record it
         $referer = $request->header('referer');
-        // domain name to not record : 
+        // domain name to not record if contains :
         // - localhost
         // - 127.0.0.1
         // - your domain name
-        $domain = $request->getSchemeAndHttpHost();
+        
+        $domain = $_SERVER['HTTP_HOST'];
         if (strpos($referer, $domain) !== false) {
             return $next($request);
         }
