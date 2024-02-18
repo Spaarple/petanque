@@ -1,8 +1,10 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-semibold text-gray-900">Modifier l'Utilisateur</h1>
-        </div>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Utilisateurs') }}
+        </h2>
+    </x-slot>
+    <div class="max-w-10xl mx-auto sm:px-6 lg:px-8 py-8">
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
@@ -11,10 +13,16 @@
                     @method('PUT')
 
                     <div class="mb-4">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom:</label>
-                        <input type="text" name="name" id="name" value="{{ $users->name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <label for="first_name" class="block text-gray-700 text-sm font-bold mb-2">Prénom:</label>
+                        <input type="text" name="first_name" id="first_name" value="{{ $users->first_name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+
                     </div>
 
+                    <div class="mb-4">
+                        <label for="last_name" class="block text-gray-700 text-sm font-bold mb-2">Nom:</label>
+                        <input type="text" name="last_name" id="last_name" value="{{ $users->last_name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
                         <input type="email" name="email" id="email" value="{{ $users->email }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
@@ -43,6 +51,12 @@
                             <option value="0" {{ $users->is_approved == 0 ? 'selected' : '' }}>Non Approuvé</option>
                             <option value="1" {{ $users->is_approved == 1 ? 'selected' : '' }}>Approuvé</option>
                         </select>
+                    </div>
+
+                    <!-- club -->
+                    <div class="mb-4">
+                        <label for="club" class="block text-gray-700 text-sm font-bold mb-2">Club:</label>
+                        <input type="text" name="club" id="club" value="{{ $users->club }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
 
                     

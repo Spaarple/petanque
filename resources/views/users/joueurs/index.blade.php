@@ -12,8 +12,10 @@
                     class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
                     {{-- Photo de profil, si pas de photo de profile afficher pas d'image --}}
                     @if ($user->profile_photo_path)
-                        <img class="rounded-t-lg" src="{{ asset('storage/' . $user->profile_photo_path) }}"
-                            alt="Photo de {{ $user->name }}" />
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                            <img class="rounded-t-lg h-full" src="{{ asset('storage/' . $user->profile_photo_path) }}"
+                            alt="Photo de {{ $user->first_name }} {{ $user->last_name }}">
+                        </div>
                     @else
                         <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
                             <span class="text-gray-500">Pas d'image</span>
@@ -21,7 +23,7 @@
                     @endif
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                            {{ $user->name }}</h5>
+                            {{ $user->first_name }} {{ $user->last_name }}
                     </div>
                 </div>
             @endforeach

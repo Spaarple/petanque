@@ -3,8 +3,14 @@
 use Carbon\Carbon;
 @endphp
 <x-app-layout>
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Événements') }}
+        </h2>
+    </x-slot>
     
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
+    <div class="max-w-10xl mx-auto sm:px-6 lg:px-8 py-8">
         {{-- Si l'utilisateur est connecté et est is_approuved, afficher le bouton pour créer un événement --}}
         @if(auth()->check())
         <div class="flex justify-between items-center px-4 py-3 bg-gray-50 text-right sm:px-6">

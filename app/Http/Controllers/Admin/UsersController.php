@@ -23,49 +23,6 @@ class UsersController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //     $table->id();
-        //     $table->string('name');
-        //     $table->string('email')->unique();
-        //     $table->string("licence")->nullable();
-        //     $table->boolean("is_approved")->default(false);
-        //     $table->timestamp('email_verified_at')->nullable();
-        //     $table->string('password');
-        //     $table->enum("role",["admin","user"])->default("user");
-        //     $table->rememberToken();
-        //     $table->timestamps();
-    
-        try {
-            $validatedData = $request->validate([
-                'name' => 'required|string',
-                'email' => 'required|email|unique:users,email',
-                'licence' => 'nullable|string',
-                'is_approved' => 'required|boolean',
-                'club' => 'nullable|string',
-                'email_verified_at' => 'nullable|date',
-                'password' => 'required|string',
-                'role' => 'required|in:admin,user',
-            ]);
-            User::create($validatedData);
-            $this->alertService->success('Utilisateur créé avec succès.');
-            return redirect()->route('admin.users.index');
-        } catch (\Exception $e) {
-            $this->alertService->error('Une erreur est survenue lors de la création de l\'utilisateur.');
-            return redirect()->back();
-        }
-    }
 
     /**
      * Display the specified resource.
@@ -93,7 +50,8 @@ class UsersController extends Controller
         try {
             $users = User::findOrFail($id);
             $validatedData = $request->validate([
-                'name' => 'required|string',
+                'first_name' => 'required|string',
+                'last_name' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . $users->id,
                 'licence' => 'nullable|string',
                 'club' => 'nullable|string',
@@ -108,7 +66,7 @@ class UsersController extends Controller
             return redirect()->back();
         }
         $this->alertService->success('L\'utilisateur a bien été modifié.');
-        return redirect()->route('admin.users.index')->with('success', 'L\'utilisateur a bien été modifié.');
+        return redirect()->route('admin.users.index');
     }
 
     /**

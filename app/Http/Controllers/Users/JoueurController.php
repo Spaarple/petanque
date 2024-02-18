@@ -12,7 +12,7 @@ class JoueurController extends Controller
     {
         $users = User::where('club', 'La Baule-Escoublac')
                      ->where('is_approved', 1)
-                     ->get(['name', 'email', 'profile_photo_path']);
+                     ->get(['first_name','last_name', 'email', 'profile_photo_path']);
         
         return view('users.joueurs.index', compact('users'));
     }

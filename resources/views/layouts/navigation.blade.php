@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('/storage/' . config('site.logo_path')) }}" alt="{{ config('app.name') }}" class="block h-10 w-auto" />
+                        <img src="{{ asset('/storage/' . config('site.logo_path')) }}" alt="{{ config('app.name') }}"
+                            class="block h-10 w-auto" />
                     </a>
                 </div>
 
@@ -14,10 +15,10 @@
                 <!-- accueil, sponsor, Tournoi, album, forum, evenement, contact -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @auth
-                    <!-- active id route is dashboard or contains admin -->
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard') || request()->routeIs('admin.*')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                        <!-- active id route is dashboard or contains admin -->
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard') || request()->routeIs('admin.*')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
                     @endauth
 
                     <x-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
@@ -33,25 +34,25 @@
                         {{ __('Albums') }}
                     </x-nav-link>
                     @auth
-                    @if(Auth::user()->is_approved == 1)
-                    {{-- <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+                        @if (Auth::user()->is_approved == 1)
+                            {{-- <x-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                         {{ __('Forums') }}
                     </x-nav-link> --}}
-                    <x-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.events.*')">
-                        {{ __('Evenements') }}
-                    </x-nav-link>
-                    @endif
+                            <x-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.events.*')">
+                                {{ __('Evenements') }}
+                            </x-nav-link>
+                        @endif
                     @endauth
                     <x-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contacts.*')">
                         {{ __('Contacts') }}
                     </x-nav-link>
                     {{-- display joueur  --}}
                     @auth
-                    @if(Auth::user()->is_approved == 1)
-                    <x-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
-                        {{ __('Joueurs') }}
-                    </x-nav-link>
-                    @endif
+                        @if (Auth::user()->is_approved == 1)
+                            <x-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
+                                {{ __('Joueurs') }}
+                            </x-nav-link>
+                        @endif
                     @endauth
 
                 </div>
@@ -64,10 +65,10 @@
                             <x-slot name="trigger">
                                 <button
                                     class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    
-                                        <div>{{ Auth::user()->name }}</div>
-                                    
-                                    
+
+                                    <div>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
+
+
                                     <!-- Reste du bouton -->
                                 </button>
                             </x-slot>
@@ -89,10 +90,10 @@
                                 </form>
                             </x-slot>
                         </x-dropdown>
-                    </div>  
-                    @else
+                    </div>
+                @else
                     <div class="hidden space-x-7 sm:-my-px sm:ms-10 sm:flex">
-                        
+
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                             {{ __('Log in') }}
                         </x-nav-link>
@@ -102,9 +103,9 @@
 
 
 
-                            
-                    </div>  
-                        
+
+                    </div>
+
                 @endauth
             @endif
 
@@ -128,9 +129,9 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @auth
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
             @endauth
             <x-responsive-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
                 {{ __('Accueil') }}
@@ -145,24 +146,24 @@
                 {{ __('Albums') }}
             </x-responsive-nav-link>
             @auth
-            @if(Auth::user()->is_approved == 1)
-            {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
+                @if (Auth::user()->is_approved == 1)
+                    {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
             </x-responsive-nav-link> --}}
-            <x-responsive-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.event.*')">
-                {{ __('Evenements') }}
-            </x-responsive-nav-link>
-            @endif
+                    <x-responsive-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.event.*')">
+                        {{ __('Evenements') }}
+                    </x-responsive-nav-link>
+                @endif
             @endauth
             <x-responsive-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contact.*')">
                 {{ __('Contacts') }}
             </x-responsive-nav-link>
             @auth
-            @if(Auth::user()->is_approved == 1)
-            <x-responsive-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
-                {{ __('Joueurs') }}
-            </x-responsive-nav-link>
-            @endif
+                @if (Auth::user()->is_approved == 1)
+                    <x-responsive-nav-link :href="route('user.joueurs.index')" :active="request()->routeIs('user.joueurs.*')">
+                        {{ __('Joueurs') }}
+                    </x-responsive-nav-link>
+                @endif
             @endauth
 
 
@@ -174,37 +175,35 @@
                 @auth
                     <div class="px-4">
                         <div class="font-medium text-base text-gray-800">
-                            {{ Auth::user()->name }}
-                        <div class="font-medium text-sm text-gray-500">
-                            {{ Auth::user()->name }}</div>
-                    </div>
-                @endauth
+                            <div>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
+                        </div>
+                    @endauth
             @endif
-            
+
             <div class="mt-3 space-y-1">
                 @if (Route::has('login'))
                     @auth
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                            {{ __('Log Out') }}
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
                         </x-responsive-nav-link>
-                    </form>
+
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-responsive-nav-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-responsive-nav-link>
+                        </form>
                     @else
-                    <x-responsive-nav-link :href="route('login')">
-                        {{ __('Log in') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('register')">
-                        {{ __('Register') }}
-                    </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('login')">
+                            {{ __('Log in') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('register')">
+                            {{ __('Register') }}
+                        </x-responsive-nav-link>
                     @endauth
                 @endif
             </div>

@@ -5,38 +5,6 @@
         </h2>
     </x-slot>
 
-    {{-- // get list of all the events and events
-    $events = \App\Models\Event::all();
-    $eventRegistrations = \App\Models\EventRegistration::all();
-
-    // make two lists, one of events and tournois where registration is still open and user is not registered
-    $openEvents = [];
-    $openTournois = [];
-    foreach ($events as $event) {
-        if ($event->registration_deadline >= date('Y-m-d') && $event->max_participants > $eventRegistrations->where('event_id', $event->id)->count()) {
-            $openEvents[] = $event;
-        }
-    }
-    foreach (Tournois::all() as $tournoi) {
-        if ($tournoi->registration_deadline >= date('Y-m-d') && $tournoi->max_participants > $tournoi->participants->count()) {
-            $openTournois[] = $tournoi;
-        }
-    }
-
-    // make two lists, one of events and tournois where registration is still open and user is registered
-    $registeredEvents = [];
-    $registeredTournois = [];
-    foreach ($events as $event) {
-        if ($event->registration_deadline >= date('Y-m-d') && $event->max_participants > $eventRegistrations->where('event_id', $event->id)->count() && $eventRegistrations->where('event_id', $event->id)->where('user_id', auth()->user()->id)->count() > 0) {
-            $registeredEvents[] = $event;
-        }
-    }
-    foreach (Tournois::all() as $tournoi) {
-        if ($tournoi->registration_deadline >= date('Y-m-d') && $tournoi->max_participants > $tournoi->participants->count() && $tournoi->participants->where('user_id', auth()->user()->id)->count() > 0) {
-            $registeredTournois[] = $tournoi;
-        }
-    }
-
 
     return view('dashboard', compact('openEvents', 'openTournois', 'registeredEvents', 'registeredTournois')); --}}
 

@@ -55,6 +55,10 @@ Route::get('/', function () {
     return view('accueil', compact('sponsors', 'carouselImages', 'tournois', 'textContent'));
 })->name('accueil');
 
+Route::get('/mentions-legales', function () {
+    return view('mentionslegales');
+})->name('mentions-legales');
+
 Route::get('/dashboard', function () {
     // get list of all the events and events
     $events = \App\Models\Event::all();
@@ -70,16 +74,8 @@ Route::get('/dashboard', function () {
     // pour savoir si l'utilistateur est connecté il faut prendre son name et le comparer avec user_first_name et user_last_name de event ou user_first_name et user_last_name de tournois
     // on ne peux pas utiliser user_id car il n'est pas dans les tables event et tournois
     $user = auth()->user();
-    $fullName = $user->name; // Assurez-vous que cela correspond au format 'user_first_name user_last_name'
-    try {
-        $nameParts = explode(' ', $fullName);
-        $firstName = $nameParts[0];
-        $lastName = $nameParts[1];
-    } catch (Exception $e) {
-        $firstName = $fullName;
-        $lastName = $fullName;
-    }
-
+    $firstName = $user->first_name;
+    $lastName = $user->last_name;
 
 
     // fix problème de relatio
