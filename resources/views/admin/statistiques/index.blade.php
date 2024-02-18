@@ -85,7 +85,9 @@
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach ($pageViews as $view)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $view->page }}
+                                            {{-- if str > 40 char cut  --}}
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                {{ strlen($view->url) > 40 ? substr($view->url, 0, 40) . '...' : $view->url }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $view->views }}
                                             </td>
