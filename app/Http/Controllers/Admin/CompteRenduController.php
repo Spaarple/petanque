@@ -16,29 +16,29 @@ class CompteRenduController extends Controller
     public function index()
     {
         $compteRendus = CompteRendu::all();
-        return view('admin.compteRendus.index', compact('compteRendus'));
+        return view('admin.compterendus.index', compact('compteRendus'));
     }
 
     public function indexuser()
     {
         $compteRendus = CompteRendu::all();
-        return view('users.compteRendus.index', compact('compteRendus'));
+        return view('users.compterendus.index', compact('compteRendus'));
     }
 
     public function show(CompteRendu $compteRendu)
     {
-        return view('admin.compteRendus.show', compact('compteRendu'));
+        return view('admin.compterendus.show', compact('compteRendu'));
     }
 
     public function showuser(CompteRendu $compteRendu)
     {
-        return view('users.compteRendus.show', compact('compteRendu'));
+        return view('admin.compterendus.show', compact('compteRendu'));
     }
 
     // Afficher le formulaire de création d'un nouveau compte rendu
     public function create()
     {
-        return view('admin.compteRendus.create');
+        return view('admin.compterendus.create');
     }
 
     public function store(Request $request)
@@ -62,7 +62,7 @@ class CompteRenduController extends Controller
     // edit
     public function edit(CompteRendu $compteRendu)
     {
-        return view('admin.compteRendus.edit', compact('compteRendu'));
+        return view('admin.compterendus.edit', compact('compteRendu'));
     }
 
     // Mettre à jour un compte rendu spécifique
