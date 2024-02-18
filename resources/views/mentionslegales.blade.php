@@ -23,8 +23,8 @@
 
                     <section>
                         <h3 class="font-bold text-xl text-blue-600 mb-2">Éditeur du site</h3>
-                        <p class="mb-1"><span class="font-semibold">Nom de l'éditeur:</span> Louka Millon</p>
-                        <p class="mb-1"><span class="font-semibold">Email:</span> louka.millon.pro@gmail.com</p>
+                        <p class="mb-1">Nom de l'éditeur: Louka Millon</p>
+                        <p class="mb-1">Email: louka.millon.pro@gmail.com</p>
 
                     </section>
 
