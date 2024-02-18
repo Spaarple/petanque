@@ -7,9 +7,13 @@ use App\Models\Album;
 use App\Models\Image; // Supposons que ce modèle gère maintenant les images et les vidéos
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 
 class AlbumController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     public function index()
     {
         $albums = Album::all();
@@ -45,10 +49,12 @@ class AlbumController extends Controller
                 }
             }
 
-            return redirect()->route('admin.albums.index')->with('success', 'Album créé avec succès.');
+            $this->alertService->success('Album créé avec succès.');
+
+            return redirect()->route('admin.albums.index');
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return back()->withError('Une erreur est survenue : ' . $e->getMessage());
+            $this->alertService->error('Une erreur est survenue : ' . $e->getMessage());
+            return back();
         }
     }
 
@@ -76,10 +82,12 @@ class AlbumController extends Controller
                 }
             }
 
-            return redirect()->route('admin.albums.index')->with('success', 'Album mis à jour avec succès.');
+            $this->alertService->success('Album mis à jour avec succès.');
+
+            return redirect()->route('admin.albums.index');
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->route('admin.albums.index')->with('error', 'Une erreur est survenue lors de la mise à jour de l\'album.');
+            $this->alertService->error('Une erreur est survenue lors de la mise à jour de l\'album.');
+            return redirect()->route('admin.albums.index');
         }
     }
 
@@ -112,10 +120,13 @@ class AlbumController extends Controller
             $image = Image::findOrFail($id); // Trouver l'image par ID
             // Ajoutez ici la logique pour supprimer le fichier du disque si nécessaire
             $image->delete();
-            return redirect()->back()->with('success', 'Image supprimée avec succès.');
+
+            $this->alertService->success('Image supprimée avec succès.');
+
+            return redirect()->back();
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression de l\'image.');
+            $this->alertService->error('Une erreur est survenue lors de la suppression de l\'image.');
+            return redirect()->back();
         }
     }
 }

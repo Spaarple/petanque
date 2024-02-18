@@ -12,7 +12,7 @@
             <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <img src="{{ $sponsor->sponsor_logo }}" alt="{{ $sponsor->sponsor_name }}" class="w-full mb-4 object-contain">
-                    <p><strong>Website:</strong> <a href="{{ $sponsor->sponsor_website }}" class="text-blue-600 hover:text-blue-800">{{ $sponsor->sponsor_website }}</a></p>
+                    <p><strong>Website:</strong> <a target="_blank" href="{{ $sponsor->sponsor_website }}" class="text-blue-600 hover:text-blue-800">{{ $sponsor->sponsor_website }}</a></p>
                     <p><strong>Description:</strong> {{ $sponsor->sponsor_description ?? 'No description provided.' }}</p>
                     <!-- Autres détails du sponsor -->
                 </div>

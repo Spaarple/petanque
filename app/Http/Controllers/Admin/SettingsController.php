@@ -9,9 +9,15 @@ use App\Http\Controllers\Controller;
 use App\Models\TextContent;
 // log
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
+
 
 class SettingsController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
+
     public function index()
     {
         $carouselImages = CarouselImage::all();
@@ -57,12 +63,12 @@ class SettingsController extends Controller
                 }
             }
 
+            $this->alertService->success('Le carousel à été mis à jour.');
 
-
-            return redirect()->back()->with('success', 'Les images du carousel ont été mises à jour avec succès.');
+            return redirect()->back();
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            //return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour des images du carousel.');
+            $this->alertService->error('Une erreur est survenue lors de la mise à jour des images du carousel.');
+            return redirect()->back();
         }
     }
 
@@ -74,7 +80,9 @@ class SettingsController extends Controller
         Storage::delete('public/' . $image->image_path);
         $image->delete();
 
-        return back()->with('success', 'Image supprimée avec succès.');
+        $this->alertService->success('Image supprimée avec succès.');
+
+        return back();
     }
 
     public function updateLogo(Request $request)
@@ -93,9 +101,12 @@ class SettingsController extends Controller
             $content = preg_replace("/'logo_path' => '.*?'/", "'logo_path' => '{$logoPath}'", $content);
             file_put_contents($configPath, $content);
 
-            return back()->with('success', 'Le logo a été mis à jour avec succès.');
+            $this->alertService->success('Le logo a été mis à jour avec succès.');
+
+            return back();
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            $this->alertService->error('Une erreur est survenue lors de la mise à jour du logo.');
+            return back();
         }
     }
 
@@ -114,10 +125,12 @@ class SettingsController extends Controller
             $textContent->content = $request->input('content');
             $textContent->save();
 
-            return redirect()->back()->with('success', 'Texte mis à jour avec succès.');
+            $this->alertService->success('Texte mis à jour avec succès.');
+
+            return redirect()->back();
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour du texte.');
+            $this->alertService->error('Une erreur est survenue lors de la mise à jour du texte.');
+            return redirect()->back();
         }
     }
 }

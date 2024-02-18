@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 
 class SponsorsController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+        // Ajoutez ici les middlewares nécessaires
+    }
     /**
      * Display a listing of the resource.
      */
@@ -59,11 +64,11 @@ class SponsorsController extends Controller
             Sponsor::create($validatedData);
         } catch (\Exception $e) {
             // Vous pouvez utiliser Log pour enregistrer l'erreur ou simplement la décharger
-            Log::error($e->getMessage());
-            return back()->withError('Une erreur est survenue : ' . $e->getMessage());
+            $this->alertService->error('Une erreur est survenue : ' . $e->getMessage());
+            return back();
         }
-
-        return redirect()->route('admin.sponsors.index')->with('success', 'Sponsor créé avec succès.');
+        $this->alertService->success('Sponsor créé avec succès.');
+        return redirect()->route('admin.sponsors.index');
 
 
         // Redirection vers la liste des sponsors avec un message de succès
@@ -108,7 +113,8 @@ class SponsorsController extends Controller
         $sponsor = Sponsor::findOrFail($id);
         $sponsor->update($validatedData);
 
-        return redirect()->route('admin.sponsors.index')->with('success', 'Sponsor mis à jour avec succès.');
+        $this->alertService->success('Sponsor mis à jour avec succès.');
+        return redirect()->route('admin.sponsors.index');
     }
 
 
@@ -122,6 +128,7 @@ class SponsorsController extends Controller
         $sponsor = Sponsor::findOrFail($id);
         $sponsor->delete();
 
-        return redirect()->route('admin.sponsors.index')->with('success', 'Sponsor supprimé avec succès.');
+        $this->alertService->success('Sponsor supprimé avec succès.');
+        return redirect()->route('admin.sponsors.index');
     }
 }

@@ -3,7 +3,7 @@
 <x-app-layout>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
-        <div class="mb-2">
+        <div class="mb-4">
             <a href="{{ route('user.tournois.index') }}"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retour</a>
         </div>
@@ -12,8 +12,10 @@
             <h1 class="text-xl font-bold mb-4">{{ $tournoi->tournoi_name }}</h1>
             <p><strong>Description:</strong> {{ $tournoi->tournoi_description }}</p>
             <p><strong>Lieu:</strong> {{ $tournoi->tournoi_location }}</p>
-            <p><strong>Date limite d'inscription:</strong> {{ $tournoi->tournoi_registration_deadline }}</p>
-            <p><strong>Date et heure de début:</strong> {{ $tournoi->tournoi_start_date }}</p>
+            {{-- format années-mois-jour heure:minute --}}
+            <p><strong>Date limite d'inscription:</strong> {{ \Carbon\Carbon::parse($tournoi->tournoi_registration_deadline)->format('Y-m-d H:i') }}</p>
+            {{-- format années-mois-jour heure:minute --}}
+            <p><strong>Date et heure de début:</strong> {{ \Carbon\Carbon::parse($tournoi->tournoi_start_date)->format('Y-m-d H:i') }}</p>
             <p><strong>Pré-inscription:</strong> {{ $tournoi->tournoi_pre_inscription_fee }} €</p>
             <p><strong>Inscription:</strong> {{ $tournoi->tournoi_inscription_fee }} €</p>
             <p><strong>Equipe locale:</strong> {{ $tournoi->tournoi_team_local }}</p>

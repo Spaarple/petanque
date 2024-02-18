@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Services\AlertServiceInterface;
 
 class PetanqueController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     public function index()
     {
         return view('petanque');
@@ -18,8 +22,8 @@ class PetanqueController extends Controller
             'email' => 'email',
             'message' => 'required',
         ]);
-
-        return redirect()->route('petanque')->with('success', 'Votre message a bien été envoyé');
+        $this->alertService->success('Votre message a bien été envoyé');
+        return redirect()->route('petanque');
     }
 
     

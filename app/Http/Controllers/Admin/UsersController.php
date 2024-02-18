@@ -6,9 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
+
 
 class UsersController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -54,9 +59,11 @@ class UsersController extends Controller
                 'role' => 'required|in:admin,user',
             ]);
             User::create($validatedData);
+            $this->alertService->success('Utilisateur créé avec succès.');
+            return redirect()->route('admin.users.index');
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la création de l\'utilisateur.');
+            $this->alertService->error('Une erreur est survenue lors de la création de l\'utilisateur.');
+            return redirect()->back();
         }
     }
 
@@ -95,10 +102,12 @@ class UsersController extends Controller
                 'role' => 'required|in:admin,user',
             ]);
             $users->update($validatedData);
+
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la modification de l\'utilisateur.');
+            $this->alertService->error('Une erreur est survenue lors de la modification de l\'utilisateur.');
+            return redirect()->back();
         }
+        $this->alertService->success('L\'utilisateur a bien été modifié.');
         return redirect()->route('admin.users.index')->with('success', 'L\'utilisateur a bien été modifié.');
     }
 
@@ -111,9 +120,10 @@ class UsersController extends Controller
             $users = User::findOrFail($id);
             $users->delete();
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression de l\'utilisateur.');
+            $this->alertService->error('Une erreur est survenue lors de la suppression de l\'utilisateur.');
+            return redirect()->back();
         }
-        return redirect()->route('admin.users.index')->with('success', 'L\'utilisateur a bien été supprimé.');
+        $this->alertService->success('L\'utilisateur a bien été supprimé.');
+        return redirect()->route('admin.users.index');
     }
 }

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\StatistiqueController as AdminStatistiqueController;
 use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\Users\JoueurController as UsersJoueurController;
+use App\Http\Controllers\Admin\CompteRenduController as AdminCompteRenduController;
 use App\Models\Sponsor;
 use App\Models\Tournois;
 use Carbon\Carbon;
@@ -170,6 +171,9 @@ Route::get('/eventregistrations/create/{eventId}', [AdminEventRegistrationContro
     ->name('users.eventregistrations.create');
 
 
+//compte rendu
+//Route::resource('compte-rendus', AdminCompteRenduController::class)->middleware(['auth', 'isApproved'])->names('user.compteRendus');
+
 //contact
 Route::get('contacts', [AdminContactsController::class, 'messages'])->name('user.contacts.messages'); // Route pour la liste des contacts pour les utilisateurs normaux
 // contact.create
@@ -245,6 +249,9 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
 
     // Route pour l'événement all
     Route::get('/events/all', [AdminEventController::class, 'all'])->name('events.all');
+
+    // Route pour le compte rendu all
+    //Route::get('/compte-rendus/all', [AdminCompteRenduController::class, 'all'])->name('compteRendus.all');
 });
 
 

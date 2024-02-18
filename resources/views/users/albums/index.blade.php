@@ -6,8 +6,8 @@
             Albums
         </h2>
     </x-slot>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+    <div class="max-w-10xl mx-auto sm:px-6 lg:px-8 py-8">
+        <div class="overflow-hidden sm:rounded-lg p-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @forelse ($albums as $album)
                     <div class="rounded overflow-hidden shadow-lg">

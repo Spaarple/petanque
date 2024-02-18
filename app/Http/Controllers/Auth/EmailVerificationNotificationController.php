@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Http\Services\AlertServiceInterface;
 
 class EmailVerificationNotificationController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     /**
      * Send a new email verification notification.
      */
@@ -20,6 +24,7 @@ class EmailVerificationNotificationController extends Controller
 
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('status', 'verification-link-sent');
+        $this->alertService->success('A new verification link has been sent to the email address you provided during registration.');
+        return back();
     }
 }

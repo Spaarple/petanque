@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 use App\Models\Contact;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 
 class ContactsController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -55,7 +59,8 @@ class ContactsController extends Controller
             //Log::error($e->getMessage());
             return redirect()->back()->with('error', 'Une erreur est survenue lors de l’archivage du contact.');
         }
-        return redirect()->route('admin.contacts.index')->with('success', 'Le contact a bien été archivé.');
+        $this->alertService->success('Le contact a bien été archivé.');
+        return redirect()->route('admin.contacts.index');
     }
 
     // unarchive
@@ -66,11 +71,12 @@ class ContactsController extends Controller
             Log::info("Unarchiving contact with ID: $id");
             Contact::where('id', $id)->update(['is_archived' => false]);
         } catch (\Exception $e) {
-            Log::info("test");
+            $this->alertService->error('Une erreur est survenue lors de la désarchivage du contact.');
             //Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de l’archivage du contact.');
+            return redirect()->back();
         }
-        return redirect()->route('admin.contacts.index')->with('success', 'Le contact a bien été archivé.');
+        $this->alertService->success('Le contact a bien été désarchivé.');
+        return redirect()->route('admin.contacts.index');
     }
 
 
@@ -97,10 +103,11 @@ class ContactsController extends Controller
             ]);
             Contact::create($validatedData);
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la création du contact.');
+            $this->alertService->error('Une erreur est survenue lors de la création du contact.');
+            return redirect()->back();
         }
-        return redirect()->route('user.contacts.messages')->with('success', 'Le contact a bien été créé.');
+        $this->alertService->success('Le contact a bien été créé.');
+        return redirect()->route('user.contacts.messages');
     }
 
 
@@ -136,10 +143,11 @@ class ContactsController extends Controller
             ]);
             $contact->update($validatedData);
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la modification du contact.');
+            $this->alertService->error('Une erreur est survenue lors de la modification du contact.');
+            return redirect()->back();
         }
-        return redirect()->route('admin.contacts.index')->with('success', 'Le contact a bien été modifié.');
+        $this->alertService->success('Le contact a bien été modifié.');
+        return redirect()->route('admin.contacts.index');
     }
 
     /**
@@ -151,9 +159,10 @@ class ContactsController extends Controller
             $contact = Contact::findOrFail($id);
             $contact->delete();
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression du contact.');
+            $this->alertService->error('Une erreur est survenue lors de la suppression du contact.');
+            return redirect()->back();
         }
-        return redirect()->route('admin.contacts.index')->with('success', 'Le contact a bien été supprimé.');
+        $this->alertService->success('Le contact a bien été supprimé.');
+        return redirect()->route('admin.contacts.index');
     }
 }

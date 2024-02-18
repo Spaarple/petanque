@@ -22,7 +22,6 @@
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                             {{ $user->name }}</h5>
-                        <p class="mb-3 font-normal text-gray-700">{{ $user->email }}</p>
                     </div>
                 </div>
             @endforeach

@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Tournois;
 use App\Models\ParticipationTournois;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 
 class ParticipantsController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -47,6 +51,7 @@ class ParticipantsController extends Controller
             ]);
         }
 
-        return redirect()->route('user.tournois.index')->with('success', 'Inscription enregistrée avec succès.');
+        $this->alertService->success('Inscription enregistrée avec succès.');
+        return redirect()->route('user.tournois.index');
     }
 }

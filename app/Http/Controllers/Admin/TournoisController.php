@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Tournois;
 use App\Models\ParticipationTournois;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 class TournoisController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -60,11 +64,11 @@ class TournoisController extends Controller
             // Création du tournoi
             Tournois::create($validatedData);
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la création du tournoi.');
+            $this->alertService->error('Une erreur est survenue : ' . $e->getMessage());
+            return redirect()->back();
         }
-
-        return redirect()->route('admin.tournois.index')->with('success', 'Le tournoi a bien été créé.');
+        $this->alertService->success('Le tournoi a bien été créé.');
+        return redirect()->route('admin.tournois.index');
 
     }
 
@@ -123,11 +127,11 @@ class TournoisController extends Controller
             // Mise à jour du tournoi
             $tournoi->update($validatedData);
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour du tournoi.');
+            $this->alertService->error('Une erreur est survenue lors de la mise à jour du tournoi.');
+            return redirect()->back();
         }
-
-        return redirect()->route('admin.tournois.index')->with('success', 'Le tournoi a bien été modifié.');
+        $this->alertService->success('Le tournoi a bien été modifié.');
+        return redirect()->route('admin.tournois.index');
     }
 
     /**
@@ -142,10 +146,11 @@ class TournoisController extends Controller
             // Suppression du tournoi
             $tournoi->delete();
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de la suppression du tournoi.');
+            $this->alertService->error('Une erreur est survenue lors de la suppression du tournoi.');
+            return redirect()->back();
         }
+        $this->alertService->success('Le tournoi a bien été supprimé.');
 
-        return redirect()->route('admin.tournois.index')->with('success', 'Le tournoi a bien été supprimé.');
+        return redirect()->route('admin.tournois.index');
     }
 }

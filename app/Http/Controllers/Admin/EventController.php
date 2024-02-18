@@ -7,9 +7,13 @@ use App\Models\Event;
 use App\Models\EventRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 
 class EventController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     // Afficher tous les événements validés
     public function index()
     {
@@ -52,10 +56,12 @@ class EventController extends Controller
 
             Event::create($request->all());
 
-            return redirect()->route('user.events.index')->with('success', 'Événement créé et en attente de validation.');
+            $this->alertService->success('Événement créé avec succès.');
+
+            return redirect()->route('user.events.index');
         }catch(\Exception $e){
-            Log::error($e->getMessage());
-            return redirect()->route('user.events.index')->with('error', 'Une erreur est survenue lors de la création de l\'événement.');
+            $this->alertService->error('Une erreur est survenue lors de la création de l\'événement : ' . $e->getMessage());
+            return redirect()->route('user.events.index');
         }
     }
 
@@ -68,7 +74,8 @@ class EventController extends Controller
         }
         // if the event is already validated redirect back
         $event->update(['is_validated' => true]);
-        return redirect()->route('user.events.index')->with('success', 'Événement validé.');
+        $this->alertService->success('Événement validé.');
+        return redirect()->route('user.events.index');
     }
 
     public function unvalidateEvent(Event $event){
@@ -78,7 +85,8 @@ class EventController extends Controller
         }
         // if the event is already validated redirect back
         $event->update(['is_validated' => false]);
-        return redirect()->route('user.events.index')->with('success', 'Événement invalidé.');
+        $this->alertService->success('Événement invalidé.');
+        return redirect()->route('user.events.index');
     }
 
     // Afficher un événement spécifique with id
@@ -115,16 +123,17 @@ class EventController extends Controller
         $request->merge(['is_validated' => false]);
 
         $event->update($request->all());
+        $this->alertService->success('Événement mis à jour avec succès.');
 
-        return redirect()->route('user.events.index')->with('success', 'Événement mis à jour avec succès.');
+        return redirect()->route('user.events.index');
     }
 
     // Supprimer un événement
     public function destroy(Event $event)
     {
         $event->delete();
-
-        return redirect()->route('user.events.index')->with('success', 'Événement supprimé avec succès.');
+        $this->alertService->success('Événement supprimé avec succès.');
+        return redirect()->route('user.events.index');
     }
 
     // display all events

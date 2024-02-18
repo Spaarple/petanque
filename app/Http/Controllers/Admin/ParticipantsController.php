@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Tournois;
 use App\Models\ParticipationTournois;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\AlertServiceInterface;
 
 class ParticipantsController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -48,7 +52,8 @@ class ParticipantsController extends Controller
             // if number of participants is greater than the maximum allowed
             if (ParticipationTournois::where('tournoi_id', $request->tournoi_id)->count() >= Tournois::findOrFail($request->tournoi_id)->tournoi_max_participants) {
                 // redirect to tournois show page with error message
-                return redirect()->route('admin.tournois.show', $request->tournoi_id)->with('error', 'Le nombre maximum de participants a été atteint.');
+                $this->alertService->error('Le nombre maximum de participants a été atteint.');
+                return redirect()->route('admin.tournois.show', $request->tournoi_id);
             }
             ParticipationTournois::create([
                 'tournoi_id' => $request->tournoi_id,
@@ -59,8 +64,8 @@ class ParticipantsController extends Controller
                 // Ajoutez ici les autres champs requis par votre table
             ]);
         }
-
-        return redirect()->back()->with('success', 'Inscriptions enregistrées avec succès.');
+        $this->alertService->success('Inscriptions enregistrées avec succès.');
+        return redirect()->back();
     }
 
     /**
@@ -93,7 +98,8 @@ class ParticipantsController extends Controller
         // Vérifier si c'est une mise à jour de statut
         if ($request->input('update_type') == 'status') {
             $participation->update(['is_accepted' => true]);
-            return redirect()->back()->with('success', 'Le participant a été accepté.');
+            $this->alertService->success('Le participant a été accepté.');
+            return redirect()->back();
         } else {
             try {
                 // Mise à jour des détails du participant
@@ -106,9 +112,11 @@ class ParticipantsController extends Controller
                 ]);
                 $participation->update($validatedData);
             } catch (\Exception $e) {
-                Log::error($e->getMessage());
+                $this->alertService->error('Une erreur est survenue lors de la mise à jour du participant.');
+                return redirect()->back();
             }
-            return redirect()->back()->with('success', 'Modifications enregistrées avec succès.');
+            $this->alertService->success('Modifications enregistrées avec succès.');
+            return redirect()->back();
         }
     }
 
@@ -121,7 +129,7 @@ class ParticipantsController extends Controller
     {
         $participation = ParticipationTournois::findOrFail($id);
         $participation->delete();
-
-        return redirect()->back()->with('success', 'Suppression enregistrées avec succès.');
+        $this->alertService->success('Suppression enregistrées avec succès.');
+        return redirect()->back();
     }
 }

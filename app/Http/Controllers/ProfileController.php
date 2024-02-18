@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Http\Services\AlertServiceInterface;
+
+
 
 class ProfileController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+
+
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -32,12 +41,12 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-        \Log::info('Club value:', ['club' => $request->user()->club]);
-
-
+        
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $this->alertService->success('Profile updated successfully.');
+
+        return Redirect::route('profile.edit');
     }
 
     /**
@@ -73,6 +82,7 @@ class ProfileController extends Controller
         $user->profile_photo_path = $path;
         $user->save();
 
-        return back()->with('success', 'Photo de profil mise à jour avec succès.');
+        $this->alertService->success('Photo de profil mise à jour avec succès.');
+        return back();
     }
 }

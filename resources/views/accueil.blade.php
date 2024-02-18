@@ -69,11 +69,9 @@
     </section>
 
 
-    <div class="container-fluid mx-auto bg-grey-50 p-6 mb-5">
-        <h2 class="text-2xl font-bold text-center mb-6">Partenaires</h2>
-        <div class="text-center mb-6">
-            <a href="/sponsors" class="text-blue-600 hover:text-blue-800 font-bold">Voir tous les Partenaires</a>
-        </div>
+    <div class="container-fluid mx-auto bg-grey-50 p-4 mb-5">
+        <h2 class="text-2xl font-bold text-center mb-3">Partenaires</h2>
+        
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <!-- Boucle sur les sponsors -->
@@ -96,6 +94,9 @@
                     </div>
                 @endforeach
             </div>
+        </div>
+        <div class="text-center mt-6">
+            <a href="/sponsors" class="text-blue-600 hover:text-blue-800 font-bold">Voir tous les Partenaires</a>
         </div>
     </div>
 

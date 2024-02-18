@@ -27,8 +27,6 @@
                         <div>
                             <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
                             <a href="{{ route('user.sponsors.show', $sponsor->id) }}"
-                                class="text-blue-600 hover:text-blue-800">Visiter le site</a>
-                            <a href="{{ route('user.sponsors.show', $sponsor->id) }}"
                                 class="text-green-600 hover:text-green-800 mt-2">Voir détails</a>
                         </div>
                     </div>

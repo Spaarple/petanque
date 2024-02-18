@@ -8,9 +8,12 @@ use App\Models\EventRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
+use App\Http\Services\AlertServiceInterface;
 class EventRegistrationController extends Controller
 {
+    public function __construct(private readonly AlertServiceInterface $alertService)
+    {
+    }
 
     public function index()
     {
@@ -46,15 +49,11 @@ class EventRegistrationController extends Controller
             ]);
         }
         //redirect to event show
-        return redirect()->route('user.events.show', $request->event_id)->with('success', 'Inscriptions enregistrées avec succès.');
+        $this -> alertService -> success('Inscriptions enregistrées avec succès.');
+        return redirect()->route('user.events.show', $request->event_id);
     
     }
 
-    // show
-    public function show(string $id)
-    {
-        return redirect()->route('admin.events.index');
-    }
 
     public function edit(string $id)
     {
@@ -81,9 +80,11 @@ class EventRegistrationController extends Controller
                 ]);
                 $eventregistration->update($eventregistrationData);
             } catch (\Exception $e) {
-                Log::error($e->getMessage());
+                $this->alertService->error('Une erreur est survenue lors de la mise à jour des détails du participant.');
+                return redirect()->back();
             }
-            return redirect()->back()->with('success', 'Modifications enregistrées avec succès.');
+            $this->alertService->success('Modifications enregistrées avec succès.');
+            return redirect()->back();
         }
     }
 }
