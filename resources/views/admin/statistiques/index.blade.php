@@ -87,7 +87,8 @@
                                         <tr>
                                             {{-- if str > 40 char cut  --}}
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {{ strlen($view->url) > 40 ? substr($view->url, 0, 40) . '...' : $view->url }}
+                                                {{ \Illuminate\Support\Str::limit($view->page, 40) }}
+
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $view->views }}
                                             </td>
