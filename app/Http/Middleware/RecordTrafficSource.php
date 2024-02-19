@@ -24,6 +24,12 @@ class RecordTrafficSource
             return $next($request);
         }
 
+        // if referer is empty, we don't record it
+        if (empty($referer)) {
+            return $next($request);
+        }
+        
+
         TrafficSource::updateOrCreate(
             ['referer' => $referer],
             ['hits' => DB::raw('hits + 1')]
