@@ -67,7 +67,8 @@ class EventRegistrationController extends Controller
         // Vérifier si c'est une mise à jour de statut
         if ($request->input('update_type') == 'status') {
             $eventregistration->update(['is_accepted' => true]);
-            return redirect()->back()->with('success', 'Le participant a été accepté.');
+            $this->alertService->success('Le participant a été accepté.');
+            return redirect()->back();
         } else {
             try {
                 // Mise à jour des détails du participant

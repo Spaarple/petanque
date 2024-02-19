@@ -57,7 +57,8 @@ class ContactsController extends Controller
         } catch (\Exception $e) {
             Log::info("test");
             //Log::error($e->getMessage());
-            return redirect()->back()->with('error', 'Une erreur est survenue lors de l’archivage du contact.');
+            $this->alertService->error('Une erreur est survenue lors de l’archivage du contact.');
+            return redirect()->back();
         }
         $this->alertService->success('Le contact a bien été archivé.');
         return redirect()->route('admin.contacts.index');

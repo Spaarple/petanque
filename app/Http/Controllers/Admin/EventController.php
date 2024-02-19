@@ -70,7 +70,8 @@ class EventController extends Controller
     {
         // if user is not an admin redirect back
         if(!auth()->user()->role == 'admin'){
-            return redirect()->route('user.events.index')->with('error', 'Vous n\'êtes pas autorisé à valider un événement.');
+            $this->alertService->error('Vous n\'êtes pas autorisé à valider un événement.');
+            return redirect()->route('user.events.index');
         }
         // if the event is already validated redirect back
         $event->update(['is_validated' => true]);
@@ -81,7 +82,8 @@ class EventController extends Controller
     public function unvalidateEvent(Event $event){
         // if user is not an admin redirect back
         if(!auth()->user()->role == 'admin'){
-            return redirect()->route('user.events.index')->with('error', 'Vous n\'êtes pas autorisé à invalider un événement.');
+            $this->alertService->error('Vous n\'êtes pas autorisé à invalider un événement.');
+            return redirect()->route('user.events.index');
         }
         // if the event is already validated redirect back
         $event->update(['is_validated' => false]);
