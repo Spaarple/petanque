@@ -111,7 +111,8 @@ class AlbumController extends Controller
     public function destroy(Album $album)
     {
         $album->delete();
-        return redirect()->route('admin.albums.index')->with('success', 'Album supprimé avec succès.');
+        $this->alertService->success('Album supprimé avec succès.');
+        return redirect()->route('admin.albums.index');
     }
 
     public function destroyImage($id) // Ajusté pour accepter l'ID
