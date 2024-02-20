@@ -12,7 +12,7 @@
                 @forelse ($albums as $album)
                     <div class="rounded overflow-hidden shadow-lg">
                         @if ($album->coverImage)
-                            <img class="w-full h-48 object-cover" src="{{ Storage::url($album->coverImage->file_path) }}" alt="{{ $album->name }}">
+                            <img class="w-full h-48 object-contain" src="{{ Storage::url($album->coverImage->file_path) }}" alt="{{ $album->name }}">
                         @else
                             <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
                                 <span class="text-gray-500">Pas d'image</span>
