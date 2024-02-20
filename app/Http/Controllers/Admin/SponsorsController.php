@@ -47,7 +47,7 @@ class SponsorsController extends Controller
             // Validation des données du formulaire
             $validatedData = $request->validate([
                 'sponsor_name' => 'required|string|max:255',
-                'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
                 'sponsor_website' => 'nullable|url',
                 'sponsor_description' => 'nullable|string',
                 'sponsor_subscription_end_date' => 'required|date',
@@ -97,7 +97,7 @@ class SponsorsController extends Controller
     {
         $validatedData = $request->validate([
             'sponsor_name' => 'required|string|max:255',
-            'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'sponsor_website' => 'nullable|url',
             'sponsor_description' => 'nullable|string',
             'sponsor_subscription_end_date' => 'required|date',
