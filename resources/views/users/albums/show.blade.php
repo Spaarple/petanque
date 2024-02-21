@@ -13,13 +13,13 @@
                 <p class="text-gray-600">{{ $album->description }}</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 @foreach ($album->images as $image)
-                    <div class="rounded overflow-hidden shadow-lg">
+                    <div class="grid gap-4">
                         @if ($image->type == 'image')
-                            <img class="w-full" src="{{ Storage::url($image->file_path) }}" alt="Image">
+                            <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($image->file_path) }}" alt="Image">
                         @else
-                            <video class="w-full" controls src="{{ Storage::url($image->file_path) }}"></video>
+                            <video class="h-auto max-w-full rounded-lg" controls src="{{ Storage::url($image->file_path) }}"></video>
                         @endif
                     </div>
                 @endforeach
