@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Accueil -->
     <url>
-        <loc>https://petanque-escoublac.fr/accueil</loc>
+        <loc>https://petanque-escoublac.fr</loc>
         <priority>1.0</priority>
     </url>
     
     <!-- Partenaires -->
     <url>
-        <loc>https://petanque-escoublac.fr/partenaires</loc>
+        <loc>https://petanque-escoublac.fr/sponsors</loc>
         <priority>0.8</priority>
     </url>
     
