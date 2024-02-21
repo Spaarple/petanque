@@ -82,7 +82,8 @@
                                 <div class="p-1 w-full md:w-1/3">
                                     <div
                                         class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                        <img src="{{ Storage::url($sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}"
+                                        <!-- exemple $sponsor->sponsor_logo = "/storage/sponsors_logos/V3veShAU13ezmQqO2ANkyRqTuJdABOK1BQPQ069J.png" -->
+                                        <img src="{{ asset($sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}" 
                                             class="max-h-40 w-auto mb-3">
 
                                         <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
