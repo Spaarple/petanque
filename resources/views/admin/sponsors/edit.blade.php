@@ -1,6 +1,4 @@
 <x-app-layout>
-
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Modifier le sponsor
@@ -8,10 +6,13 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
-            <form action="{{ route('admin.sponsors.update', $sponsor->id) }}" method="PUT" enctype="multipart/form-data">
+        <!-- Modification ici : méthode POST avec champ caché pour PUT -->
+        <form action="{{ route('admin.sponsors.update', $sponsor->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT') <!-- Ajout du champ caché pour spécifier la méthode PUT -->
 
-                @csrf
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                     <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
@@ -102,12 +103,18 @@
                         <div class="grid grid-cols-3 gap-6">
                             @foreach ($sponsor->photos as $photo)
                                 <div class="col-span-3 sm:col-span-2">
-                                    <img src="{{ asset($photo->photo_path) }}" alt="sponsor photo" class="w-1/2">
-                                    <button type="submit"
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Supprimer</button>
+                                    <img src="{{ Storage::url($photo->path) }}" alt="sponsor photo" class="w-1/2">
+                                    <form action="{{ route('admin.sponsors.photos.delete', ['sponsor' => $sponsor->id, 'photo' => $photo->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette photo ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            Supprimer
+                                        </button>
+                                    </form>
                                 </div>
                             @endforeach
                         </div>
+                        
 
 
 
@@ -121,8 +128,8 @@
 
                     </div>
                 </div>
-            </form>
-        </div>
+        </form>
+    </div>
     </div>
 
 </x-app-layout>

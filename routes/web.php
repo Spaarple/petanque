@@ -201,6 +201,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
 
     // Gestion des sponsors
     Route::resource('sponsors', AdminSponsorsController::class);
+    Route::delete('/sponsors/{sponsor}/photos/{photo}', [AdminSponsorsController::class, 'deletePhoto'])->name('sponsors.photos.delete');
+
 
     // Gestion des tournois
     Route::resource('tournois', AdminTournoisController::class);

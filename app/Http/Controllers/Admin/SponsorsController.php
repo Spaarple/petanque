@@ -128,7 +128,7 @@ class SponsorsController extends Controller
         try {
             $validatedData = $request->validate([
                 'sponsor_name' => 'required|string|max:255',
-                'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
                 'sponsor_website' => 'nullable|url',
                 'sponsor_description' => 'nullable|string',
                 'sponsor_subscription_end_date' => 'required|date',
@@ -139,15 +139,17 @@ class SponsorsController extends Controller
 
             $sponsor = Sponsor::findOrFail($id);
 
+            // Gère la suppression de l'ancien logo si un nouveau est téléchargé
             if ($request->hasFile('sponsor_logo')) {
-                // Suppression de l'ancien logo si nécessaire
-                if ($sponsor->sponsor_logo && Storage::disk('public')->exists($sponsor->sponsor_logo)) {
-                    Storage::disk('public')->delete($sponsor->sponsor_logo);
-                }
-
+                $oldLogo = $sponsor->sponsor_logo;
                 // Stockage du nouveau logo et mise à jour du chemin
                 $imagePath = $request->file('sponsor_logo')->store('sponsors_logos', 'public');
                 $validatedData['sponsor_logo'] = $imagePath;
+
+                // Suppression de l'ancien logo après la mise à jour pour éviter la perte de référence
+                if ($oldLogo) {
+                    Storage::disk('public')->delete($oldLogo);
+                }
             }
 
             $sponsor->update($validatedData);
@@ -161,7 +163,6 @@ class SponsorsController extends Controller
             }
 
             DB::commit();
-
             $this->alertService->success('Sponsor mis à jour avec succès.');
             return redirect()->route('admin.sponsors.index');
         } catch (\Exception $e) {
@@ -176,6 +177,7 @@ class SponsorsController extends Controller
 
 
 
+
     /**
      * Remove the specified resource from storage.
      */
@@ -184,7 +186,34 @@ class SponsorsController extends Controller
         $sponsor = Sponsor::findOrFail($id);
         $sponsor->delete();
 
+        // log qui appel la méthode delete de la classe sponsor
+        Log::info('Sponsor supprimé', ['sponsor' => $sponsor]);
+        // log les liens avant la suppression
+        Log::info('Photos avant suppression', ['photos' => $sponsor->photos->pluck('path')->toArray()]);
+
         $this->alertService->success('Sponsor supprimé avec succès.');
         return redirect()->route('admin.sponsors.index');
+    }
+
+    public function deletePhoto(Request $request, $sponsorId, $photoId)
+    {
+        try {
+            // Trouver le sponsor par son ID - cette étape pourrait être optionnelle si vous ne l'utilisez pas directement
+            $sponsor = Sponsor::findOrFail($sponsorId);
+
+            // Trouver directement la photo par son ID et s'assurer qu'elle appartient bien au sponsor en question
+            $photo = Photo::where('id', $photoId)->where('sponsor_id', $sponsorId)->firstOrFail();
+
+
+            // Suppression de l'entrée de la photo dans la base de données
+            $photo->delete();
+
+            $this->alertService->success('Photo supprimée avec succès.');
+            return back();
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la suppression de la photo: ' . $e->getMessage());
+            $this->alertService->error('Une erreur est survenue lors de la suppression de la photo.');
+            return back();
+        }
     }
 }
