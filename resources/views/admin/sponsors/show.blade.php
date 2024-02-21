@@ -19,7 +19,7 @@
             
             <!-- Affichage des détails du sponsor -->
             <div class="space-y-3">
-                <p><strong>Logo :</strong> <img src="{{ $sponsor->sponsor_logo }}" alt="Logo" class="h-16"></p>
+                <p><strong>Logo :</strong> <img src="{{ asset('storage/' . $sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}" class="w-32 h-32 object-cover rounded-lg"></p>
                 <p><strong>Site Web :</strong> <a href="{{ $sponsor->sponsor_website }}" class="text-blue-600 hover:underline">{{ $sponsor->sponsor_website }}</a></p>
                 <p><strong>Description :</strong> {{ $sponsor->sponsor_description }}</p>
                 <p><strong>Nom du Contact :</strong> {{ $sponsor->sponsor_contact_name }}</p>
