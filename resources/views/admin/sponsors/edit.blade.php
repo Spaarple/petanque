@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
-            <form action="{{ route('admin.sponsors.update', $sponsor->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.sponsors.update', $sponsor->id) }}" method="PUT" enctype="multipart/form-data">
 
                 @csrf
                 <div class="shadow sm:rounded-md sm:overflow-hidden">
