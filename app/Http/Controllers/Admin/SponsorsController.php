@@ -109,8 +109,11 @@ class SponsorsController extends Controller
 
         // Traitement du téléchargement du logo si présent et différent
         if ($request->hasFile('sponsor_logo')) {
-            $path = $request->file('sponsor_logo')->store('public/sponsors');
-            $validatedData['sponsor_logo'] = basename($path);
+            // Stockage de l'image dans le système de fichiers
+            $imagePath = $request->file('sponsor_logo')->store('sponsors_logos', 'public');
+
+            // Ajout du chemin de l'image dans le tableau des données validées
+            $validatedData['sponsor_logo'] = $imagePath;
         }
 
         $sponsor = Sponsor::findOrFail($id);
