@@ -18,7 +18,7 @@
                 </div>
             @endif
             @foreach ($sponsors as $sponsor)
-            <div class="p-2 md:w-1/2 lg:w-1/4 sm:w-full w-full">
+            <div class="p-2 md:w-1/4 lg:w-1/4 sm:w-full w-full">
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow w-58>
                     <a href="/sponsors/{{ $sponsor->id }}">
                         <!-- Ajout des classes w-32 et h-32 pour définir une taille fixe de 128px par 128px -->
@@ -26,7 +26,7 @@
                     </a>
                     <div class="p-5">
                         <a href="/sponsors/{{ $sponsor->id }}">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 h-10">
                                 {{ $sponsor->sponsor_name }}</h5>
                         </a>
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $sponsor->sponsor_description }}</p>
