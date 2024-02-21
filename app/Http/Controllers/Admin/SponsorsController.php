@@ -54,11 +54,12 @@ class SponsorsController extends Controller
                 // Inclure des règles de validation pour les autres champs si nécessaire
             ]);
 
-            // Traitement du téléchargement du logo si présent
+            // Traitement du téléchargement de l'image si présent
             if ($request->hasFile('sponsor_logo')) {
                 $path = $request->file('sponsor_logo')->store('public/sponsors_logos');
-                $validatedData['sponsor_logo'] = Storage::url($path);
+                $validatedData['sponsor_logo'] = basename($path);
             }
+
 
             // Création du sponsor
             Sponsor::create($validatedData);

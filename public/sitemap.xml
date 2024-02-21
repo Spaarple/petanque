@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Accueil -->
+    <url>
+        <loc>https://petanque-escoublac.fr/accueil</loc>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Partenaires -->
+    <url>
+        <loc>https://petanque-escoublac.fr/partenaires</loc>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Tournois -->
+    <url>
+        <loc>https://petanque-escoublac.fr/tournois</loc>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Albums -->
+    <url>
+        <loc>https://petanque-escoublac.fr/albums</loc>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Contacts -->
+    <url>
+        <loc>https://petanque-escoublac.fr/contacts</loc>
+        <priority>0.5</priority>
+    </url>
+
+</urlset>
