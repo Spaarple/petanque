@@ -82,11 +82,14 @@
                                 <div class="p-1 w-full md:w-1/3">
                                     <div
                                         class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                        <img src="{{ $sponsor->sponsor_logo }}" alt="{{ $sponsor->sponsor_name }}"
+                                        <img src="{{ Storage::url($sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}"
                                             class="max-h-40 w-auto mb-3">
+
                                         <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
-                                        <a href="{{ $sponsor->sponsor_website }}"
-                                            class="text-blue-600 hover:text-blue-800">Visiter le site</a>
+                                        <!-- lien vers les détails du sponsor -->
+                                        <a href="/sponsors/{{ $sponsor->id }}"
+                                            class="text-blue-600 hover:text-blue-800 font-bold">Voir le
+                                            Partenaire</a>
                                     </div>
                                 </div>
                             @endforeach
