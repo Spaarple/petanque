@@ -84,7 +84,7 @@
                                     <div
                                         class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
                                         <!-- exemple $sponsor->sponsor_logo = "/storage/sponsors_logos/V3veShAU13ezmQqO2ANkyRqTuJdABOK1BQPQ069J.png" mais en public "qn9DspX1GtUGzWM8mPo0FSzupOJIKXtq5Q8BZeSX.jpg" or le dossier sponsors_logos est toujours nécessaire  -->
-                                        @php @dump( asset('/storage/sponsors_logo/'. $sponsor) ) @endphp
+                                        @php @dump( asset('/storage/sponsors_logo/'. $sponsor->sponsor_logo) ) @endphp
                                         <img src="{{ asset('/storage/sponsors_logo/' . $sponsor->sponsor_logo) }}"
                                             alt="{{ $sponsor->sponsor_name }}" class="w-32 h-32 object-contain">
 
