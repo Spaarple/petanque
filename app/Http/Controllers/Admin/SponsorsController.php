@@ -56,7 +56,7 @@ class SponsorsController extends Controller
 
             // Traitement du téléchargement de l'image si présent
             if ($request->hasFile('sponsor_logo')) {
-                $path = $request->file('sponsor_logo')->store('public/sponsors_logos');
+                $path = $request->file('sponsor_logo')->store('public/sponsors');
                 $validatedData['sponsor_logo'] = basename($path);
             }
 
@@ -107,7 +107,7 @@ class SponsorsController extends Controller
 
         // Traitement du téléchargement du logo si présent et différent
         if ($request->hasFile('sponsor_logo')) {
-            $path = $request->file('sponsor_logo')->store('public/sponsors_logos');
+            $path = $request->file('sponsor_logo')->store('public/sponsors');
             $validatedData['sponsor_logo'] = basename($path);
         }
 
