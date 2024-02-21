@@ -16,7 +16,8 @@
             @if ($tournois->isEmpty())
                 <h2 class="text-2xl font-bold text-center mb-6">Aucun tournoi à venir</h2>
             @else
-                <a class="block bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg" href="/tournois/{{ $tournois[0]->id }}">
+                <a class="block bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg"
+                    href="/tournois/{{ $tournois[0]->id }}">
                     <div class="p-4">
                         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                             <!-- Sur les petits écrans, les éléments s'empilent verticalement -->
@@ -71,7 +72,7 @@
 
     <div class="container-fluid mx-auto bg-grey-50 p-4 mb-5">
         <h2 class="text-2xl font-bold text-center mb-3">Partenaires</h2>
-        
+
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <!-- Boucle sur les sponsors -->
@@ -83,8 +84,9 @@
                                     <div
                                         class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
                                         <!-- exemple $sponsor->sponsor_logo = "/storage/sponsors_logos/V3veShAU13ezmQqO2ANkyRqTuJdABOK1BQPQ069J.png" mais en public "qn9DspX1GtUGzWM8mPo0FSzupOJIKXtq5Q8BZeSX.jpg" or le dossier sponsors_logos est toujours nécessaire  -->
-                                        <img src="{{ asset('storage/sponsors_logos/' . $sponsor->sponsor_logo) }}"
-                                            class="max-h-40 w-auto mb-3">
+                                        <img src="{{ asset($sponsor->publicSponsorLogo) }}"
+                                            alt="{{ $sponsor->sponsor_name }}" class="max-h-40 w-auto mb-3">
+
 
                                         <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
                                         <!-- lien vers les détails du sponsor -->

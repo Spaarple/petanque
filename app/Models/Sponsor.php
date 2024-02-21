@@ -17,5 +17,8 @@ class Sponsor extends Model
         // Incluez tous les autres champs que vous souhaitez enregistrer
     ];
 
-
+    public function getPublicSponsorLogoAttribute()
+    {
+        return '/storage/sponsors_logos/' . $this->public_filename; // Assuming `public_filename` is the attribute name
+    }
 }
