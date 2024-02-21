@@ -19,15 +19,27 @@
             @endif
             @foreach ($sponsors as $sponsor)
                 <div class="p-2 w-1/2 md:w-1/4 lg:w-1/6">
-                    <div class="flex flex-col justify-between bg-white shadow-lg rounded-lg p-4 h-56">
-                        <div class="flex-1 flex items-center justify-center">
-                            <img src="{{ asset( 'storage/' . $sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}"
-                                class="max-h-28 w-auto mb-3 object-contain">
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
-                            <a href="{{ route('user.sponsors.show', $sponsor->id) }}"
-                                class="text-green-600 hover:text-green-800 mt-2">Voir détails</a>
+                    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+                        <a href="/sponsors/{{ $sponsor->id }}">
+                            <img src="{{ asset('storage/' . $sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}"
+                                class="rounded-t-lg">
+                        </a>
+                        <div class="p-5">
+                            <a href="/sponsors/{{ $sponsor->id }}">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {{ $sponsor->sponsor_name }}</h5>
+                            </a>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $sponsor->sponsor_description }}
+                            </p>
+                            <a href="/sponsors/{{ $sponsor->id }}"
+                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Voir
+                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
