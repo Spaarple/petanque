@@ -21,7 +21,7 @@
                 <div class="p-2 w-1/2 md:w-1/4 lg:w-1/6">
                     <div class="flex flex-col justify-between bg-white shadow-lg rounded-lg p-4 h-56">
                         <div class="flex-1 flex items-center justify-center">
-                            <img src="{{ $sponsor->sponsor_logo }}" alt="{{ $sponsor->sponsor_name }}"
+                            <img src="{{ asset( 'storage/' . $sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}"
                                 class="max-h-28 w-auto mb-3 object-contain">
                         </div>
                         <div>
