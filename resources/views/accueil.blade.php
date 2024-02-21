@@ -82,8 +82,8 @@
                                 <div class="p-1 w-full md:w-1/3">
                                     <div
                                         class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                        <!-- exemple $sponsor->sponsor_logo = "/storage/sponsors_logos/V3veShAU13ezmQqO2ANkyRqTuJdABOK1BQPQ069J.png" -->
-                                        <img src="{{ asset($sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}" 
+                                        <!-- exemple $sponsor->sponsor_logo = "/storage/sponsors_logos/V3veShAU13ezmQqO2ANkyRqTuJdABOK1BQPQ069J.png" mais en public "qn9DspX1GtUGzWM8mPo0FSzupOJIKXtq5Q8BZeSX.jpg" or le dossier sponsors_logos est toujours nécessaire  -->
+                                        <img src="{{ asset('storage/sponsors_logos/' . $sponsor->sponsor_logo) }}"
                                             class="max-h-40 w-auto mb-3">
 
                                         <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
