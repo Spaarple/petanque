@@ -1,4 +1,11 @@
 <x-app-layout>
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Créer un sponsor
+        </h2>
+    </x-slot>
+
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <form action="{{ route('admin.sponsors.store') }}" method="POST" enctype="multipart/form-data" class="mt-5 md:mt-0 md:col-span-2">
             @csrf
@@ -32,6 +39,31 @@
                         <input type="date" name="sponsor_subscription_end_date" id="sponsor_subscription_end_date" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
+                    
+                {{-- contact mail --}}
+                <div class="mb-4">
+                    <label for="sponsor_contact_email" class="block text-gray-700 text-sm font-bold mb-2">Mail:</label>
+                    <input type="text" name="sponsor_contact_email" id="sponsor_contact_email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                {{-- contact téléphone --}}
+                <div class="mb-4">
+                    <label for="sponsor_contact_phone" class="block text-gray-700 text-sm font-bold mb-2">Téléphone:</label>
+                    <input type="text" name="sponsor_contact_phone" id="sponsor_contact_phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                {{-- contact adresse --}}
+                <div class="mb-4">
+                    <label for="sponsor_contact_address" class="block text-gray-700 text-sm font-bold mb-2">Adresse:</label>
+                    <input type="text" name="sponsor_contact_address" id="sponsor_contact_address" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+
+                {{-- Ajout de la possibilité de télécharger plusieurs images à la fois --}}
+                <div class="mb-4">
+                    <label for="photos" class="block text-gray-700 text-sm font-bold mb-2">Choisir des images:</label>
+                    <input type="file" name="photos[]" multiple id="photos" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
 
                     <!-- Ajoutez ici d'autres champs nécessaires -->
 

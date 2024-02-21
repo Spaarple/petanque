@@ -14,11 +14,18 @@ class Sponsor extends Model
         'sponsor_website',
         'sponsor_description',
         'sponsor_subscription_end_date',
+        'sponsor_contact_email',
+        'sponsor_contact_phone',
+        'sponsor_contact_address',
         // Incluez tous les autres champs que vous souhaitez enregistrer
     ];
 
-    public function getPublicSponsorLogoAttribute()
-    {
-        return '/storage/sponsors_logos/' . $this->public_filename; // Assuming `public_filename` is the attribute name
-    }
+     // Dans App\Models\Sponsor
+
+     public function photos()
+     {
+         return $this->hasMany(Photo::class);
+     }
+
+    
 }

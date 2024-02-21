@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use App\Http\Services\AlertServiceInterface;
+use App\Models\Photo;
+use Illuminate\Support\Facades\DB;
 
 class SponsorsController extends Controller
 {
@@ -43,6 +45,8 @@ class SponsorsController extends Controller
 
     public function store(Request $request)
     {
+        // Commencer une transaction pour s'assurer de la cohérence des données
+        DB::beginTransaction();
         try {
             // Validation des données du formulaire
             $validatedData = $request->validate([
@@ -51,23 +55,44 @@ class SponsorsController extends Controller
                 'sponsor_website' => 'nullable|url',
                 'sponsor_description' => 'nullable|string',
                 'sponsor_subscription_end_date' => 'required|date',
-                // Inclure des règles de validation pour les autres champs si nécessaire
+                'sponsor_contact_email' => 'nullable|email',
+                'sponsor_contact_phone' => 'nullable|string',
+                'sponsor_contact_address' => 'nullable|string',
+
+
+
             ]);
 
             if ($request->hasFile('sponsor_logo')) {
                 // Stockage de l'image dans le système de fichiers
                 $imagePath = $request->file('sponsor_logo')->store('sponsors_logos', 'public');
-    
+
                 // Ajout du chemin de l'image dans le tableau des données validées
                 $validatedData['sponsor_logo'] = $imagePath;
             }
 
 
             // Création du sponsor
-            Sponsor::create($validatedData);
+            $sponsor = Sponsor::create($validatedData);
+
+            //Traitemenet du téléchargement des photos de l'album
+            if ($request->hasFile('photos')) {
+                foreach ($request->file('photos') as $photo) {
+                    $path = $photo->store('sponsor_photos', 'public');
+                    Photo::create([
+                        'sponsor_id' => $sponsor->id,
+                        'path' => $path,
+                    ]);
+                }
+            }
+
+            DB::commit();
         } catch (\Exception $e) {
             // Vous pouvez utiliser Log pour enregistrer l'erreur ou simplement la décharger
+            DB::rollBack();
+            Log::error('Erreur lors de la création du sponsor: ' . $e->getMessage());
             $this->alertService->error('Une erreur est survenue : ' . $e->getMessage());
+
             return back();
         }
         $this->alertService->success('Sponsor créé avec succès.');
@@ -98,30 +123,55 @@ class SponsorsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'sponsor_name' => 'required|string|max:255',
-            'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-            'sponsor_website' => 'nullable|url',
-            'sponsor_description' => 'nullable|string',
-            'sponsor_subscription_end_date' => 'required|date',
-            // Inclure des règles de validation pour les autres champs si nécessaire
-        ]);
+        DB::beginTransaction();
 
-        // Traitement du téléchargement du logo si présent et différent
-        if ($request->hasFile('sponsor_logo')) {
-            // Stockage de l'image dans le système de fichiers
-            $imagePath = $request->file('sponsor_logo')->store('sponsors_logos', 'public');
+        try {
+            $validatedData = $request->validate([
+                'sponsor_name' => 'required|string|max:255',
+                'sponsor_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'sponsor_website' => 'nullable|url',
+                'sponsor_description' => 'nullable|string',
+                'sponsor_subscription_end_date' => 'required|date',
+                'sponsor_contact_email' => 'nullable|email',
+                'sponsor_contact_phone' => 'nullable|string',
+                'sponsor_contact_address' => 'nullable|string',
+            ]);
 
-            // Ajout du chemin de l'image dans le tableau des données validées
-            $validatedData['sponsor_logo'] = $imagePath;
+            $sponsor = Sponsor::findOrFail($id);
+
+            if ($request->hasFile('sponsor_logo')) {
+                // Suppression de l'ancien logo si nécessaire
+                if ($sponsor->sponsor_logo && Storage::disk('public')->exists($sponsor->sponsor_logo)) {
+                    Storage::disk('public')->delete($sponsor->sponsor_logo);
+                }
+
+                // Stockage du nouveau logo et mise à jour du chemin
+                $imagePath = $request->file('sponsor_logo')->store('sponsors_logos', 'public');
+                $validatedData['sponsor_logo'] = $imagePath;
+            }
+
+            $sponsor->update($validatedData);
+
+            // Gestion de l'ajout de nouvelles photos à l'album du sponsor
+            if ($request->hasFile('photos')) {
+                foreach ($request->file('photos') as $photo) {
+                    $path = $photo->store('sponsor_photos', 'public');
+                    $sponsor->photos()->create(['path' => $path]);
+                }
+            }
+
+            DB::commit();
+
+            $this->alertService->success('Sponsor mis à jour avec succès.');
+            return redirect()->route('admin.sponsors.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Erreur lors de la mise à jour du sponsor: ' . $e->getMessage());
+            $this->alertService->error('Une erreur est survenue lors de la mise à jour du sponsor.');
+            return back()->withInput();
         }
-
-        $sponsor = Sponsor::findOrFail($id);
-        $sponsor->update($validatedData);
-
-        $this->alertService->success('Sponsor mis à jour avec succès.');
-        return redirect()->route('admin.sponsors.index');
     }
+
 
 
 
