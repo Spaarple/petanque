@@ -13,7 +13,7 @@
                 <p class="text-gray-600">{{ $album->description }}</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-3 md:grid-cols-4 gap-4">
                 @foreach ($album->images as $image)
                     <div class="grid gap-4">
                         @if ($image->type == 'image')
