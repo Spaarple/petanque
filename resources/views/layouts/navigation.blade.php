@@ -153,12 +153,12 @@
                     {{-- <x-responsive-nav-link :href="route('forums')" :active="request()->routeIs('forums')">
                 {{ __('Forums') }}
             </x-responsive-nav-link> --}}
-                    <x-responsive-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.event.*')">
+                    <x-responsive-nav-link :href="route('user.events.index')" :active="request()->routeIs('user.events.*')">
                         {{ __('Evenements') }}
                     </x-responsive-nav-link>
                 @endif
             @endauth
-            <x-responsive-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contact.*')">
+            <x-responsive-nav-link :href="route('user.contacts.messages')" :active="request()->routeIs('user.contacts.*')">
                 {{ __('Contacts') }}
             </x-responsive-nav-link>
             @auth
