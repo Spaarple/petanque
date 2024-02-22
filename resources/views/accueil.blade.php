@@ -16,14 +16,14 @@
             @if ($tournois->isEmpty())
                 <h2 class="text-2xl font-bold text-center mb-6">Aucun tournoi à venir</h2>
             @else
-                <a class="block bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg"
+                <a class="block bg-blue-800 text-white rounded-lg overflow-hidden shadow-lg"
                     href="/tournois/{{ $tournois[0]->id }}">
                     <div class="p-4">
                         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                             <!-- Sur les petits écrans, les éléments s'empilent verticalement -->
                             <!-- Sur les grands écrans, La Baule Escoublac à gauche, À venir au centre, Nationnal à droite -->
                             <span
-                                class="text-xl text-gray-500 md:w-1/3 md:text-left">{{ $tournois[0]->tournoi_name }}</span>
+                                class="text-xl text-white-500 md:w-1/3 md:text-left">{{ $tournois[0]->tournoi_name }}</span>
                             <span class="text-lg uppercase  md:w-1/3 md:text-center"><span
                                     class="bg-red-600 rounded-lg p-2">À venir</span></span>
                             <span
