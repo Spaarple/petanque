@@ -16,7 +16,7 @@
             @if ($tournois->isEmpty())
                 <h2 class="text-2xl font-bold text-center mb-6">Aucun tournoi à venir</h2>
             @else
-                <a class="block bg-blue-800 text-white rounded-lg overflow-hidden shadow-lg"
+                <a class="block bg-blue-600 text-white rounded-lg overflow-hidden shadow-lg"
                     href="/tournois/{{ $tournois[0]->id }}">
                     <div class="p-4">
                         <div class="flex flex-col md:flex-row justify-between items-center mb-4">
