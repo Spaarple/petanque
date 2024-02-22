@@ -146,6 +146,8 @@ class SponsorsController extends Controller
                 $imagePath = $request->file('sponsor_logo')->store('sponsors_logos', 'public');
                 $validatedData['sponsor_logo'] = $imagePath;
 
+                dump($oldLogo);
+
                 // Suppression de l'ancien logo après la mise à jour pour éviter la perte de référence
                 if ($oldLogo) {
                     Storage::disk('public')->delete($oldLogo);
@@ -169,7 +171,7 @@ class SponsorsController extends Controller
             DB::rollBack();
             Log::error('Erreur lors de la mise à jour du sponsor: ' . $e->getMessage());
             $this->alertService->error('Une erreur est survenue lors de la mise à jour du sponsor.');
-            return back()->withInput();
+            return back();
         }
     }
 

@@ -200,9 +200,16 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(f
     Route::redirect('/', '/dashboard');
 
     // Gestion des sponsors
-    Route::resource('sponsors', AdminSponsorsController::class);
-    Route::delete('/sponsors/{sponsor}/photos/{photo}', [AdminSponsorsController::class, 'deletePhoto'])->name('sponsors.photos.delete');
+    Route::get('/sponsors', [AdminSponsorsController::class, 'index'])->name('sponsors.index');
+    Route::get('/sponsors/create', [AdminSponsorsController::class, 'create'])->name('sponsors.create');
+    Route::post('/sponsors', [AdminSponsorsController::class, 'store'])->name('sponsors.store');
+    Route::get('/sponsors/{sponsor}', [AdminSponsorsController::class, 'show'])->name('sponsors.show');
+    Route::get('/sponsors/{sponsor}/edit', [AdminSponsorsController::class, 'edit'])->name('sponsors.edit');
+    Route::put('/sponsors/{sponsor}', [AdminSponsorsController::class, 'update'])->name('sponsors.update');
+    Route::delete('/sponsors/{sponsor}', [AdminSponsorsController::class, 'destroy'])->name('sponsors.destroy');
 
+    Route::delete('/sponsors/{sponsor}/photos/{photo}', [AdminSponsorsController::class, 'deletePhoto'])->name('sponsors.photos.delete');
+    Route::delete('/sponsors/{sponsor}/delete', [AdminSponsorsController::class, 'deletesponsor'])->name('sponsors.delete');
 
     // Gestion des tournois
     Route::resource('tournois', AdminTournoisController::class);

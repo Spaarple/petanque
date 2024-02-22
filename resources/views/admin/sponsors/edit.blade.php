@@ -9,7 +9,7 @@
         <!-- Modification ici : méthode POST avec champ caché pour PUT -->
         <form action="{{ route('admin.sponsors.update', $sponsor->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT') <!-- Ajout du champ caché pour spécifier la méthode PUT -->
+            @method('PUT') <!-- Correct pour simuler une requête PUT -->
 
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -104,17 +104,12 @@
                             @foreach ($sponsor->photos as $photo)
                                 <div class="col-span-3 sm:col-span-2">
                                     <img src="{{ Storage::url($photo->path) }}" alt="sponsor photo" class="w-1/2">
-                                    <form action="{{ route('admin.sponsors.photos.delete', ['sponsor' => $sponsor->id, 'photo' => $photo->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette photo ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                            Supprimer
-                                        </button>
-                                    </form>
+                                    
                                 </div>
                             @endforeach
+
                         </div>
-                        
+
 
 
 
@@ -123,9 +118,9 @@
 
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        <button type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Modifier</button>
-
+                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                            Modifier
+                        </button>
                     </div>
                 </div>
         </form>
