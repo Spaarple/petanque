@@ -23,13 +23,11 @@
                                 <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 truncate">
                                     {{ $sponsor->sponsor_name }}</h5>
                             </a>
-                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis overflow-hidden h-20">
-                                {{ $sponsor->sponsor_description }}
-                            </p>
-                            <a href="/sponsors/{{ $sponsor->id }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                Voir
-                                <svg class="ml-2 -mr-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                            </a>
+                            <p class="text-gray-700">{{ $sponsor->sponsor_description }}</p>
+
+                            <!-- button voir plus -->
+                            <a href="/sponsors/{{ $sponsor->id }}" class="mt-4 block w-full bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-600 text-white font-semibold rounded-lg px-4 py-2 text-center transition duration-300 ease-in-out">Voir plus</a>
+
                         </div>
                     </div>
                 </div>
