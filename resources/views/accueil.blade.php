@@ -126,6 +126,9 @@
                 <div class="w-full px-2">
                     {!! $textContent->content !!}
                 </div>
+                {{-- fixed image --}}
+                <img src="{{ asset('images/bureau.jpg') }}"
+                    class="w-full h-64 object-cover rounded-lg shadow-lg mt-4" alt="bureau">
 
             </div>
         </div>
