@@ -10,7 +10,7 @@ class JoueurController extends Controller
 {
     public function index()
     {
-        $users = User::where('club', 'La Baule-Escoublac')
+        $users = User::where('club', 'ASC ESCOUBLAC')
                      ->where('is_approved', 1)
                      ->get(['first_name','last_name', 'email', 'profile_photo_path']);
         
