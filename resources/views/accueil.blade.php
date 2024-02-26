@@ -112,7 +112,7 @@
 
 
     <section class="container-fluid bg-gray-200 mx-auto p-4">
-        <h2 class="text-2xl font-bold text-center mb-6">Localisation du Club de Pétanque</h2>
+        <h2 class="text-2xl font-bold text-center mb-6">Club de Pétanque de la Baule-Escoublac</h2>
         <div class="flex flex-wrap -mx-2">
             <!-- Div pour la carte -->
             <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
