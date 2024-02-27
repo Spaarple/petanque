@@ -98,10 +98,10 @@
                     <div class="hidden space-x-7 sm:-my-px sm:ms-10 sm:flex">
 
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                            {{ __('Log in') }}
+                            {{ __('Se connecter') }}
                         </x-nav-link>
                         <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                            {{ __('Register') }}
+                            {{ __('S\'enregistrer') }}
                         </x-nav-link>
 
 
@@ -200,15 +200,15 @@
                             <x-responsive-nav-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Se déconnecter') }}
                             </x-responsive-nav-link>
                         </form>
                     @else
                         <x-responsive-nav-link :href="route('login')">
-                            {{ __('Log in') }}
+                            {{ __('Se connecter') }}
                         </x-responsive-nav-link>
                         <x-responsive-nav-link :href="route('register')">
-                            {{ __('Register') }}
+                            {{ __('S\'enregistrer') }}
                         </x-responsive-nav-link>
                     @endauth
                 @endif
