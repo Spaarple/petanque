@@ -4,7 +4,7 @@
         <a href="{{ route('user.tournois.show', $tournoi->id) }}" class="text-blue-500 hover:text-blue-700 mb-4 inline-flex items-center">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
-            Retour au tournoi fuck max
+            Retour au tournoi
         </a>
         <div class="bg-white p-6 rounded shadow-xl">
             <h2 class="text-xl font-bold mb-4">Inscription au tournoi : {{ $tournoi->tournoi_name }}</h2>
