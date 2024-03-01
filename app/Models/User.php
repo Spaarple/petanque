@@ -27,6 +27,9 @@ class User extends Authenticatable
         'club',
         'profile_photo_path',
         'role',
+        'address',
+        'birthday',
+        'phone',
     ];
 
     /**

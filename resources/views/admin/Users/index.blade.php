@@ -15,6 +15,12 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rôle</th>
+                            <!-- phone -->
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Téléphone</th>
+                            <!-- birthday -->
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date de naissance</th>
+                            <!-- address -->
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
                             <!-- club -->
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Club</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut Licence</th>
@@ -30,6 +36,9 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->first_name }} {{ $user->last_name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->role }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $user->phone }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $user->birthday }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $user->address }}</td>
                                 <!-- club -->
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->club }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $user->is_approved ? 'Valide' : 'Non Valide' }}</td>

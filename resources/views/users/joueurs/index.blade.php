@@ -21,9 +21,25 @@
                             <span class="text-gray-500">Pas d'image</span>
                         </div>
                     @endif
-                    <div class="p-5">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                            {{ $user->first_name }} {{ $user->last_name }}
+                    <div class="p-6">
+                        <h5 class="mb-4 text-2xl font-semibold text-gray-900">{{ $user->first_name }}
+                            {{ $user->last_name }}</h5>
+                        <p class="text-base text-gray-700 mb-4">
+                            
+                            {{ $user->email }}
+                        </p>
+                        <p class="text-base text-gray-700">
+                            
+                            {{ $user->phone }}
+                        </p>
+                        <p class="text-base text-gray-700">
+                            
+                            {{ $user->address }}
+                        </p>
+                        <p class="text-base text-gray-700">
+                            
+                            {{ $user->birthday }}
+                        </p>
                     </div>
                 </div>
             @endforeach

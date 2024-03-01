@@ -23,6 +23,28 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- phone -->
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Téléphone')" />
+            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autocomplete="phone" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
+        <!-- birthdate -->
+        <div class="mt-4">
+            <x-input-label for="birthday" :value="__('Date de naissance')" />
+            <x-text-input id="birthday" class="block mt-1 w-full" type="date" name="" :value="old('birthday')" required autocomplete="birthday" />
+            <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
+        </div>
+
+        <!-- address -->
+        <div class="mt-4">
+            <x-input-label for="address" :value="__('Adresse')" />
+            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autocomplete="address" />
+            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+
+
         <!-- licence -->
         <div class="mt-4">
             <x-input-label for="licence" :value="__('Licence')" />

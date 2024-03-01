@@ -14,7 +14,7 @@ class JoueurController extends Controller
         $users = User::where('club', 'ASCE ESCOUBLAC') 
                      ->orWhere('club', 'ASCE Section Petanque')
                      ->where('is_approved', 1)
-                     ->get(['first_name','last_name', 'email', 'profile_photo_path']);
+                        ->get();
 
         
         

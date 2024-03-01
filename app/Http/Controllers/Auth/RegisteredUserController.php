@@ -38,7 +38,9 @@ class RegisteredUserController extends Controller
             'licence' => ['required', 'string', 'max:255'],
             'club' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-
+            'phone' => 'nullable|regex:/^0[1-9]([-. ]?[0-9]{2}){4}$/',
+            'birthday' => 'nullable|date',
+            'address' => 'nullable|string|max:255',
         ]);
 
         $user = User::create([
@@ -48,6 +50,9 @@ class RegisteredUserController extends Controller
             'licence' => $request->licence,
             'club' => $request->club,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'birthday' => $request->birthday,
+            'address' => $request->address,
         ]);
 
         event(new Registered($user));

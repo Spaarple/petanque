@@ -28,6 +28,24 @@
                         <input type="email" name="email" id="email" value="{{ $users->email }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                     </div>
 
+                    <!-- phone -->
+                    <div class="mb-4">
+                        <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Téléphone:</label>
+                        <input type="text" name="phone" id="phone" value="{{ $users->phone }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+
+                    <!-- birthday -->
+                    <div class="mb-4">
+                        <label for="birthday" class="block text-gray-700 text-sm font-bold mb-2">Date de naissance:</label>
+                        <input type="date" name="birthday" id="birthday" value="{{ $users->birthday }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+
+                    <!-- address -->
+                    <div class="mb-4">
+                        <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Adresse:</label>
+                        <input type="text" name="address" id="address" value="{{ $users->address }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+
                     <!-- licence -->
                     <div class="mb-4">
                         <label for="licence" class="block text-gray-700 text-sm font-bold mb-2">Licence:</label>

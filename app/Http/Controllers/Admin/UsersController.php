@@ -58,6 +58,9 @@ class UsersController extends Controller
                 // value is 0 or 1
                 'is_approved' => 'required|boolean',
                 'role' => 'required|in:admin,user',
+                'address' => 'nullable|string',
+                'birthday' => 'nullable|date',
+                'phone' => 'nullable|regex:/^0[1-9]([-. ]?[0-9]{2}){4}$/',
             ]);
             $users->update($validatedData);
 
