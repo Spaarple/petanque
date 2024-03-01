@@ -9,7 +9,7 @@
 
         <!-- Login Field (Email or Nom Prénom) -->
         <div>
-            <x-input-label for="login" :value="__('Email ou Nom Prénom')" />
+            <x-input-label for="login" :value="__('Nom Prénom')" />
             <x-text-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required
                 autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('login')" class="mt-2" />
