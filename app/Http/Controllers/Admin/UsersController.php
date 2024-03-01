@@ -52,7 +52,7 @@ class UsersController extends Controller
             $validatedData = $request->validate([
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
-                'email' => 'required|email|unique:users,email,' . $users->id,
+                'email' => 'required|email,email,',
                 'licence' => 'nullable|string',
                 'club' => 'nullable|string',
                 // value is 0 or 1

@@ -50,7 +50,6 @@
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-900 ml-4">Supprimer</button>
                                     </form>
-                                    <!-- Ajoutez d'autres liens ou boutons d'action ici si nécessaire -->
                                 </td>
                             </tr>
                         @endforeach
