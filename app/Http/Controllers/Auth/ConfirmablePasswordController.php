@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use App\Models\User;
 
 class ConfirmablePasswordController extends Controller
 {
@@ -25,8 +26,15 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        if (! Auth::guard('web')->validate([
-            'email' => $request->user()->email,
+        // Assuming you have 'first_name' and 'last_name' fields on your user model
+        // and a method to retrieve the user by those fields.
+        $user = User::where([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+        ])->first();
+
+        if (!$user || !Auth::guard('web')->validate([
+            'email' => $user->email, // Using the email of the retrieved user for validation
             'password' => $request->password,
         ])) {
             throw ValidationException::withMessages([
