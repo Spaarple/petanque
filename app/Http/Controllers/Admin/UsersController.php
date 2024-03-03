@@ -52,7 +52,7 @@ class UsersController extends Controller
             $validatedData = $request->validate([
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
-                'email' => 'required|email,email,',
+                'email' => 'required|email',
                 'licence' => 'nullable|string',
                 'club' => 'nullable|string',
                 // value is 0 or 1
@@ -60,11 +60,13 @@ class UsersController extends Controller
                 'role' => 'required|in:admin,user',
                 'address' => 'nullable|string',
                 'birthday' => 'nullable|date',
-                'phone' => 'nullable|regex:/^0[1-9]([-. ]?[0-9]{2}){4}$/',
+                // make phone number required and validate it
+                'phone' => 'nullable|regex:/^0[1-9]([-. ]?[0-9]{2}){4}$/|required',
             ]);
             $users->update($validatedData);
 
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             $this->alertService->error('Une erreur est survenue lors de la modification de l\'utilisateur.');
             return redirect()->back();
         }
