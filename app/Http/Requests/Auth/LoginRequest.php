@@ -12,74 +12,36 @@ use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
-     */
     public function rules(): array
     {
         return [
-            'login' => ['required', 'string'], // Accepte maintenant un login générique
+            'phone' => ['required', 'string', 'regex:/^[0-9]{10}$/'], // Validation pour un numéro de téléphone
             'password' => ['required', 'string'],
         ];
     }
 
-
-    /**
-     * Attempt to authenticate the request's credentials.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function authenticate(): void
     {
-
         $this->ensureIsNotRateLimited();
 
-        // You can directly access request inputs here without passing the request
-        $login = $this->input('login');
-        list($firstName, $lastName) = explode(' ', $login, 2) + [null, null];
+        $phone = $this->input('phone');
 
-        if (!$firstName || !$lastName) {
+        $user = User::where('phone', $phone)->first();
+
+        if (!$user || !Auth::attempt(['phone' => $phone, 'password' => $this->input('password')], $this->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'login' => 'Vous devez entrer à la fois le nom et le prénom.',
+                'phone' => trans('auth.failed'),
             ]);
         }
-
-        // Continue with the authentication logic...
-
-
-        // Recherche l'utilisateur par nom et prénom
-        $user = User::where('first_name', $firstName)->where('last_name', $lastName)->first();
-
-        if (!$user) {
-            throw ValidationException::withMessages([
-                'login' => trans('auth.failed'),
-            ]);
-        }
-
-
-        // Connecte manuellement l'utilisateur
-        Auth::login($user, $this->boolean('remember'));
 
         RateLimiter::clear($this->throttleKey());
     }
 
-
-
-    /**
-     * Ensure the login request is not rate limited.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function ensureIsNotRateLimited(): void
     {
         if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
@@ -91,18 +53,15 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'phone' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
         ]);
     }
 
-    /**
-     * Get the rate limiting throttle key for the request.
-     */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->input('login')) . '|' . $this->ip());
+        return Str::transliterate(Str::lower($this->input('phone')) . '|' . $this->ip());
     }
 }

@@ -7,12 +7,13 @@
 
         <!-- Email Address -->
 
-        <!-- Login Field (Email or Nom Prénom) -->
-        <div>
-            <x-input-label for="login" :value="__('Prénom Nom')" />
-            <x-text-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required
-                autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('login')" class="mt-2" />
+        <!-- Login Field with phone -->
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Téléphone')" />
+
+            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required
+                autofocus />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
         </div>
 
 

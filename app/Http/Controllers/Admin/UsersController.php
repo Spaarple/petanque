@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Http\Services\AlertServiceInterface;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\Event;
 
 
 class UsersController extends Controller
 {
+    use HasRoles;
     public function __construct(private readonly AlertServiceInterface $alertService)
     {
     }
@@ -80,13 +84,35 @@ class UsersController extends Controller
     public function destroy(string $id)
     {
         try {
-            $users = User::findOrFail($id);
-            $users->delete();
+            $user = User::findOrFail($id);
+    
+            // Vérifiez si l'utilisateur est un admin
+            if ($user->role === 'admin') {
+                // Trouvez le prochain admin qui n'est pas l'utilisateur actuel
+                $nextAdmin = User::where('role', 'admin')->where('id', '!=', $user->id)->first();
+                if (!$nextAdmin) {
+                    throw new \Exception("Aucun autre administrateur disponible pour attribuer les événements.");
+                }
+                // Attribuez les événements de l'utilisateur à supprimer au prochain admin
+                $user->events()->update(['user_id' => $nextAdmin->id]);
+            } else {
+                // Pour un utilisateur non-admin, attribuez ses événements au premier admin disponible
+                $adminUser = User::where('role', 'admin')->first();
+                if ($adminUser) {
+                    $user->events()->update(['user_id' => $adminUser->id]);
+                }
+            }
+            
+    
+            // Maintenant que les événements ont été réattribués, supprimez l'utilisateur
+            $user->delete();
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             $this->alertService->error('Une erreur est survenue lors de la suppression de l\'utilisateur.');
             return redirect()->back();
         }
         $this->alertService->success('L\'utilisateur a bien été supprimé.');
         return redirect()->route('admin.users.index');
     }
+    
 }
