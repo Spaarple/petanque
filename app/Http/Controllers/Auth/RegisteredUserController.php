@@ -34,11 +34,13 @@ class RegisteredUserController extends Controller
         $request->validate([
             'last_name' => ['required', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            // email nullable and not unique
+            'email' => 'nullable|string|max:255',
             'licence' => ['required', 'string', 'max:255'],
             'club' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => 'nullable|regex:/^0[1-9]([-. ]?[0-9]{2}){4}$/',
+            // phone unique and not nullable and regex
+            'phone' => ['required', 'string', 'regex:/^[0-9]{10}$/'],
             'birthday' => 'nullable|date',
             'address' => 'nullable|string|max:255',
         ]);
