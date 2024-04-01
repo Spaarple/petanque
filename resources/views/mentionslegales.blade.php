@@ -15,10 +15,10 @@
                         <h3 class="font-bold text-xl text-blue-600 mb-2">Propriétaire du site</h3>
                         <p class="mb-1">Entité: Association Asce pétanque</p>
                         <p class="mb-1">Raison Sociale: Asce pétanque</p>
-                        <p class="mb-1">Nom: Ferrandin</p>
-                        <p class="mb-1">Prénom: August</p>
-                        <p class="mb-1">Téléphone: +33 06 73 15 66 44</p>
-                        <p class="mb-1">Email: guscar@orange.fr</p>
+                        <p class="mb-1">Nom: Nicol</p>
+                        <p class="mb-1">Prénom: Claude</p>
+                        <p class="mb-1">Téléphone: +33 06 13 16 21 14</p>
+                        <p class="mb-1">Email: contact@petanque-escoublac.fr</p>
                     </section>
 
                     <section>

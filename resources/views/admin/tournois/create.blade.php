@@ -2,11 +2,11 @@
 
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
-        <h1 class="text-xl font-bold mb-4">Créer un nouveau tournoi</h1>
+        <h1 class="text-xl font-bold mb-4">Créer un nouveau Concours</h1>
         <form action="{{ route('admin.tournois.store') }}" method="POST" class="bg-white p-6 rounded shadow-xl">
             @csrf
             <div class="mb-4">
-                <label for="tournoi_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du tournoi:</label>
+                <label for="tournoi_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du concours:</label>
                 <input id="tournoi_name" name="tournoi_name" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" required>
             </div>
             <div class="mb-4">

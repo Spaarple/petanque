@@ -5,9 +5,9 @@
         <form action="{{ route('admin.tournois.update', $tournoi->id) }}" method="POST" class="bg-white p-6 rounded shadow-xl">
             @csrf
             @method('PUT')
-            <h1 class="text-xl font-bold mb-4">Modifier le tournoi</h1>
+            <h1 class="text-xl font-bold mb-4">Modifier le concours</h1>
             <div class="mb-4">
-                <label for="tournoi_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du tournoi:</label>
+                <label for="tournoi_name" class="block text-gray-700 text-sm font-bold mb-2">Nom du concours:</label>
                 <input id="tournoi_name" name="tournoi_name" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" value="{{ $tournoi->tournoi_name }}" required>
             </div>
             <div class="mb-4">

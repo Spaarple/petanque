@@ -75,7 +75,7 @@
                             </li>
                             <li>
                                 <a href="{{ route('user.tournois.index') }}" class="text-base text-gray-300 hover:text-white">
-                                    Tournois
+                                    Concours
                                 </a>
                             </li>
                             <li>

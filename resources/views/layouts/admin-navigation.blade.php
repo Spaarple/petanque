@@ -18,7 +18,7 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('admin.tournois.index')" :active="request()->routeIs('admin.tournois.*') || request()->routeIs('admin.participants.*')">
-                        {{ __('Tournois') }}
+                        {{ __('Concours') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.albums.index')" :active="request()->routeIs('admin.albums.*')">
                         {{ __('Albums') }}
@@ -87,7 +87,7 @@
                 {{ __('Partenaires') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.tournois.index')" :active="request()->routeIs('admin.tournois.*')">
-                {{ __('Tournois') }}
+                {{ __('Concours') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.albums.index')" :active="request()->routeIs('admin.albums.*')">
                 {{ __('Albums') }}

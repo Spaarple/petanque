@@ -28,7 +28,7 @@
                         {{ __('Partenaires') }}
                     </x-nav-link>
                     <x-nav-link :href="route('user.tournois.index')" :active="request()->routeIs('user.tournois.*')">
-                        {{ __('Tournois') }}
+                        {{ __('Concours') }}
                     </x-nav-link>
                     <x-nav-link :href="route('user.albums.index')" :active="request()->routeIs('user.albums.*')">
                         {{ __('Albums') }}
@@ -143,7 +143,7 @@
                 {{ __('Partenaires') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('user.tournois.index')" :active="request()->routeIs('user.tournois.*')">
-                {{ __('Tournois') }}
+                {{ __('Concours') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('user.albums.index')" :active="request()->routeIs('user.albums.*')">
                 {{ __('Albums') }}

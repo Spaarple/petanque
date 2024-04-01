@@ -29,12 +29,12 @@
     <!-- Affichage des joueurs inscrits au tournoi -->
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
         <div class="bg-white p-6 rounded shadow-xl">
-            <h1 class="text-xl font-bold mb-4">Joueurs inscrits au tournoi</h1>
+            <h1 class="text-xl font-bold mb-4">Joueurs inscrits au concour</h1>
 
             <div class="mb-4">
                 <!-- link to create a new participation /admin/tournois/{id}/participants/create -->
                 @if ($tournoi->tournoi_max_participants <= $participants->count() || $tournoi->tournoi_registration_deadline < now())
-                <p class="text-red-500">Le tournoi est complet ou la date limite d'inscription est passée</p>
+                <p class="text-red-500">Le concour est complet ou la date limite d'inscription est passée</p>
                 @else
                 <a href="{{ route('user.tournois.inscription.create', $tournoi->id) }}"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un joueur</a>

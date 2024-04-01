@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Les prochains tournois
+            Les prochains concours
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
@@ -10,7 +10,7 @@
             <div class="flex flex-col space-y-4 p-6">
                 {{-- Affichage des tournois, si pas de tournois afficher aucun tournois trouvé --}}
                 @if ($tournois->isEmpty())
-                    <div class="text-center text-gray-500">Aucun tournoi trouvé</div>
+                    <div class="text-center text-gray-500">Aucun concours trouvé</div>
                 @endif
                 @foreach ($tournois as $tournoi)
                 <div class="flex items-start">
@@ -36,7 +36,7 @@
                             <div class="mt-2">
                                 <a href="{{ route('user.tournois.show', $tournoi->id) }}"
                                     class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    Voir les détails du tournoi
+                                    Voir les détails du concours
                                 </a>
                                 <a href="{{ route('user.tournois.inscription.create', $tournoi->id) }}"
                                     class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">

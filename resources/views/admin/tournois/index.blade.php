@@ -3,7 +3,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
         <div class="mb-4">
-            <a href="{{ route('admin.tournois.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un nouveau tournoi</a>
+            <a href="{{ route('admin.tournois.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un nouveau concours</a>
         </div>
 
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

@@ -14,7 +14,7 @@
         <div class="container p-4 mx-auto bg-gray-200">
             <!-- if no tournois find in the database -->
             @if ($tournois->isEmpty())
-                <h2 class="text-2xl font-bold text-center mb-6">Aucun tournoi à venir</h2>
+                <h2 class="text-2xl font-bold text-center mb-6">Aucun concours à venir</h2>
             @else
                 <a class="block bg-blue-600 text-white rounded-lg overflow-hidden shadow-lg"
                     href="/tournois/{{ $tournois[0]->id }}">
