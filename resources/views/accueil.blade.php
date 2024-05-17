@@ -1,6 +1,5 @@
 <x-app-layout>
 
-
     <div class="background-carousel container-fluid bg-white shadow">
         <div class="row">
             <div class="col-12 flex justify-center items-center h-screen " style="height: 300px;">
@@ -9,66 +8,45 @@
         </div>
     </div>
 
-
     <section class="container-fluid bg-gray-200 mx-auto p-4">
-        <div class="container p-4 mx-auto bg-gray-200">
+        <div class="container-fluid py-4  bg-gray-200">
             <!-- if no tournois find in the database -->
             @if ($tournois->isEmpty())
                 <h2 class="text-2xl font-bold text-center mb-6">Aucun concours à venir</h2>
             @else
-                <a class="block bg-blue-600 text-white rounded-lg overflow-hidden shadow-lg"
-                    href="/tournois/{{ $tournois[0]->id }}">
-                    <div class="p-4">
-                        <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-                            <!-- Sur les petits écrans, les éléments s'empilent verticalement -->
-                            <!-- Sur les grands écrans, La Baule Escoublac à gauche, À venir au centre, Nationnal à droite -->
-                            <span
-                                class="text-xl text-white-500 md:w-1/3 md:text-left">{{ $tournois[0]->tournoi_name }}</span>
-                            <span class="text-lg uppercase  md:w-1/3 md:text-center"><span
-                                    class="bg-red-600 rounded-lg p-2">À venir</span></span>
-                            <span
-                                class="text-end font-medium md:w-1/3 md:text-right">{{ $tournois[0]->tournoi_location }}</span>
-                        </div>
-                        <div class="flex flex-col md:flex-row justify-between items-center">
-                            <!-- Premier club -->
-                            <div class="w-full md:w-60 flex items-center text-center mb-4 md:mb-0">
-                                <p class="text-2xl font-medium">
-                                    <span>{{ $tournois[0]->tournoi_team_local }}</span>
-                                </p>
+                <a href="/tournois/{{ $tournois[0]->id }}">
+                <div class=" flex items-center justify-center container-fluid">
+                    <div class="flex flex-col w-full bg-white rounded-lg shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
+                        <div class="flex flex-col w-full md:flex-row">
+                            <div class="flex flex-row justify-around p-4 font-bold leading-none text-gray-200
+                            uppercase bg-gray-700 rounded-none sm:rounded-l-lg md:flex-col md:items-center md:justify-center md:w-1/4">
+                                @php
+                                    \Carbon\Carbon::setLocale('fr');
+                                    $date = \Carbon\Carbon::parse($tournois[0]->tournoi_start_date);
+                                    $numberDate = $date->translatedFormat('j'); // Samedi 13
+                                    $jour = strtoupper(substr($date->translatedFormat('l j'), 0, 3)); // DIM, LUN, etc.
+                                    $mois = substr($date->translatedFormat('F'), 0, 4); // Janv, avec ajustement manuel si nécessaire
+                                    // get hour and minute
+                                    $heure = $date->format('H:i');
+                                @endphp
+                                <div class="md:text-3xl">{{$jour}}</div>
+                                <div class="md:text-3xl">{{$numberDate}} {{$mois}}</div>
+                                <div class="md:text-xl">{{$heure}}</div>
                             </div>
-                            <!-- Informations sur le match -->
-                            <div class="text-center mb-4 md:mb-0">
-                                <p class="text-xl font-bold uppercase">
-                                    <!--Sam. 13 Janv.<br>14H00 en français-->
-                                    <!-- display date in french -->
-                                    @php
-                                        \Carbon\Carbon::setLocale('fr');
-                                        $date = \Carbon\Carbon::parse($tournois[0]->tournoi_start_date);
-                                        $jour = $date->translatedFormat('l j'); // Samedi 13
-                                        $mois = substr($date->translatedFormat('F'), 0, 4); // Janv, avec ajustement manuel si nécessaire
-                                        // get hour and minute
-                                        $heure = $date->format('H:i');
-
-                                        // Affichage formaté
-                                        echo "{$jour} {$mois}.<br>{$heure}";
-                                    @endphp
-
-                                </p>
+                            <div class="p-4 font-normal text-gray-800 md:w-3/4">
+                                <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">{{ $tournois[0]->tournoi_name }}</h1>
+                                <p class="leading-normal">{{ $tournois[0]->tournoi_description }}</p>
+                                <div class="flex flex-row items-center mt-4 text-gray-700">
+                                    <div class="w-1/2 text-2xl">{{ $tournois[0]->tournoi_location }}</div>
+                                </div>
                             </div>
-                            <!-- Deuxième club -->
-                            <div class="w-full md:w-60 flex items-end justify-end">
-                                <p class="text-2xl font-medium text-right">
-                                    <span>{{ $tournois[0]->tournoi_team_visitor }}</span>
-                                </p>
-                            </div>
-
                         </div>
                     </div>
+                </div>
                 </a>
             @endif
         </div>
     </section>
-
 
     <div class="container-fluid mx-auto bg-grey-50 p-4 mb-5">
         <h2 class="text-2xl font-bold text-center mb-3">Partenaires</h2>
@@ -80,20 +58,18 @@
                     <div class="swiper-slide">
                         <div class="flex flex-wrap">
                             @foreach ($sponsorChunk as $sponsor)
-                                <div class="p-1 w-full md:w-1/3">
-                                    <div
-                                        class="p-4 rounded-lg flex flex-col items-center justify-center bg-white shadow-lg">
-                                        <!-- exemple $sponsor->sponsor_logo = "/storage/sponsors_logos/V3veShAU13ezmQqO2ANkyRqTuJdABOK1BQPQ069J.png" mais en public "qn9DspX1GtUGzWM8mPo0FSzupOJIKXtq5Q8BZeSX.jpg" or le dossier sponsors_logos est toujours nécessaire  -->
-                                        <img src="{{ asset( 'storage/' . $sponsor->sponsor_logo) }}"
-                                            alt="{{ $sponsor->sponsor_name }}" class="w-32 h-32 object-contain">
-
-
-                                        <h3 class="text-lg font-bold">{{ $sponsor->sponsor_name }}</h3>
-                                        <!-- lien vers les détails du sponsor -->
-                                        <a href="/sponsors/{{ $sponsor->id }}"
-                                            class="text-blue-600 hover:text-blue-800 font-bold">Voir le
-                                            Partenaire</a>
-                                    </div>
+                                <div class="w-full md:w-1/3">
+                                    <a href="/sponsors/{{ $sponsor->id }}">
+                                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40 max-w-sm mx-auto mt-10">
+                                        <img src="{{ asset( 'storage/' . $sponsor->sponsor_logo) }}" alt="{{ $sponsor->sponsor_name }}"
+                                             class="absolute inset-0 h-full w-full object-cover">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+                                        <h3 class="z-10 mt-3 text-3xl font-bold text-white">{{ $sponsor->sponsor_name }}</h3>
+                                        <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
+                                            {{ Str::words($sponsor->sponsor_description, 10, '...') }}
+                                        </div>
+                                    </article>
+                                    </a>
                                 </div>
                             @endforeach
                         </div>
@@ -106,33 +82,25 @@
         </div>
     </div>
 
-
-
-
-
-
-    <section class="container-fluid bg-gray-200 mx-auto p-4">
-        <h2 class="text-2xl font-bold text-center mb-6">Club de Pétanque de la Baule-Escoublac</h2>
-        <div class="flex flex-wrap -mx-2">
-            <!-- Div pour la carte -->
-            <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
-                <iframe width="100%" height="400" frameborder="0" style="border:0"
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=-2.3803000%2C47.2997000%2C-2.331100%2C47.278000&layer=mapnik&marker=47.29549%2C-2.35371"
-                    allowfullscreen>
-                </iframe>
+    <div class="bg-gray-200">
+        <div class="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-16 sm:px-6 sm:py-16 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Club de Pétanque de la Baule-Escoublac</h2>
+                <p class="mt-4 text-gray-500">{!! $textContent->content !!}</p>
             </div>
-            <!-- Div pour le texte -->
-            <div class="w-full md:w-1/2 px-2">
-                <div class="w-full px-2">
-                    {!! $textContent->content !!}
+            <div class="grid grid-cols-1 grid-rows-0 gap-0 sm:gap-2 lg:gap-4">
+                <div class="w-full ">
+                    <iframe width="100%" height="250" style="border:0"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=-2.3803000%2C47.2997000%2C-2.331100%2C47.278000&layer=mapnik&marker=47.29549%2C-2.35371"
+                            allowfullscreen class="rounded-lg">
+                    </iframe>
                 </div>
                 {{-- fixed image --}}
                 <img src="{{ asset('images/bureau.jpg') }}"
-                    class="w-full h-64 object-cover rounded-lg shadow-lg mt-4" alt="bureau">
-
+                     class="w-full h-64 object-cover rounded-lg shadow-lg mt-4" alt="bureau">
             </div>
         </div>
-    </section>
+    </div>
 
     <section class="container-fluid bg-grey-50 mx-auto p-4">
         <div class="container mx-auto p-6">
@@ -176,7 +144,7 @@
                 </div>
             </form>
         </div>
-        </div>
+    </section>
 
         <style>
             .background-carousel {
@@ -188,7 +156,7 @@
         </style>
 
         <script>
-            var swiper = new Swiper('.swiper-container', {
+            let swiper = new Swiper('.swiper-container', {
                 loop: true,
                 autoplay: {
                     delay: 5000,
@@ -221,7 +189,4 @@
 
             });
         </script>
-
-
-
 </x-app-layout>
